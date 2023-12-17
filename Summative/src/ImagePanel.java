@@ -18,5 +18,3 @@ class ImagePanel extends JComponent {
         g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(),null);
     }
 }
-
-// elsewhere
