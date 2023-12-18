@@ -1,81 +1,44 @@
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import java.awt.BorderLayout;
-import javax.swing.JTextPane;
-import javax.swing.JPanel;
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonModel;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JInternalFrame;
-import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.font.TextAttribute;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Random;
 
-import net.miginfocom.layout.ComponentWrapper;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.JProgressBar;
-import javax.swing.JSpinner;
-import javax.swing.SwingConstants;
-import javax.swing.SwingWorker;
-import javax.swing.Timer;
-import javax.swing.border.MatteBorder;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.GridLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
-import java.awt.Dimension;
-import javax.swing.border.BevelBorder;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.border.CompoundBorder;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.ActionEvent;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.Insets;
 import javax.swing.border.LineBorder;
-import javax.swing.UIManager;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.font.TextAttribute;
-
-import javax.swing.event.ChangeListener;
-import javax.swing.text.JTextComponent;
+import javax.swing.border.MatteBorder;
 import javax.swing.event.ChangeEvent;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.Rectangle;
+import javax.swing.event.ChangeListener;
+
+import net.miginfocom.swing.MigLayout;
 
 public class BattleScene extends JFrame {
 
 	private Image panelBkg = new ImageIcon("resources/btnbkg.png").getImage();
-	private Image myImage = new ImageIcon("resources/bkg.png").getImage();
+	private Image fightBackground = new ImageIcon("resources/bkg.png").getImage();
 	private Image fight = new ImageIcon("resources/fight.png").getImage();
 	private Image fightPressed = new ImageIcon("resources/fightPressed.png").getImage();
 	private Image bag = new ImageIcon("resources/bag.png").getImage();
@@ -84,10 +47,9 @@ public class BattleScene extends JFrame {
 	private Image pokemonPressed = new ImageIcon("resources/pokemonPressed.png").getImage();
 	private Image run = new ImageIcon("resources/run.png").getImage();
 	private Image runPressed = new ImageIcon("resources/runPressed.png").getImage();
-	private BackgroundPanel battleFrame;
-	// private JPanel battleFrame;
-	private Brian brian;
-	private Brian enemyBrian;
+	private JPanel battleFrame;
+	private Brian allyPokemon;
+	private Brian enemyPokemon;
 	private JTextArea textBox;
 	private JButton move1, move2, move3, move4;
 	private CustomButton fightButton, bagButton, pokemonButton, runButton;
@@ -124,33 +86,39 @@ public class BattleScene extends JFrame {
 	public BattleScene() throws IOException, FontFormatException {
 		setFocusable(true);
 		setResizable(true);
-		battleFrame = new BackgroundPanel(myImage);
-		// battleFrame = new JPanel();
-		brian = new Brian();
-		enemyBrian = new Brian(false);
+		battleFrame = new JPanel();
+		allyPokemon = new Brian();
+		enemyPokemon = new Brian(false);
 
 		setTitle("Pokemon");
+		
+		
+		setBounds(0,0, ApplicationData.frameWidth, ApplicationData.frameHeight);
 
-		setBounds(100, 100, 1366, 768);
 		setContentPane(battleFrame);
 		getContentPane().setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout("insets 0, gapy 0, gapx 0",
-				"[35%:n:35%,grow][::15%,grow][::15%,grow][100px:100px:35%,grow]",
-				"[grow][20%:n:20%,grow][15%:n,grow][5%:n][22.57%:n:20%,grow][grow][30%:n:30%,grow,fill]"));
+		
+		getContentPane().setLayout(new MigLayout("insets 0, gapy 0, gapx 0", "[50%,grow][50%, grow]", "[70%,grow][30%:n:30%,grow,fill]"));
+		
+		//JPanel topPanel = new JPanel();
+		ImagePanel topPanel = new ImagePanel(fightBackground);
+		topPanel.setLayout(new MigLayout("insets 0, gapy 0, gapx 0", "[35%,grow][15%,grow][15%,grow][35%,grow]", "[10%,grow][25%,grow][15%,grow][15%,grow][25%,grow][10%,grow]"));
+		getContentPane().add(topPanel,"grow, span");
+		
 
 		enemyInfo = new JPanel();
 		enemyInfo.setPreferredSize(new Dimension(150, 50));
 		enemyInfo.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		getContentPane().add(enemyInfo, "cell 0 1,grow");
+		topPanel.add(enemyInfo, "cell 0 1,grow");
 		enemyInfo.setLayout(
 				new MigLayout("insets 15 15 15 15, gapy 5", "[80px][][70%,grow]", "[14px][:15%:15%,grow][grow]"));
 
-		enemyName = new JLabel(enemyBrian.getName());
+		enemyName = new JLabel(enemyPokemon.getName());
 		enemyName.setHorizontalAlignment(SwingConstants.CENTER);
 		enemyInfo.add(enemyName, "cell 0 0 2 1,grow");
 
-		enemyLvl = new JLabel("Lv. " + enemyBrian.getLvl());
+		enemyLvl = new JLabel("Lv. " + enemyPokemon.getLvl());
 		enemyLvl.setHorizontalAlignment(SwingConstants.CENTER);
 		enemyInfo.add(enemyLvl, "cell 2 0,alignx right,aligny bottom");
 
@@ -169,7 +137,7 @@ public class BattleScene extends JFrame {
 		enemyHpBar = new JProgressBar();
 		enemyHpBar.setForeground(Color.GREEN);
 		enemyHpBar.setBackground(new Color(94, 94, 104));
-		enemyHpBar.setValue(enemyBrian.getCurrentHp() / enemyBrian.getMaxHp() * 100);
+		enemyHpBar.setValue(enemyPokemon.getCurrentHp() / enemyPokemon.getMaxHp() * 100);
 		enemyHpBar.setBorderPainted(false);
 		enemyHpPanel.add(enemyHpBar, "cell 3 1,growx,aligny center");
 		URL url = this.getClass().getResource("image.png");
@@ -180,7 +148,7 @@ public class BattleScene extends JFrame {
 		enemyPoke.setVerticalAlignment(SwingConstants.CENTER);
 		enemyPoke.setHorizontalAlignment(SwingConstants.CENTER);
 		enemyPoke.setIcon(new ImageIcon(image));
-		getContentPane().add(enemyPoke, "cell 2 1 2 2,alignx center,aligny bottom");
+		topPanel.add(enemyPoke, "cell 2 1 2 3,alignx center,aligny center");
 
 		allyPoke = new JLabel("");
 		allyPoke.setHorizontalAlignment(SwingConstants.CENTER);
@@ -189,19 +157,19 @@ public class BattleScene extends JFrame {
 		allyPoke.setIcon(new ImageIcon(image));
 		allyPoke.setVerticalAlignment(SwingConstants.CENTER);
 		allyPoke.setHorizontalAlignment(SwingConstants.CENTER);
-		getContentPane().add(allyPoke, "flowx,cell 0 3 2 2,alignx center,growy");
+		topPanel.add(allyPoke, "flowx,cell 0 4 2 2,growx,aligny center");
 
 		allyInfo = new JPanel();
 		allyInfo.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		getContentPane().add(allyInfo, "cell 3 4,grow");
+		topPanel.add(allyInfo, "cell 3 4,grow");
 		allyInfo.setLayout(
 				new MigLayout("insets 15 15 15 15, gapy 5", "[80px][][70%,grow]", "[14px][:15%:15%,grow][grow]"));
 
-		allyName = new JLabel(brian.getName());
+		allyName = new JLabel(allyPokemon.getName());
 		allyName.setHorizontalAlignment(SwingConstants.CENTER);
 		allyInfo.add(allyName, "cell 0 0,growx,aligny bottom");
 
-		allyLvl = new JLabel("Lv. " + brian.getLvl());
+		allyLvl = new JLabel("Lv. " + allyPokemon.getLvl());
 		allyLvl.setHorizontalAlignment(SwingConstants.CENTER);
 		allyInfo.add(allyLvl, "cell 2 0,alignx right,aligny bottom");
 
@@ -220,22 +188,22 @@ public class BattleScene extends JFrame {
 		allyHpBar = new JProgressBar();
 		allyHpBar.setForeground(Color.GREEN);
 		allyHpBar.setBackground(new Color(94, 94, 104));
-		allyHpBar.setValue(brian.getCurrentHp() / brian.getMaxHp() * 100);
+		allyHpBar.setValue(allyPokemon.getCurrentHp() / allyPokemon.getMaxHp() * 100);
 		allyHpBar.setBorderPainted(false);
 		allyHpPanel.add(allyHpBar, "cell 3 1,growx,aligny center");
 
 		bottomPanel = new ImagePanel(panelBkg);
-		// JPanel bottomPanel = new JPanel();
+		//JPanel bottomPanel = new JPanel();
 		bottomPanel.setBackground(new Color(255, 255, 255));
 		bottomPanel.setBorder(new CompoundBorder(new MatteBorder(5, 0, 0, 0, (Color) new Color(0, 0, 0)),
 				new MatteBorder(5, 0, 5, 0, (Color) new Color(130, 212, 126))));
-		getContentPane().add(bottomPanel, "cell 0 6 4 1,grow");
+		getContentPane().add(bottomPanel, "cell 0 1 4 1,grow");
 		bottomPanel.setLayout(new MigLayout("", "[49%,grow]1%[49%,grow]", "[::100%,grow]"));
 
 		actionPanel = new JPanel();
 		actionPanel.setOpaque(false);
 		actionPanel.setLayout(
-				new MigLayout("insets 0, gap 0", "[50%,grow][50%,grow]", "[:50%:50%,grow,fill][:50%:50%,grow]"));
+				new MigLayout("insets 0, gap 0", "[50%,grow][50%,grow]", "[50%,grow,fill][50%,grow]"));
 		bottomPanel.add(actionPanel, "cell 1 0,grow");
 
 		textPanel = new JPanel();
@@ -254,7 +222,7 @@ public class BattleScene extends JFrame {
 		textBox.setLineWrap(true);
 		textBox.setMinimumSize(new Dimension(0, 0));
 		textBox.setColumns(10);
-		textBox.setText("What will \n" + brian.getName() + " do?");
+		textBox.setText("What will \n" + allyPokemon.getName() + " do?");
 		textBox.setMargin(new Insets(15, 35, 15, 35));
 		textBox.setForeground(new Color(94, 94, 104));
 		textBox.setEditable(false);
@@ -285,20 +253,20 @@ public class BattleScene extends JFrame {
 				new MigLayout("insets 0, gap 0", "[50%,grow][50%,grow]", "[:50%:50%,grow,fill][:50%:50%,grow]"));
 		movePanel.setOpaque(false);
 
-		move1 = new CustomButton(brian.getMove1().image,brian.getMove1().image );
+		move1 = new CustomButton(allyPokemon.getMove1().image,allyPokemon.getMove1().image, allyPokemon.getMove1().name);
 		movePanel.add(move1, "cell 0 0,grow");
-		move2 = new JButton(brian.getMove2().name);
+		move2 = new CustomButton(allyPokemon.getMove2().image,allyPokemon.getMove2().image, allyPokemon.getMove2().name);
 		movePanel.add(move2, "cell 1 0,grow");
-		move3 = new JButton(brian.getMove3().name);
+		move3 = new JButton(allyPokemon.getMove3().name);
 		movePanel.add(move3, "cell 0 1,grow");
-		move4 = new JButton(brian.getMove4().name);
+		move4 = new JButton(allyPokemon.getMove4().name);
 		movePanel.add(move4, "cell 1 1, grow");
 
 		abilityInfo = new JPanel();
 		abilityInfo.setLayout(new MigLayout("insets 15 40 15 40, gapx 0", "[100%,grow]", "[50%,grow][50%,grow]"));
 		abilityInfo.setBackground(Color.WHITE);
 
-		moveType = new JLabel(brian.getType());
+		moveType = new JLabel(allyPokemon.getType());
 		moveType.setFont(moveType.getFont().deriveFont(Font.PLAIN, 40));
 		moveType.setBackground(Color.DARK_GRAY);
 		moveType.setForeground(Color.WHITE);
@@ -306,13 +274,14 @@ public class BattleScene extends JFrame {
 		moveType.setOpaque(true);
 		abilityInfo.add(moveType, "cell 0 0, grow");
 
-		movePP = new JLabel("PP:" + brian.getMove1().charges + "/" + brian.getMove1().maxCharges);
+		movePP = new JLabel("PP:" + allyPokemon.getMove1().charges + "/" + allyPokemon.getMove1().maxCharges);
 		movePP.setBorder(new MatteBorder(10, 0, 10, 0, Color.white));
 		movePP.setFont(moveType.getFont().deriveFont(Font.PLAIN, 40));
 		movePP.setHorizontalAlignment(SwingConstants.CENTER);
 
 		abilityInfo.add(movePP, "cell 0 1, grow");
 		
+
 		fightButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -353,28 +322,28 @@ public class BattleScene extends JFrame {
 		move1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				playerMove(enemyBrian, brian.getMove1());
+				playerMove(enemyPokemon, allyPokemon.getMove1());
 
 			}
 		});
 		move2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				playerMove(enemyBrian, brian.getMove2());
+				playerMove(enemyPokemon, allyPokemon.getMove2());
 
 			}
 		});
 		move3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				playerMove(enemyBrian, brian.getMove3());
+				playerMove(enemyPokemon, allyPokemon.getMove3());
 
 			}
 		});
 		move4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				playerMove(enemyBrian, brian.getMove4());
+				playerMove(enemyPokemon, allyPokemon.getMove4());
 
 			}
 		});
@@ -411,14 +380,15 @@ public class BattleScene extends JFrame {
 	private void hpAnimation(JProgressBar p, Pokemon pokemon) {
 		hpBarAnimation = new Timer(25, new ActionListener() {
 			int value = p.getValue();
-
+			int target = (int) ((0.0 + pokemon.getCurrentHp() )/ pokemon.getMaxHp() * 100);
+			
 			public void actionPerformed(ActionEvent e) {
-				if (value <= 0 || value <= (0.0 + pokemon.getCurrentHp()) / pokemon.getMaxHp() * 100) {
-					// Increment the progress value
+				if (value <= 0 || value > 100 || value == target){
+					
 					((Timer) e.getSource()).stop();
 					if (eventQueue.peek() !=null) {
 						try {
-							Thread.sleep(200);
+							Thread.sleep(200); 
 						} catch (InterruptedException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -427,8 +397,14 @@ public class BattleScene extends JFrame {
 					}
 					
 				} else {
-					value = (value - 1);
-				}
+					if (value > target) {
+						
+						value -= 1;
+					} else {
+						value += 1;
+					}
+					
+				}  
 				p.setValue(value);
 
 			}
@@ -443,32 +419,37 @@ public class BattleScene extends JFrame {
 
 		switch (randomMove) {
 		case 0:
-			displayText = enemyBrian.getMove1().useMove(enemyBrian, brian);
+			displayText = enemyPokemon.getMove1().useMove(enemyPokemon, allyPokemon);
 			break;
 		case 1:
-			displayText = enemyBrian.getMove2().useMove(enemyBrian, brian);
+			displayText = enemyPokemon.getMove2().useMove(enemyPokemon, allyPokemon);
 			break;
 		case 2:
-			displayText = enemyBrian.getMove3().useMove(enemyBrian, brian);
+			displayText = enemyPokemon.getMove3().useMove(enemyPokemon, allyPokemon);
 			break;
 		case 3:
-			displayText = enemyBrian.getMove4().useMove(enemyBrian, brian);
+			displayText = enemyPokemon.getMove4().useMove(enemyPokemon, allyPokemon);
 			break;
 		default:
 			break;
 		}
-		if (brian.getCurrentHp()<=0) {
+		if (allyPokemon.getCurrentHp()<=0) {
 			gameOver = true;
 		}
 		final ArrayList<String> finalDisplayText = displayText;
-		eventQueue.add(() -> textAnimation(finalDisplayText.get(0)));
-		eventQueue.add(() -> hpAnimation(allyHpBar, brian));
-		for (int i = 1; i < finalDisplayText.size(); i++) {
+		
+		for (int i = 0; i < finalDisplayText.size(); i++) {
 			String s = finalDisplayText.get(i);
-			eventQueue.add(() -> textAnimation(s));
+			if (i == 0) {
+				eventQueue.add(() -> textAnimation(s));
+				eventQueue.add(() -> hpAnimation(allyHpBar, allyPokemon));
+				eventQueue.add(() -> hpAnimation(enemyHpBar, enemyPokemon));
+			} else {
+				eventQueue.add(() -> textAnimation(s));
+			}
 		}
 		if (gameOver) {
-			eventQueue.add(() -> textAnimation("Your " + brian.getName() + " has fainted."));
+			eventQueue.add(() -> textAnimation("Your " + allyPokemon.getName() + " has fainted."));
 			eventQueue.add(() -> gameOver());
 		} else {
 			eventQueue.add(() -> actionSelection());
@@ -480,8 +461,8 @@ public class BattleScene extends JFrame {
 		if (textAnimation != null) {
 			textAnimation.stop();
 		}
-		ArrayList<String> displayText = move.useMove(brian, enemyBrian);
-		if (enemyBrian.getCurrentHp()<=0) {
+		ArrayList<String> displayText = move.useMove(allyPokemon, enemyPokemon);
+		if (enemyPokemon.getCurrentHp()<=0) {
 			gameOver = true;
 		}
 		bottomPanel.removeAll();
@@ -491,14 +472,19 @@ public class BattleScene extends JFrame {
 		bottomPanel.add(textPanel, "grow");
 		repaint();
 		revalidate();
-		eventQueue.add(() -> textAnimation(displayText.get(0)));
-		eventQueue.add(() -> hpAnimation(enemyHpBar, enemyBrian));
-		for (int i = 1;i<displayText.size();i++) {
+		
+		for (int i = 0;i<displayText.size();i++) {
 			String s = displayText.get(i);
+			if (i==0) {
+				eventQueue.add(() -> textAnimation(s));
+				eventQueue.add(() -> hpAnimation(enemyHpBar, enemyPokemon));
+				eventQueue.add(() -> hpAnimation(allyHpBar, allyPokemon));
+			}else {
 			eventQueue.add(() -> textAnimation(s));
+			}
 		}
 		if (gameOver) {
-			eventQueue.add(() -> textAnimation("The enemy " + enemyBrian.getName() + " has fainted!"));
+			eventQueue.add(() -> textAnimation("The enemy " + enemyPokemon.getName() + " has fainted!"));
 			eventQueue.add(() -> gameOver());
 		} else {
 			eventQueue.add(() -> enemyMove());
@@ -507,10 +493,10 @@ public class BattleScene extends JFrame {
 	}
 
 	private void gameOver() {
-		if (brian.getCurrentHp() <= 0) {
+		if (allyPokemon.getCurrentHp() <= 0) {
 			battleFrame.remove(allyInfo);
 			
-		} else if ( enemyBrian.getCurrentHp() <= 0) {
+		} else if ( enemyPokemon.getCurrentHp() <= 0) {
 			battleFrame.remove(enemyInfo);
 			
 		}
@@ -524,7 +510,7 @@ public class BattleScene extends JFrame {
 		bottomPanel.setLayout(new MigLayout("gap 0", "[74.5%,grow]1%[24.5%,grow]", "[100%,grow]"));
 		textPanel.remove(textAreaPanel);
 		textPanel.add(abilityInfo, "cell 1 0,grow");
-		movePP.setText("PP:" + brian.getMove1().charges + "/" + brian.getMove1().maxCharges);
+		movePP.setText("PP:" + allyPokemon.getMove1().charges + "/" + allyPokemon.getMove1().maxCharges);
 		bottomPanel.add(movePanel, "cell 0 0, grow");
 		bottomPanel.add(textPanel, "cell 1 0, grow");
 		bottomPanel.repaint();
@@ -534,7 +520,7 @@ public class BattleScene extends JFrame {
 	private void actionSelection() {
 		bottomPanel.removeAll();
 		bottomPanel.setLayout(new MigLayout("", "[49%,grow]1%[49%,grow]", "[::100%,grow]"));
-		textAnimation("What will \n" + brian.getName() + " do?");
+		textAnimation("What will \n" + allyPokemon.getName() + " do?");
 		textPanel.add(textAreaPanel, "cell 1 0 , grow");
 		textPanel.remove(abilityInfo);
 		bottomPanel.add(textPanel, "cell 0 0, grow");

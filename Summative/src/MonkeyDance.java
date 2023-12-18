@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 public class MonkeyDance extends PokemonMove{
 
 	public MonkeyDance() {
-		super("Monkey Dance", PokemonTypes.DARK, 180, 10, 70,new ImageIcon("resources/monkeyDance.png").getImage());
+		super("Monkey Dance", PokemonTypes.DARK, 180, 10, 100,new ImageIcon("resources/monkeyDance.png").getImage());
 		// TODO Auto-generated constructor stub
 	}
 
@@ -23,7 +23,7 @@ public class MonkeyDance extends PokemonMove{
 		moveUsedText.add(attacker.getName() + " used " + name + "!");
 		
 		Random random = new Random();
-		if (random.nextInt(101)<acc) {
+		if (random.nextInt(101)<=acc) {
 			target.setCurrentHp(target.getCurrentHp()-dmg);
 		} else {
 			moveUsedText.add(attacker.getName() + " tripped and fell...");
