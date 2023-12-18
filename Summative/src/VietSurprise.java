@@ -1,10 +1,13 @@
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.swing.ImageIcon;
 
 public class VietSurprise extends PokemonMove{
 
 	public VietSurprise() {
-		super("Vietnamese Surprise", PokemonTypes.DARK, 20, 30, 70);
+		super("Vietnamese Surprise", PokemonTypes.DARK, 20, 30, 70, new ImageIcon("resources/monkeyDance.png").getImage());
 		// TODO Auto-generated constructor stub
 	}
 

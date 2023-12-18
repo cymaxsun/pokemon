@@ -2,10 +2,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
+import javax.swing.ImageIcon;
+
 public class MonkeyDance extends PokemonMove{
 
 	public MonkeyDance() {
-		super("Monkey Dance", PokemonTypes.DARK, 180, 10, 70);
+		super("Monkey Dance", PokemonTypes.DARK, 180, 10, 70,new ImageIcon("resources/monkeyDance.png").getImage());
 		// TODO Auto-generated constructor stub
 	}
 

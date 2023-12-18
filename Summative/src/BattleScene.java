@@ -74,8 +74,16 @@ import java.awt.Rectangle;
 
 public class BattleScene extends JFrame {
 
-	private Image panelBkg = ImageIO.read(new File("resources/btnbkg.png"));
-	private Image myImage = ImageIO.read(new File("resources/bkg.png"));
+	private Image panelBkg = new ImageIcon("resources/btnbkg.png").getImage();
+	private Image myImage = new ImageIcon("resources/bkg.png").getImage();
+	private Image fight = new ImageIcon("resources/fight.png").getImage();
+	private Image fightPressed = new ImageIcon("resources/fightPressed.png").getImage();
+	private Image bag = new ImageIcon("resources/bag.png").getImage();
+	private Image bagPressed = new ImageIcon("resources/bagPressed.png").getImage();
+	private Image pokemon = new ImageIcon("resources/pokemon.png").getImage();
+	private Image pokemonPressed = new ImageIcon("resources/pokemonPressed.png").getImage();
+	private Image run = new ImageIcon("resources/run.png").getImage();
+	private Image runPressed = new ImageIcon("resources/runPressed.png").getImage();
 	private BackgroundPanel battleFrame;
 	// private JPanel battleFrame;
 	private Brian brian;
@@ -260,28 +268,24 @@ public class BattleScene extends JFrame {
 		textAreaPanel.add(textBox, "cell 0 0,grow");
 
 		
-		Image buttonImage = ImageIO.read(new File("resources/fight.png"));
-		fightButton = new CustomButton(buttonImage);
+		fightButton = new CustomButton(fight,fightPressed);
 		actionPanel.add(fightButton, "cell 0 0,grow");
 
-		buttonImage = ImageIO.read(new File("resources/bag.png"));
-		bagButton = new CustomButton(buttonImage);
+		bagButton = new CustomButton(bag,bagPressed);
 		actionPanel.add(bagButton, "cell 1 0,grow");
 
-		buttonImage = ImageIO.read(new File("resources/pokemon.png"));
-		pokemonButton = new CustomButton(buttonImage);
+		pokemonButton = new CustomButton(pokemon,pokemonPressed);
 		actionPanel.add(pokemonButton, "cell 0 1,grow");
 
-		buttonImage = ImageIO.read(new File("resources/run.png"));
-		runButton = new CustomButton(buttonImage);
+		runButton = new CustomButton(run,runPressed);
 		actionPanel.add(runButton, "cell 1 1, grow");
 
 		movePanel = new JPanel();
 		movePanel.setLayout(
 				new MigLayout("insets 0, gap 0", "[50%,grow][50%,grow]", "[:50%:50%,grow,fill][:50%:50%,grow]"));
-		movePanel.setBackground(Color.red);
+		movePanel.setOpaque(false);
 
-		move1 = new JButton(brian.getMove1().name);
+		move1 = new CustomButton(brian.getMove1().image,brian.getMove1().image );
 		movePanel.add(move1, "cell 0 0,grow");
 		move2 = new JButton(brian.getMove2().name);
 		movePanel.add(move2, "cell 1 0,grow");
@@ -308,30 +312,11 @@ public class BattleScene extends JFrame {
 		movePP.setHorizontalAlignment(SwingConstants.CENTER);
 
 		abilityInfo.add(movePP, "cell 0 1, grow");
-
-		fightButton.getModel().addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				ButtonModel model = (ButtonModel) e.getSource();
-				if (model.isPressed()) {
-					fightButton.setName(fightButton.getName()+"Pressed");
-				}
-			}
-		});
+		
 		fightButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				moveSelection();
-				fightButton.setName(fightButton.getName().replace("Pressed", ""));
-			}
-		});
-
-		bagButton.getModel().addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				ButtonModel model = (ButtonModel) e.getSource();
-
-				if (model.isPressed()) {
-					bagButton.setName(bagButton.getName()+"Pressed");
-				}
 			}
 		});
 		
@@ -339,26 +324,6 @@ public class BattleScene extends JFrame {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				moveSelection();
-				fightButton.setName(fightButton.getName().replace("Pressed", ""));
-			}
-		});
-
-
-		pokemonButton.getModel().addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				ButtonModel model = (ButtonModel) e.getSource();
-				if (model.isPressed()) {
-					pokemonButton.setName(pokemonButton.getName()+"Pressed");
-				}
-			}
-		});
-
-		runButton.getModel().addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				ButtonModel model = (ButtonModel) e.getSource();
-				if (model.isPressed()) {
-					runButton.setName(runButton.getName()+"Pressed");
-				}
 			}
 		});
 
