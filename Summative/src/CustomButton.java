@@ -2,19 +2,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
-import javax.swing.ButtonModel;
 import javax.swing.JButton;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 public class CustomButton extends JButton {
 	private Image image, imagePressed;
@@ -89,13 +82,28 @@ public class CustomButton extends JButton {
 
 		if (pressed) {
 			g.drawImage(imagePressed, 0, 0, this.getWidth(), this.getHeight(), null);
+			g.setColor(Color.red);
 
 		} else {
 			g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
+			g.setColor(new Color(94, 94, 104));
 
 		}
-		
-		g.drawString(text, this.getWidth() / 2, this.getHeight() / 2);
+		Font font;
+		try {
+			font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("pokem.ttf"));
+			
+			g.setFont(font.deriveFont(Font.PLAIN, 40));
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int width = g.getFontMetrics().stringWidth(text);
+		int height = g.getFontMetrics().getHeight();
+		g.drawString(text, (this.getWidth()-width)/2, (this.getHeight()+height)/2-5);
 
 	}
 

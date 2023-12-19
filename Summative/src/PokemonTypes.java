@@ -18,4 +18,5 @@ public interface PokemonTypes {
 	public static String DRAGON = "DRAGON";
 	public static String DARK = "DARK";
 	public static String FAIRY = "FAIRY";
+	
 }

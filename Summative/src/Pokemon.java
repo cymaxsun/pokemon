@@ -1,3 +1,7 @@
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public abstract class Pokemon {
 
@@ -9,29 +13,45 @@ public abstract class Pokemon {
     private PokemonMove move4;
     private int lvl;
     private int maxHp;
-    private int def;
+    private int currentDef;
+    private int baseDef;
     private int currentHp;
-    private boolean allied;
+    private boolean isAllied;
+    private Map<Status, Integer> statuses;
 
-    public Pokemon(String name, String type, int lvl, boolean allied, int maxHp, PokemonMove move1, PokemonMove move2, PokemonMove move3, PokemonMove move4) {
-        if (allied) {
-        	this.name = name;
-        } else {
-        	this.name = "Enemy "+ name;
-        }
-    	
-    	
+    public Pokemon(String name, String type, int lvl, boolean isAllied, int maxHp, int baseDef, PokemonMove move1, PokemonMove move2, PokemonMove move3, PokemonMove move4) {
+        this.name = name;
         this.lvl = lvl;
         this.maxHp = maxHp;
         this.currentHp = maxHp;
+        this.baseDef = baseDef;
+        this.currentDef = baseDef;
         this.type = type;
         this.move1 = move1;
         this.move2 = move2;
         this.move3 = move3;
         this.move4 = move4;
-        this.allied = allied;
+        this.setAllied(isAllied);
+        this.statuses = new HashMap<>();
+
     }
 
+    public void reduceStatusDurations() {
+        Set<Status> statusesToRemove = new HashSet<>();
+        for (Map.Entry<Status, Integer> entry : statuses.entrySet()) {
+            Status status = entry.getKey();
+            int remainingDuration = entry.getValue();
+            if (remainingDuration > 0) {
+            	statuses.put(status, remainingDuration - 1);
+            } else {
+                statusesToRemove.add(status);
+            }
+        }
+        for (Status statusToRemove : statusesToRemove) {
+            removeStatus(statusToRemove);
+        }
+    }
+    
     // Getter and setter methods for each field
 
     public String getName() {
@@ -99,11 +119,11 @@ public abstract class Pokemon {
     }
 
     public int getDef() {
-        return def;
+        return currentDef;
     }
 
     public void setDef(int def) {
-        this.def = def;
+        this.currentDef = def;
     }
 
     public int getCurrentHp() {
@@ -113,5 +133,38 @@ public abstract class Pokemon {
     public void setCurrentHp(int currentHp) {
         this.currentHp = currentHp;
     }
+
+	public boolean isAllied() {
+		return isAllied;
+	}
+
+	public void setAllied(boolean isAllied) {
+		this.isAllied = isAllied;
+	}
+
+
+
+	public int getBaseDef() {
+		return baseDef;
+	}
+
+	public void setBaseDef(int baseDef) {
+		this.baseDef = baseDef;
+	}
+
+	public Map<Status, Integer> getStatuses() {
+		return statuses;
+	}
+
+	public void addStatus(Status status, int duration) {
+		statuses.put(status, duration);
+	}
+	public void removeStatus(Status status) {
+		statuses.remove(status);
+	}
+    
+
+    
+    
 }
 
