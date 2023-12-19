@@ -17,8 +17,8 @@ public class MonkeyDance extends PokemonMove{
 		// TODO Auto-generated method stub\
 		ArrayList<String> outputText = new ArrayList<String>();
 		Random random = new Random();
-		String prefix = "";
-		String statusMessage = "";
+		String prefix = "Your";
+		ArrayList<String> statusMessages = new ArrayList<String>();
 		int x = random.nextInt(101);
 		int statusChance = 0;
 		
@@ -29,8 +29,7 @@ public class MonkeyDance extends PokemonMove{
 		
 		if (!attacker.isAllied()) {
 			prefix = "The enemy ";
-		}
-		outputText.add(prefix + attacker.getName() + " used " + name + "!");
+		} 
 		
 		for (Map.Entry<Status, Integer> entry : attacker.getStatuses().entrySet()) {
 			switch (entry.getKey()) {
@@ -39,9 +38,9 @@ public class MonkeyDance extends PokemonMove{
 			case NORMAL:
 				break;
 			case PARALYZED:
-				statusChance = 35;
+				statusChance = 100;
 				if (x<statusChance) {
-					statusMessage = (attacker.getName() + " is paralyzed! It can't move.");
+					statusMessages.add(prefix + attacker.getName() + " is paralyzed!\n It can't move.");
 				}  
 				break;
 			case POISONED:
@@ -57,11 +56,12 @@ public class MonkeyDance extends PokemonMove{
 		
 		if (x >= statusChance) {
 			x = random.nextInt(101);
+			outputText.add(prefix + attacker.getName() + " used " + name + "!");
 			if (x < acc) {
 				target.setCurrentHp(target.getCurrentHp()-currentAtk);
 				x = random.nextInt(101);
-				if (x <= 50) {
-					target.addStatus(Status.PARALYZED, 3);
+				if (x <= 100) {
+					target.addStatus(Status.PARALYZED, 1);
 					if (attacker.isAllied()) {
 						outputText.add("The wild "+target.getName()+ " is paralyzed in fear!");
 					} else {
@@ -69,12 +69,12 @@ public class MonkeyDance extends PokemonMove{
 					}
 				}
 			} else {
-				outputText.add(attacker.getName()+"tripped and fell...");
+				outputText.add(attacker.getName()+" tripped and fell...");
 				outputText.add("The move had no effect!");
 			}
 			
 		} else {
-			outputText.add(statusMessage);
+			outputText.addAll(statusMessages);
 		}
 		charges -= 1;
 		return outputText;

@@ -61,6 +61,10 @@ public class BattleScene extends JFrame {
 	private Timer textAnimation, hpBarAnimation;
 	private LinkedList<Runnable> eventQueue = new LinkedList<Runnable>();
 	private boolean gameOver = false;
+	private JLabel enemyHpValue;
+	private JLabel enemyStatus;
+	private JLabel allyStatus;
+	private JLabel allyHpValue;
 	/**
 	 * Launch the application.
 	 */
@@ -88,7 +92,9 @@ public class BattleScene extends JFrame {
 		battleFrame = new JPanel();
 		allyPokemon = new Brian();
 		enemyPokemon = new Brian(false);
-
+		Font font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("pokemon.ttf"));
+		
+		
 		setTitle("Pokemon");
 		
 		
@@ -107,19 +113,25 @@ public class BattleScene extends JFrame {
 		
 
 		enemyInfo = new JPanel();
-		enemyInfo.setPreferredSize(new Dimension(150, 50));
 		enemyInfo.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		topPanel.add(enemyInfo, "cell 0 1,grow");
 		enemyInfo.setLayout(
-				new MigLayout("insets 15 15 15 15, gapy 5", "[80px][][70%,grow]", "[14px][:15%:15%,grow][grow]"));
+				new MigLayout("insets 15, gapy 0", "[80px][][70%,grow]", "[15%,grow][5%]5 [grow]"));
 
 		enemyName = new JLabel(enemyPokemon.getName());
+		enemyName.setPreferredSize(new Dimension(24, 40));
+		enemyName.setFont(font.deriveFont(Font.PLAIN, 30));
 		enemyName.setHorizontalAlignment(SwingConstants.CENTER);
-		enemyInfo.add(enemyName, "cell 0 0 2 1,grow");
+		enemyInfo.add(enemyName, "cell 0 0 2 1,growx,aligny bottom");
 
 		enemyLvl = new JLabel("Lv. " + enemyPokemon.getLvl());
+		enemyLvl.setPreferredSize(new Dimension(30, 25));
+		enemyLvl.setFont(font.deriveFont(Font.PLAIN, 15));
 		enemyLvl.setHorizontalAlignment(SwingConstants.CENTER);
 		enemyInfo.add(enemyLvl, "cell 2 0,alignx right,aligny bottom");
+		
+		enemyStatus = new JLabel("NORM");
+		enemyInfo.add(enemyStatus, "cell 0 1,alignx center");
 
 		enemyHpPanel = new JPanel();
 		enemyHpPanel.setBackground(new Color(94, 94, 104));
@@ -138,7 +150,12 @@ public class BattleScene extends JFrame {
 		enemyHpBar.setBackground(new Color(94, 94, 104));
 		enemyHpBar.setValue(enemyPokemon.getCurrentHp() / enemyPokemon.getMaxHp() * 100);
 		enemyHpBar.setBorderPainted(false);
-		enemyHpPanel.add(enemyHpBar, "cell 3 1,growx,aligny center");
+		enemyHpPanel.add(enemyHpBar, "cell 3 1,grow");
+		
+		enemyHpValue = new JLabel(enemyPokemon.getCurrentHp() + "/" + enemyPokemon.getMaxHp());
+		enemyHpValue.setFont(font.deriveFont(Font.BOLD, 15));
+		enemyHpValue.setPreferredSize(new Dimension(30, 25));
+		enemyInfo.add(enemyHpValue, "cell 2 2,alignx center,aligny top");
 		URL url = this.getClass().getResource("image.png");
 		ImageIcon icon = new ImageIcon(url);
 		Image image = icon.getImage().getScaledInstance(150, 155, Image.SCALE_SMOOTH);
@@ -162,15 +179,22 @@ public class BattleScene extends JFrame {
 		allyInfo.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		topPanel.add(allyInfo, "cell 3 4,grow");
 		allyInfo.setLayout(
-				new MigLayout("insets 15 15 15 15, gapy 5", "[80px][][70%,grow]", "[14px][:15%:15%,grow][grow]"));
+				new MigLayout("insets 15, gapy 0", "[80px][][70%,grow]", "[15%,grow][5%]5 [grow]"));
 
 		allyName = new JLabel(allyPokemon.getName());
+		allyName.setPreferredSize(new Dimension(24, 40));
+		allyName.setFont(font.deriveFont(Font.PLAIN, 30));
 		allyName.setHorizontalAlignment(SwingConstants.CENTER);
 		allyInfo.add(allyName, "cell 0 0,growx,aligny bottom");
 
 		allyLvl = new JLabel("Lv. " + allyPokemon.getLvl());
+		allyLvl.setPreferredSize(new Dimension(30, 25));
+		allyLvl.setFont(font.deriveFont(Font.PLAIN, 15));
 		allyLvl.setHorizontalAlignment(SwingConstants.CENTER);
 		allyInfo.add(allyLvl, "cell 2 0,alignx right,aligny bottom");
+		
+		allyStatus = new JLabel("New label");
+		allyInfo.add(allyStatus, "cell 0 1,alignx center");
 
 		allyHpPanel = new JPanel();
 		allyHpPanel.setBackground(new Color(94, 94, 104));
@@ -190,6 +214,12 @@ public class BattleScene extends JFrame {
 		allyHpBar.setValue(allyPokemon.getCurrentHp() / allyPokemon.getMaxHp() * 100);
 		allyHpBar.setBorderPainted(false);
 		allyHpPanel.add(allyHpBar, "cell 3 1,growx,aligny center");
+		
+		allyHpValue = new JLabel(allyPokemon.getCurrentHp() + "/" + allyPokemon.getMaxHp());
+		allyHpValue.setFont(font.deriveFont(Font.BOLD, 15));
+		allyHpValue.setPreferredSize(new Dimension(30, 25));
+		
+		allyInfo.add(allyHpValue, "cell 2 2,alignx center,aligny top");
 
 		bottomPanel = new ImagePanel(panelBkg);
 		//JPanel bottomPanel = new JPanel();
@@ -226,9 +256,9 @@ public class BattleScene extends JFrame {
 		textBox.setEditable(false);
 		Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
 		// attributes.put(TextAttribute.TRACKING, -0.18);
-		attributes.put(TextAttribute.SIZE, 55f);
+		attributes.put(TextAttribute.SIZE, getHeight()/15);
 		// attributes.put(TextAttribute.KERNING, TextAttribute.KERNING_ON);
-		Font font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("pokem.ttf"));
+
 		textBox.setFont(font.deriveFont(Font.PLAIN, 55));
 		textBox.setBackground(Color.WHITE);
 		textAreaPanel.add(textBox, "cell 0 0,grow");
@@ -251,13 +281,17 @@ public class BattleScene extends JFrame {
 				new MigLayout("insets 0, gap 0", "[50%,grow][50%,grow]", "[:50%:50%,grow,fill][:50%:50%,grow]"));
 		movePanel.setOpaque(false);
 
-		move1 = new CustomButton(allyPokemon.getMove1().button,allyPokemon.getMove1().buttonPressed, allyPokemon.getMove1().name);
+		move1 = new CustomButton(allyPokemon.getMove1().button,allyPokemon.getMove1().buttonPressed);
+		move1.setText(allyPokemon.getMove1().name);
 		movePanel.add(move1, "cell 0 0,grow");
-		move2 = new CustomButton(allyPokemon.getMove2().button,allyPokemon.getMove2().buttonPressed, allyPokemon.getMove2().name);
+		move2 = new CustomButton(allyPokemon.getMove2().button,allyPokemon.getMove2().buttonPressed);
+		move2.setText(allyPokemon.getMove2().name);
 		movePanel.add(move2, "cell 1 0,grow");
-		move3 = new CustomButton(allyPokemon.getMove3().button,allyPokemon.getMove3().buttonPressed, allyPokemon.getMove3().name);
+		move3 = new CustomButton(allyPokemon.getMove3().button,allyPokemon.getMove3().buttonPressed);
+		move3.setText(allyPokemon.getMove3().name);
 		movePanel.add(move3, "cell 0 1,grow");
-		move4 = new CustomButton(allyPokemon.getMove4().button,allyPokemon.getMove4().buttonPressed, allyPokemon.getMove4().name);
+		move4 = new CustomButton(allyPokemon.getMove4().button,allyPokemon.getMove4().buttonPressed);
+		move4.setText(allyPokemon.getMove4().name);
 		movePanel.add(move4, "cell 1 1, grow");
 
 		abilityInfo = new JPanel();
@@ -345,6 +379,7 @@ public class BattleScene extends JFrame {
 
 			}
 		});
+		
 
 	}
 
@@ -379,11 +414,13 @@ public class BattleScene extends JFrame {
 
 	private void hpAnimation(JProgressBar p, Pokemon pokemon) {
 		hpBarAnimation = new Timer(25, new ActionListener() {
-			int value = p.getValue();
-			int target = (int) ((0.0 + pokemon.getCurrentHp() )/ pokemon.getMaxHp() * 100);
+			int barValue = p.getValue();
+			int intValue = (int) ((0.0+barValue)/100*pokemon.getMaxHp());
+			int targetBarValue = (int) ((0.0 + pokemon.getCurrentHp() )/ pokemon.getMaxHp() * 100);
+			int targetIntValue = (int) ((0.0+targetBarValue)/100*pokemon.getMaxHp());
 			
 			public void actionPerformed(ActionEvent e) {
-				if (value <= 0 || value > 100 || value == target){
+				if (barValue <= 0 || barValue > 100 || barValue == targetBarValue){
 					
 					((Timer) e.getSource()).stop();
 					if (eventQueue.peek() !=null) {
@@ -397,15 +434,22 @@ public class BattleScene extends JFrame {
 					}
 					
 				} else {
-					if (value > target) {
+					if (barValue > targetBarValue) {
 						
-						value -= 1;
+						barValue -= 1;
+						intValue -= pokemon.getMaxHp()/100;
 					} else {
-						value += 1;
+						barValue += 1;
+						intValue += pokemon.getMaxHp()/100;
 					}
 					
 				}  
-				p.setValue(value);
+				p.setValue(barValue);
+				if (pokemon.isAllied()) {
+					allyHpValue.setText(intValue + "/" + pokemon.getMaxHp());
+				} else {
+					enemyHpValue.setText(intValue + "/" + pokemon.getMaxHp());
+				}
 				repaint();
 
 			}
@@ -449,13 +493,17 @@ public class BattleScene extends JFrame {
 				eventQueue.add(() -> textAnimation(s));
 			}
 		}
+		eventQueue.add(()->updateAllyStatuses());
 		if (gameOver) {
 			eventQueue.add(() -> textAnimation("Your " + allyPokemon.getName() + " has fainted."));
 			eventQueue.add(() -> gameOver());
 		} else {
 			eventQueue.add(() -> actionSelection());
 		}
+		
+		enemyPokemon.reduceStatusDurations();
 		eventQueue.pop().run();
+		
 	}
 
 	private void playerMove(Pokemon target, PokemonMove move) {
@@ -466,7 +514,7 @@ public class BattleScene extends JFrame {
 		if (enemyPokemon.getCurrentHp()<=0) {
 			gameOver = true;
 		}
-		updateAllyStatuses();
+		
 		bottomPanel.removeAll();
 		bottomPanel.setLayout(new MigLayout("", "[100%,grow]", "[100%,grow]"));
 		textPanel.remove(abilityInfo);
@@ -491,6 +539,7 @@ public class BattleScene extends JFrame {
 		} else {
 			eventQueue.add(() -> enemyMove());
 		}
+		allyPokemon.reduceStatusDurations();
 		eventQueue.pop().run();
 	}
 
@@ -508,8 +557,6 @@ public class BattleScene extends JFrame {
 	}
 
 	private void moveSelection() {
-		allyPokemon.reduceStatusDurations();
-		enemyPokemon.reduceStatusDurations();
 		bottomPanel.removeAll();
 		bottomPanel.setLayout(new MigLayout("gap 0", "[74.5%,grow]1%[24.5%,grow]", "[100%,grow]"));
 		textPanel.remove(textAreaPanel);
@@ -534,24 +581,37 @@ public class BattleScene extends JFrame {
 	}
 
 	private void updateAllyStatuses() {
+		if (allyPokemon.getStatuses()==null) {
+			allyStatus.setText("NOrmal");
+			System.out.println("normal");
+			return;
+		}
 		for (Map.Entry<Status, Integer> entry : allyPokemon.getStatuses().entrySet()) {
 			switch(entry.getKey()) {
 			case ASLEEP:
 				break;
 			case NORMAL:
+				
 				break;
 			case PARALYZED:
 				
-				System.out.println("Paralyzed " + entry.getValue());
+				allyStatus.setText( entry.getKey().toString()+" " + entry.getValue());
+				allyStatus.setForeground(Color.pink);
 				break;
 			case POISONED:
 				break;
+				
+				
 			default:
+				allyStatus.setText("NOrmal");
 				break;
 			
 			}
+			
+			System.out.println(entry.getKey() +" "+ entry.getValue());
 
 		}
 		repaint();
+		eventQueue.pop().run();
 	}
 }

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class PhoGobble extends PokemonMove{
 	
 	public PhoGobble() {
-		super("Pho Gobble", PokemonTypes.GRASS, 100, 30, 100);
+		super("Pho Gobble", PokemonTypes.GRASS, -100, 5, 100);
 	}
 
 	@Override
@@ -12,7 +12,7 @@ public class PhoGobble extends PokemonMove{
 		ArrayList<String> textOutput = new ArrayList<String>();
 		String prefix = "";
 		if (charges <= 0) {
-			textOutput.add("Cannot use that move");
+			textOutput.add("Cannot use that move!");
 			return textOutput;
 		} 
 		if (!attacker.isAllied()) {
@@ -21,10 +21,10 @@ public class PhoGobble extends PokemonMove{
 		textOutput.add(prefix + attacker.getName() + " used " + name + "!");
 		textOutput.add(prefix + attacker.getName() + " restored its HP!");
 		charges -= 1;
-		if (attacker.getCurrentHp()+baseAtk > attacker.getMaxHp()) {
+		if (attacker.getCurrentHp()-baseAtk > attacker.getMaxHp()) {
 			attacker.setCurrentHp(attacker.getMaxHp());
 		} else {
-			attacker.setCurrentHp(attacker.getCurrentHp()+baseAtk);
+			attacker.setCurrentHp(attacker.getCurrentHp()-baseAtk);
 		}
 		return textOutput;
 		 

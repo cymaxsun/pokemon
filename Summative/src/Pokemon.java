@@ -52,6 +52,11 @@ public abstract class Pokemon {
         }
     }
     
+    public void updateStatuses() {
+    	
+    }
+
+    
     // Getter and setter methods for each field
 
     public String getName() {
@@ -157,6 +162,11 @@ public abstract class Pokemon {
 	}
 
 	public void addStatus(Status status, int duration) {
+		for (Map.Entry<Status, Integer> entry : statuses.entrySet()) {
+			if (entry.getKey().equals(status)) {
+				return;
+			}
+		}
 		statuses.put(status, duration);
 	}
 	public void removeStatus(Status status) {

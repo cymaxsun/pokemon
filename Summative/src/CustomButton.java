@@ -14,36 +14,6 @@ public class CustomButton extends JButton {
 	private String text;
 	private boolean pressed;
 
-	public CustomButton(Image image, Image pressedImage, String text) {
-		super();
-		pressed = false;
-		setContentAreaFilled(false);
-		setBorder(null);
-		this.image = image;
-		this.imagePressed = pressedImage;
-		this.text = text;
-
-		addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				pressed = true;
-				repaint();
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				pressed = false;
-				repaint();
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				pressed = false;
-				repaint();
-			}
-		});
-
-	}
 
 	public CustomButton(Image image, Image pressedImage) {
 		super();
@@ -76,6 +46,11 @@ public class CustomButton extends JButton {
 
 	}
 
+	public void setText(String text){
+		this.text = text;
+	}
+	
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -91,9 +66,8 @@ public class CustomButton extends JButton {
 		}
 		Font font;
 		try {
-			font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("pokem.ttf"));
-			
-			g.setFont(font.deriveFont(Font.PLAIN, 40));
+			font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("pokemon.ttf"));
+			g.setFont(font.deriveFont(Font.PLAIN, this.getWidth()/11));
 		} catch (FontFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
