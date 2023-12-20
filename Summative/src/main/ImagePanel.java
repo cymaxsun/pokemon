@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-class ImagePanel extends JComponent {
+class ImagePanel extends JPanel {
     private Image image;
     public ImagePanel(Image image) {
         this.image = image;

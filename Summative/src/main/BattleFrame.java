@@ -2,15 +2,14 @@ package main;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.font.TextAttribute;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -27,7 +26,6 @@ import javax.swing.border.MatteBorder;
 import moves.PokemonMove;
 import net.miginfocom.swing.MigLayout;
 import pokemon.Pokemon;
-import pokemon.Status;
 
 public class BattleFrame extends JFrame {
 
@@ -52,6 +50,15 @@ public class BattleFrame extends JFrame {
 	public LinkedList<Runnable> eventQueue = new LinkedList<Runnable>();
 	public boolean gameOver = false;
 	public Pokemon enemyPokemon, playerPokemon;
+	
+	private Graphics2D g2;
+	
+	
+	
+	//GAME STATE
+	public int gameState;
+	public final int playState = 0;
+	public final int pauseState = 1;
 
 
 
@@ -67,6 +74,7 @@ public class BattleFrame extends JFrame {
 		playerPokemon = ApplicationData.playerPokemon;
 		enemyPokemon = ApplicationData.enemyPokemon;
 		ApplicationData.animate = new AnimationHandler(this);
+		ApplicationData.ui = new UIHandler(this);
 		
 		setTitle("Pokemon");
 	
@@ -138,11 +146,6 @@ public class BattleFrame extends JFrame {
 		textBox.setMargin(new Insets(25, 35, 15, 35));
 		textBox.setForeground(new Color(94, 94, 104));
 		textBox.setEditable(false);
-		Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
-		// attributes.put(TextAttribute.TRACKING, -0.18);
-		attributes.put(TextAttribute.SIZE, getHeight()/15);
-		// attributes.put(TextAttribute.KERNING, TextAttribute.KERNING_ON);
-
 		textBox.setFont(ApplicationData.font.deriveFont(Font.PLAIN, 55));
 		textBox.setBackground(Color.WHITE);
 		textAreaPanel.add(textBox, "cell 0 0,grow");
@@ -238,12 +241,14 @@ public class BattleFrame extends JFrame {
 		
 
 	}
+	
+
 
 
 	private void enemyMove() {
 		Random random = new Random();
 		int randomMove = random.nextInt(4);
-		randomMove = 0;
+		
 		switch (randomMove) {
 		case 0:
 			enemyPokemon.getMove1().useMove(enemyPokemon, playerPokemon);
@@ -272,19 +277,15 @@ public class BattleFrame extends JFrame {
 	}
 
 	private void playerMove(PokemonMove move) {
-		if (ApplicationData.animate.textAnimation != null) {
-			ApplicationData.animate.textAnimation.stop();
-		}
+		ApplicationData.animate.stopAnimation();
+		
 		move.useMove(playerPokemon, enemyPokemon);
 		if (enemyPokemon.getCurrentHp()<=0) {
 			gameOver = true;
 		}
 		
-		bottomPanel.removeAll();
-		bottomPanel.setLayout(new MigLayout("", "[100%,grow]", "[100%,grow]"));
-		textPanel.remove(abilityInfo);
-		textPanel.add(textAreaPanel, "cell 0 0, span, grow");
-		bottomPanel.add(textPanel, "grow");
+		ApplicationData.ui.drawDialogueWindow();
+		
 		repaint();
 		revalidate();
 
@@ -293,7 +294,7 @@ public class BattleFrame extends JFrame {
 		} else {
 			eventQueue.add(() -> enemyMove());
 		}
-		playerPokemon.updateStatuses();
+		//playerPokemon.updateStatuses();
 		eventQueue.pop().run();
 	}
 	public boolean isGameOver() {

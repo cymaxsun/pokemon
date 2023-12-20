@@ -1,14 +1,15 @@
 package moves;
+
 import java.util.Random;
 
 import main.ApplicationData;
 import pokemon.Pokemon;
 import pokemon.PokemonTypes;
 
-public class Lick extends PokemonMove {
-
-	public Lick() {
-		super("Lick", PokemonTypes.GRASS, 50, 20, 100);
+public class PhoPhrenzy extends PokemonMove{
+	
+	public PhoPhrenzy() {
+		super("Pho Phrenzy", PokemonTypes.GRASS, -60, 20, 100);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -25,17 +26,16 @@ public class Lick extends PokemonMove {
 			prefix = "The enemy ";
 		}
 		ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " used " + name + "!");
-		
-		Random random = new Random();
-		if (random.nextInt(101)<=acc) {
-			target.setCurrentHp(target.getCurrentHp()-(baseAtk+attacker.getCurrentAtk()));
-			ApplicationData.animate.addHpAnimation(target);
+		if (attacker.getCurrentHp()-baseAtk > attacker.getMaxHp()) {
+			attacker.setCurrentHp(attacker.getMaxHp());
 		} else {
-			ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " tripped and fell...");
-			ApplicationData.animate.addTextAnimation("The move had no effect!");
+			attacker.setCurrentHp(attacker.getCurrentHp()-baseAtk);
 		}
+		ApplicationData.animate.addHpAnimation(attacker);
+		ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " restored its HP!");
+		attacker.setCurrentAtk(attacker.getCurrentAtk()+10);
+		ApplicationData.animate.addTextAnimation("Brian is high on pho! \nHe gains an attack bonus!");
+
 		charges -= 1;
 	}
-
-
 }

@@ -11,7 +11,7 @@ import pokemon.Status;
 public class MonkeyDance extends PokemonMove {
 
 	public MonkeyDance() {
-		super("Monkey Dance", PokemonTypes.DARK, 80, 10, 100);
+		super("Monkey Dance", PokemonTypes.DARK, 50, 10, 100);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -55,18 +55,19 @@ public class MonkeyDance extends PokemonMove {
 		x = random.nextInt(101);
 		ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " used " + name + "!");
 		if (x < acc) {
-			target.setCurrentHp(target.getCurrentHp() - currentAtk);
+			target.setCurrentHp(target.getCurrentHp() - (baseAtk+attacker.getCurrentAtk()));
 			ApplicationData.animate.addHpAnimation(target);
 			if (target.getCurrentHp() <= 0) {
 				ApplicationData.animate.addTextAnimation(prefix + target.getName() + "has fainted!");
 			}
 			x = random.nextInt(101);
-			if (x <= 100) {
+			if (x >= 100) {
 				target.addStatus(Status.PARALYZED, 1);
 				if (attacker.isAllied()) {
-					ApplicationData.animate.addTextAnimation("The wild " + target.getName() + " is paralyzed in fear!");
+					ApplicationData.animate.addTextAnimation("The wild " + target.getName() + " \nis paralyzed in fear!");
 				} else {
-					ApplicationData.animate.addTextAnimation("Your " + target.getName() + " is paralyzed in fear!");
+					ApplicationData.animate.addTextAnimation("Your " + target.getName() + " "
+							+ "\nis paralyzed in fear!");
 				}
 			}
 		} else {

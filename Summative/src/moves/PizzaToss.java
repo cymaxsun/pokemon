@@ -3,10 +3,10 @@ import main.ApplicationData;
 import pokemon.Pokemon;
 import pokemon.PokemonTypes;
 
-public class PhoGobble extends PokemonMove{
+public class PizzaToss extends PokemonMove{
 	
-	public PhoGobble() {
-		super("Pho Gobble", PokemonTypes.GRASS, -100, 5, 100);
+	public PizzaToss() {
+		super("Pizza Toss", PokemonTypes.GRASS, 40, 5, 100);
 	}
 
 	public void useMove(Pokemon attacker, Pokemon target) {
@@ -22,13 +22,9 @@ public class PhoGobble extends PokemonMove{
 		ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " used " + name + "!");
 		
 		charges -= 1;
-		if (attacker.getCurrentHp()-baseAtk > attacker.getMaxHp()) {
-			attacker.setCurrentHp(attacker.getMaxHp());
-		} else {
-			attacker.setCurrentHp(attacker.getCurrentHp()-baseAtk);
-		}
-		ApplicationData.animate.addHpAnimation(attacker);
-		ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " restored its HP!");
+		target.setCurrentHp(target.getCurrentHp()-(baseAtk+attacker.getCurrentAtk()));
+		ApplicationData.animate.addHpAnimation(target);
+		
 		 
 	}
 

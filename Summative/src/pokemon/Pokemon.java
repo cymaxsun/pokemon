@@ -21,17 +21,21 @@ public class Pokemon {
     private int maxHp;
     private int currentDef;
     private int baseDef;
+    private int baseAtk;
+    private int currentAtk;
     private int currentHp;
     private boolean isAllied;
     private Map<Status, Integer> statuses;
     private InfoPanel infoPanel;
     
     
-    public Pokemon(String name, String type, int lvl, int maxHp, int baseDef, PokemonMove move1, PokemonMove move2, PokemonMove move3, PokemonMove move4) {
+    public Pokemon(String name, String type, int lvl, int maxHp, int baseAtk, int baseDef, PokemonMove move1, PokemonMove move2, PokemonMove move3, PokemonMove move4) {
         this.name = name;
         this.lvl = lvl;
         this.maxHp = maxHp;
         this.currentHp = maxHp;
+        this.baseAtk = baseAtk;
+        this.currentAtk = baseAtk;
         this.baseDef = baseDef;
         this.currentDef = baseDef;
         this.type = type;
@@ -42,7 +46,6 @@ public class Pokemon {
         this.setAllied(true);
         this.statuses = new HashMap<>();
         setInfoPanel(new InfoPanel(this));
-
     }
 
     private void reduceStatusDurations() {
@@ -197,6 +200,22 @@ public class Pokemon {
 
 	public void setInfoPanel(InfoPanel infoPanel) {
 		this.infoPanel = infoPanel;
+	}
+
+	public int getBaseAtk() {
+		return baseAtk;
+	}
+
+	public void setBaseAtk(int baseAtk) {
+		this.baseAtk = baseAtk;
+	}
+
+	public int getCurrentAtk() {
+		return currentAtk;
+	}
+
+	public void setCurrentAtk(int currentAtk) {
+		this.currentAtk = currentAtk;
 	}
     
 

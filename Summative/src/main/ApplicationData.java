@@ -10,6 +10,7 @@ public class ApplicationData {
 	static Pokemon playerPokemon;
 	static Pokemon enemyPokemon;
 	public static AnimationHandler animate;
+	public static UIHandler ui;
 	public static boolean gameOver;
 	final static int frameWidth = 1336;
 	final static int frameHeight = 768;
