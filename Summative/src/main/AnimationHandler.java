@@ -13,6 +13,7 @@ public class AnimationHandler {
 	private boolean stop = false;
 	public Timer hpAnimation;
 	public Timer textAnimation;
+	int panelX;
 
 	public AnimationHandler(BattleFrame bf) {
 		this.bf = bf;
@@ -86,6 +87,27 @@ public class AnimationHandler {
 		hpAnimation.start();
 	}
 
+	
+	public void entryAnimation(Pokemon p) {
+        Timer timer = new Timer(10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                 panelX -= 2; // Adjust the movement speed here
+
+                if (panelX <= bf.getWidth() - p.getInfoPanel().getWidth()) {
+                    panelX = bf.getWidth() - p.getInfoPanel().getWidth();
+                    ((Timer) e.getSource()).stop(); // Stop the animation when the panel is in position
+                }
+
+                
+                bf.repaint();
+            }
+        });
+
+        timer.start();
+    
+	}
+	
 	public void stopAnimation() {
 		if (textAnimation != null) {
 			textAnimation.stop();

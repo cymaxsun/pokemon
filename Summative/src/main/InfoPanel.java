@@ -1,16 +1,20 @@
 package main;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
-import javax.swing.border.MatteBorder;
+import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -109,6 +113,9 @@ public class InfoPanel extends JPanel {
 		g2.fillRoundRect(this.getWidth()/2-30, this.getHeight()*3/5+5, width + 60, height+10, 20, 15);
 		g2.setColor(textColor);
 		g2.drawString(hpValue1 + "/" + p.getMaxHp(), this.getWidth()/2, this.getHeight()*4/5+5);
+		
+		drawBorder(g2);
+	
 	}
 
 	public void update() {
@@ -134,7 +141,10 @@ public class InfoPanel extends JPanel {
 			xPoints[1] = 0;
 		}
 
+		
+		
 		g2.setColor(background); // Set the color for the trapezoid
+		
 		g2.fillPolygon(xPoints, yPoints, 4); // Draw the trapezoid using the provided coordinates
 
 		g2.setColor(highlights);
@@ -169,5 +179,34 @@ public class InfoPanel extends JPanel {
 		yPoints[3] = this.getHeight() / 2 + 6;
 
 		g2.fillPolygon(xPoints, yPoints, 4);
+		
+		
 	}
+	
+	public void drawBorder(Graphics2D g2) {
+		int[] xPoints = {0, 20, this.getWidth() - 20, this.getWidth()};
+		int[] yPoints = {this.getHeight(), 0, 0, this.getHeight()};
+
+		if (p.isAllied()) {
+		    xPoints[2] = this.getWidth();
+		} else {
+		    xPoints[1] = 0;
+		}
+
+		g2.setColor(Color.black);
+
+		// Define different strokes for different line segments
+		Stroke stroke1 = new BasicStroke(8f); // First line's stroke
+		Stroke stroke2 = new BasicStroke(2f); // Second line's stroke
+
+		g2.setStroke(stroke2);
+		g2.drawLine(xPoints[2], yPoints[2], xPoints[3], yPoints[3]);
+		g2.drawLine(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
+		
+
+		g2.setStroke(stroke1);
+		g2.drawLine(xPoints[1], yPoints[1], xPoints[2], yPoints[2]);
+		g2.drawLine(xPoints[3], yPoints[3], xPoints[0], yPoints[0]);
+	}
+
 }

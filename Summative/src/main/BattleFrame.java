@@ -200,7 +200,9 @@ public class BattleFrame extends JFrame {
 
 		abilityInfo.add(movePP, "cell 0 1, grow");
 		
-
+		
+		ApplicationData.animate.entryAnimation(playerPokemon);
+		
 		fightButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
