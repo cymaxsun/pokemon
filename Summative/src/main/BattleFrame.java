@@ -1,19 +1,13 @@
 package main;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -24,19 +18,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
-import javax.swing.Timer;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import moves.PokemonMove;
 import net.miginfocom.swing.MigLayout;
-import pokemon.Brian;
 import pokemon.Pokemon;
 import pokemon.Status;
 
@@ -52,27 +41,18 @@ public class BattleFrame extends JFrame {
 	private Image pokemonPressed = new ImageIcon("res/buttons/pokemonPressed.png").getImage();
 	private Image run = new ImageIcon("res/buttons/run.png").getImage();
 	private Image runPressed = new ImageIcon("res/buttons/runPressed.png").getImage();
-	//private Image image = new ImageIcon("res/image.png").getImage();
 	public JPanel battlePanel;
 	public JTextArea textBox;
 	public JButton move1, move2, move3, move4;
 	public CustomButton fightButton, bagButton, pokemonButton, runButton;
-	public JProgressBar allyHpBar, enemyHpBar;
-	public JLabel allyHpLbl, enemyHpLbl, allyName, allyLvl, enemyName, enemyLvl, moveType, movePP, allyPoke, enemyPoke;
-	public JPanel movePanel, abilityInfo, enemyInfo, enemyHpPanel, allyHpPanel, allyInfo, textPanel, actionPanel,
+	public JLabel allyPoke, enemyPoke, movePP, moveType;
+	public JPanel movePanel, abilityInfo,  textPanel, actionPanel,
 			textAreaPanel;
 	public ImagePanel bottomPanel, topPanel;
-	public Timer textAnimation, hpAnimation;
 	public LinkedList<Runnable> eventQueue = new LinkedList<Runnable>();
 	public boolean gameOver = false;
-	public JLabel enemyHpValue;
-	public JLabel enemyStatus;
-	public JLabel allyStatus;
-	public JLabel allyHpValue;
 	public Pokemon enemyPokemon, playerPokemon;
-	/**
-	 * Launch the application.
-	 */
+
 
 
 	/**
@@ -292,8 +272,8 @@ public class BattleFrame extends JFrame {
 	}
 
 	private void playerMove(PokemonMove move) {
-		if (textAnimation != null) {
-			textAnimation.stop();
+		if (ApplicationData.animate.textAnimation != null) {
+			ApplicationData.animate.textAnimation.stop();
 		}
 		move.useMove(playerPokemon, enemyPokemon);
 		if (enemyPokemon.getCurrentHp()<=0) {
@@ -316,13 +296,17 @@ public class BattleFrame extends JFrame {
 		playerPokemon.updateStatuses();
 		eventQueue.pop().run();
 	}
+	public boolean isGameOver() {
+		return (playerPokemon.getCurrentHp()<=0 || enemyPokemon.getCurrentHp()<=0) ;
+	}
+
 
 	private void gameOver() {
 		if (playerPokemon.getCurrentHp() <= 0) {
-			battlePanel.remove(allyInfo);
+			battlePanel.remove(playerPokemon.getInfoPanel());
 			
 		} else if ( enemyPokemon.getCurrentHp() <= 0) {
-			battlePanel.remove(enemyInfo);
+			battlePanel.remove(enemyPokemon.getInfoPanel());
 			
 		}
 		System.out.println("Game Over");
@@ -354,7 +338,7 @@ public class BattleFrame extends JFrame {
 		bottomPanel.revalidate();
 	}
 
-	private void updateAllyStatuses() {
+	/*private void updateAllyStatuses() {
 		if (playerPokemon.getStatuses()==null) {
 			allyStatus.setText("NOrmal");
 			System.out.println("normal");
@@ -387,9 +371,7 @@ public class BattleFrame extends JFrame {
 		}
 		repaint();
 		eventQueue.pop().run();
-	}
+	}*/
 	
-	public boolean isGameOver() {
-		return (playerPokemon.getCurrentHp()<=0 || enemyPokemon.getCurrentHp()<=0) ;
-	}
+	
 }

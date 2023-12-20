@@ -11,8 +11,8 @@ public class AnimationHandler {
 
 	private BattleFrame bf;
 	private boolean stop = false;
-	private Timer hpAnimation;
-	private Timer textAnimation;
+	public Timer hpAnimation;
+	public Timer textAnimation;
 
 	public AnimationHandler(BattleFrame bf) {
 		this.bf = bf;
