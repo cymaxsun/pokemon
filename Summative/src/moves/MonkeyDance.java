@@ -55,7 +55,7 @@ public class MonkeyDance extends PokemonMove {
 		x = random.nextInt(101);
 		ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " used " + name + "!");
 		if (x < acc) {
-			target.setCurrentHp(target.getCurrentHp() - (baseAtk+attacker.getCurrentAtk()));
+			target.setCurrentHp(target.getCurrentHp() - (baseAtk+attacker.getBonusAtk()));
 			ApplicationData.animate.addHpAnimation(target);
 			if (target.getCurrentHp() <= 0) {
 				ApplicationData.animate.addTextAnimation(prefix + target.getName() + "has fainted!");

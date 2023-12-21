@@ -21,7 +21,7 @@ public class AnimationHandler {
 
 	public void textAnimation(String string) {
 		bf.textBox.setText("");
-		textAnimation = new Timer(50, new ActionListener() {
+		textAnimation = new Timer(25, new ActionListener() {
 			int index = 0;
 
 			public void actionPerformed(ActionEvent e) {

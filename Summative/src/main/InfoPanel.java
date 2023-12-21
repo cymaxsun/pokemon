@@ -7,17 +7,16 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
-import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import net.miginfocom.layout.AC;
+import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 import pokemon.Pokemon;
 
@@ -32,6 +31,7 @@ public class InfoPanel extends JPanel {
 	public JLabel hpValue;
 	public Pokemon p;
 
+	public String insets;
 	public String name1 = "Brian";
 	public int hpValue1;
 
@@ -43,9 +43,9 @@ public class InfoPanel extends JPanel {
 		this.p = p;
 		hpBar = new JProgressBar(0, p.getMaxHp());
 		hpValue1 = p.getMaxHp();
+
 		setLayout(new MigLayout("insets 20 45 20 45, gapy 0", "[80px][70%,grow]", "[55%,grow][5%,grow]5[45%,grow]"));
-
-
+		
 		lvl = new JLabel("Lv. " + p.getLvl());
 		lvl.setPreferredSize(new Dimension(30, 25));
 		lvl.setFont(ApplicationData.font.deriveFont(Font.PLAIN, 15));
@@ -97,6 +97,7 @@ public class InfoPanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
+		
 		super.paintComponent(g2);
 
 		drawBackground(g2);
@@ -118,17 +119,19 @@ public class InfoPanel extends JPanel {
 	
 	}
 
-	public void update() {
-		hpValue.setText(p.getCurrentHp() + "/" + p.getMaxHp());
-		hpBar.setValue(p.getCurrentHp() / p.getMaxHp() * 100);
 
-	}
 
 	public void drawName(Graphics2D g2) {
-
+		int x ;
+		int y  = 48 ;
 		g2.setColor(textColor);
 		g2.setFont(ApplicationData.font.deriveFont(Font.PLAIN, 30));
-		g2.drawString(name1, 35, 48);
+		if (p.isAllied()) {
+			x = 60;
+		} else {
+			x = 60;
+		}
+		g2.drawString(name1, x, y);
 	}
 	
 	public void drawBackground(Graphics2D g2) {
@@ -197,7 +200,7 @@ public class InfoPanel extends JPanel {
 
 		// Define different strokes for different line segments
 		Stroke stroke1 = new BasicStroke(8f); // First line's stroke
-		Stroke stroke2 = new BasicStroke(2f); // Second line's stroke
+		Stroke stroke2 = new BasicStroke(3f); // Second line's stroke
 
 		g2.setStroke(stroke2);
 		g2.drawLine(xPoints[2], yPoints[2], xPoints[3], yPoints[3]);
@@ -205,7 +208,7 @@ public class InfoPanel extends JPanel {
 		
 
 		g2.setStroke(stroke1);
-		g2.drawLine(xPoints[1], yPoints[1], xPoints[2], yPoints[2]);
+		g2.drawLine(xPoints[1]+2, yPoints[1], xPoints[2]-2, yPoints[2]);
 		g2.drawLine(xPoints[3], yPoints[3], xPoints[0], yPoints[0]);
 	}
 

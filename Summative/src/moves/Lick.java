@@ -28,7 +28,7 @@ public class Lick extends PokemonMove {
 		
 		Random random = new Random();
 		if (random.nextInt(101)<=acc) {
-			target.setCurrentHp(target.getCurrentHp()-(baseAtk+attacker.getCurrentAtk()));
+			target.setCurrentHp(target.getCurrentHp()-(baseAtk+attacker.getBonusAtk()));
 			ApplicationData.animate.addHpAnimation(target);
 		} else {
 			ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " tripped and fell...");

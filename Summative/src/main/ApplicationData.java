@@ -3,14 +3,18 @@ package main;
 import java.awt.Font;
 import java.io.InputStream;
 
+import javax.swing.JFrame;
+
 import pokemon.Pokemon;
 
 public class ApplicationData {
 	static BattleFrame battleFrame;
+	static JFrame window;
+	static Sound soundtrack = new Sound();
+	static Sound sfx = new Sound();
 	static Pokemon playerPokemon;
 	static Pokemon enemyPokemon;
 	public static AnimationHandler animate;
-	public static UIHandler ui;
 	public static boolean gameOver;
 	final static int frameWidth = 1336;
 	final static int frameHeight = 768;

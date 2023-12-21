@@ -17,13 +17,19 @@ public class Main {
 		ApplicationData.enemyPokemon = new Brian();
 		ApplicationData.enemyPokemon.setAllied(false);
 		
-		//window = new JFrame();
-        //window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		TransitionPanel tp = new TransitionPanel();
+		
+		ApplicationData.window = new JFrame();
+		ApplicationData.window.setBounds(0, 0, ApplicationData.frameWidth,  ApplicationData.frameHeight);
+		ApplicationData.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ApplicationData.window.add(tp);
+       
         //window.setResizable(false);
-        //window.setTitle("2D Adventure");
-
-        ApplicationData.battleFrame = new BattleFrame();
-        ApplicationData.battleFrame.setVisible(true);
+		ApplicationData. window.setTitle("Pokemon");
+		ApplicationData.window.setVisible(true);
+        tp.startAnimtion();
+		
+       
         //window.add(ApplicationData.battleFrame);
         //window.pack();
 
