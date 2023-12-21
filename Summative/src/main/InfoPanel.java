@@ -76,11 +76,12 @@ public class InfoPanel extends JPanel {
 		hpBar.getModel().addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				if (hpBar.getValue() <= 0) {
-
-				} else if (hpBar.getValue() <= 25) {
+				} else if (hpBar.getValue() <= p.getMaxHp()/4) {
 					hpBar.setForeground(Color.red);
-				} else if (hpBar.getValue() <= 50) {
+				} else if (hpBar.getValue() <=  p.getMaxHp()/2) {
 					hpBar.setForeground(Color.yellow);
+				} else {
+					hpBar.setForeground(Color.green);
 				}
 			}
 		});

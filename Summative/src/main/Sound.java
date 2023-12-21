@@ -18,8 +18,9 @@ public class Sound {
 	
 		clips[0] = getClass().getResource("/sound/battle.wav");
 		clips[1] = getClass().getResource("/sound/button.wav");
-		
-		
+		clips[2] = getClass().getResource("/sound/Absorb.wav");
+		clips[3] = getClass().getResource("/sound/Lick.wav");
+		clips[4] = getClass().getResource("/sound/hit.wav");
 		
 	}
 	
@@ -46,6 +47,12 @@ public class Sound {
 	
 	public void stop() {
 		clip.stop();
+	}
+	
+	public void playFile(int i, float f) {
+		setFile(i);
+		setVolume(f);
+		play();
 	}
 	
 	public void setVolume(float f) {

@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Font;
 import java.io.InputStream;
+import java.util.LinkedList;
 
 import javax.swing.JFrame;
 
@@ -10,8 +11,9 @@ import pokemon.Pokemon;
 public class ApplicationData {
 	static BattleFrame battleFrame;
 	static JFrame window;
-	static Sound soundtrack = new Sound();
-	static Sound sfx = new Sound();
+	public static LinkedList<Runnable> eventQueue = new LinkedList<Runnable>();
+	public static Sound soundtrack = new Sound();
+	public static Sound sfx = new Sound();
 	static Pokemon playerPokemon;
 	static Pokemon enemyPokemon;
 	public static AnimationHandler animate;

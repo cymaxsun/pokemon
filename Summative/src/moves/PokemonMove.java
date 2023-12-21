@@ -4,6 +4,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
+import main.ApplicationData;
 import pokemon.Pokemon;
 
 public class PokemonMove {
@@ -132,6 +133,11 @@ public class PokemonMove {
 
 	public void useMove(Pokemon attacker, Pokemon target) {
 		// TODO Auto-generated method stub
+	}
+	
+	public void playSFX() {
+		ApplicationData.sfx.playFile(4,1.0f);
+		ApplicationData.eventQueue.pop().run();
 	}
 
 }

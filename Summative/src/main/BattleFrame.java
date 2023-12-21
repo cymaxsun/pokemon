@@ -47,7 +47,6 @@ public class BattleFrame extends JFrame {
 	public JLabel allyPoke, enemyPoke, movePP, moveType;
 	public JPanel movePanel, abilityInfo, textPanel, actionPanel, textAreaPanel;
 	public ImagePanel bottomPanel, topPanel;
-	public LinkedList<Runnable> eventQueue = new LinkedList<Runnable>();
 	public boolean gameOver = false;
 	public Pokemon enemyPokemon, playerPokemon;
 
@@ -257,13 +256,13 @@ public class BattleFrame extends JFrame {
 			break;
 		}
 		if (isGameOver()) {
-			eventQueue.add(() -> gameOver());
+			ApplicationData.eventQueue.add(() -> gameOver());
 		} else {
-			eventQueue.add(() -> actionSelection());
+			ApplicationData.eventQueue.add(() -> actionSelection());
 		}
 
 		enemyPokemon.updateStatuses();
-		eventQueue.pop().run();
+		ApplicationData.eventQueue.pop().run();
 
 	}
 
@@ -273,6 +272,7 @@ public class BattleFrame extends JFrame {
 		move.useMove(playerPokemon, enemyPokemon);
 		if (enemyPokemon.getCurrentHp() <= 0) {
 			gameOver = true;
+			
 		}
 		bottomPanel.removeAll();
 		bottomPanel.setLayout(new MigLayout("", "[100%,grow]", "[100%,grow]"));
@@ -283,12 +283,12 @@ public class BattleFrame extends JFrame {
 		revalidate();
 
 		if (isGameOver()) {
-			eventQueue.add(() -> gameOver());
+			ApplicationData.eventQueue.add(() -> gameOver());
 		} else {
-			eventQueue.add(() -> enemyMove());
+			ApplicationData.eventQueue.add(() -> enemyMove());
 		}
 		// playerPokemon.updateStatuses();
-		eventQueue.pop().run();
+		ApplicationData.eventQueue.pop().run();
 	}
 
 	public boolean isGameOver() {
@@ -297,11 +297,13 @@ public class BattleFrame extends JFrame {
 
 	private void gameOver() {
 		if (playerPokemon.getCurrentHp() <= 0) {
-			battlePanel.remove(playerPokemon.getInfoPanel());
-
+			topPanel.remove(playerPokemon.getInfoPanel());
+			topPanel.remove(allyPoke);
+			ApplicationData.animate.textAnimation("Your " + playerPokemon.getName() + " has fainted!");
 		} else if (enemyPokemon.getCurrentHp() <= 0) {
-			battlePanel.remove(enemyPokemon.getInfoPanel());
-
+			topPanel.remove(enemyPokemon.getInfoPanel());
+			topPanel.remove(enemyPoke);
+			ApplicationData.animate.textAnimation("The enemy " + playerPokemon.getName() + " has fainted!");
 		}
 		System.out.println("Game Over");
 		repaint();
@@ -350,7 +352,7 @@ public class BattleFrame extends JFrame {
 	 * 
 	 * System.out.println(entry.getKey() +" "+ entry.getValue());
 	 * 
-	 * } repaint(); eventQueue.pop().run(); }
+	 * } repaint(); ApplicationData.eventQueue.pop().run(); }
 	 */
 
 }

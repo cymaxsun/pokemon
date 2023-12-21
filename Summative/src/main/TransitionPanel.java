@@ -11,9 +11,7 @@ public class TransitionPanel extends JPanel {
     private boolean transitionComplete = false;
 
     public TransitionPanel() {
-    	ApplicationData.soundtrack.setFile(0);
-    	ApplicationData.soundtrack.setVolume(0.7f);
-    	ApplicationData.soundtrack.play();
+    	ApplicationData.soundtrack.playFile(0,0.8f);
     	ApplicationData.soundtrack.loop();
         timer = new Timer(20, new ActionListener() {
             @Override

@@ -25,11 +25,13 @@ public class Lick extends PokemonMove {
 			prefix = "The enemy ";
 		}
 		ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " used " + name + "!");
-		
+		ApplicationData.sfx.playFile(3,1.0f);
 		Random random = new Random();
 		if (random.nextInt(101)<=acc) {
+			ApplicationData.eventQueue.add(()->playSFX());
 			target.setCurrentHp(target.getCurrentHp()-(baseAtk+attacker.getBonusAtk()));
 			ApplicationData.animate.addHpAnimation(target);
+			
 		} else {
 			ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " tripped and fell...");
 			ApplicationData.animate.addTextAnimation("The move had no effect!");

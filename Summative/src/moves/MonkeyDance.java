@@ -11,7 +11,7 @@ import pokemon.Status;
 public class MonkeyDance extends PokemonMove {
 
 	public MonkeyDance() {
-		super("Monkey Dance", PokemonTypes.DARK, 50, 10, 100);
+		super("Monkey Dance", PokemonTypes.DARK, 75, 10, 100);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -55,10 +55,11 @@ public class MonkeyDance extends PokemonMove {
 		x = random.nextInt(101);
 		ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " used " + name + "!");
 		if (x < acc) {
+			ApplicationData.eventQueue.add(()->playSFX());
 			target.setCurrentHp(target.getCurrentHp() - (baseAtk+attacker.getBonusAtk()));
 			ApplicationData.animate.addHpAnimation(target);
 			if (target.getCurrentHp() <= 0) {
-				ApplicationData.animate.addTextAnimation(prefix + target.getName() + "has fainted!");
+				return;
 			}
 			x = random.nextInt(101);
 			if (x >= 100) {

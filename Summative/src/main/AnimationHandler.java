@@ -32,14 +32,14 @@ public class AnimationHandler {
 
 				} else {
 					((Timer) e.getSource()).stop();
-					if (bf.eventQueue.peek() != null) {
+					if (ApplicationData.eventQueue.peek() != null) {
 						try {
 							Thread.sleep(200);
 						} catch (InterruptedException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-						bf.eventQueue.pop().run();
+						ApplicationData.eventQueue.pop().run();
 						
 					}
 				}
@@ -59,14 +59,14 @@ public class AnimationHandler {
 				if (value <= 0 || value > pokemon.getMaxHp() || value == targetValue) {
 
 					((Timer) e.getSource()).stop();
-					if (bf.eventQueue.peek() != null) {
+					if (ApplicationData.eventQueue.peek() != null) {
 						try {
 							Thread.sleep(200);
 						} catch (InterruptedException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-						bf.eventQueue.pop().run();
+						ApplicationData.eventQueue.pop().run();
 					}
 
 				} else {
@@ -118,11 +118,15 @@ public class AnimationHandler {
 	}
 
 	public void addHpAnimation(Pokemon pokemon) {
-		bf.eventQueue.add(() -> hpAnimation(pokemon));
+		ApplicationData.eventQueue.add(() -> hpAnimation(pokemon));
 	}
 
 	public void addTextAnimation(String s) {
-		bf.eventQueue.add(() -> textAnimation(s));
+		ApplicationData.eventQueue.add(() -> textAnimation(s));
 	}
 
+	public void playSFX(int i) {
+		ApplicationData.eventQueue.add(()->ApplicationData.sfx.setFile(i));
+		
+	}
 }
