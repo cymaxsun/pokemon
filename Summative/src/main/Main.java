@@ -24,7 +24,7 @@ public class Main {
 		ApplicationData.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ApplicationData.window.add(tp);
        
-        //window.setResizable(false);
+        //window.setResizable(false); 	
 		ApplicationData. window.setTitle("Pokemon");
 		ApplicationData.window.setVisible(true);
         tp.startAnimtion();

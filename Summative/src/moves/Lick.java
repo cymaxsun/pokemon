@@ -25,11 +25,11 @@ public class Lick extends PokemonMove {
 			prefix = "The enemy ";
 		}
 		ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " used " + name + "!");
-		ApplicationData.sfx.playFile(3,1.0f);
+		
 		Random random = new Random();
 		if (random.nextInt(101)<=acc) {
-			ApplicationData.eventQueue.add(()->playSFX());
 			target.setCurrentHp(target.getCurrentHp()-(baseAtk+attacker.getBonusAtk()));
+			ApplicationData.eventQueue.add(()->playSFX());
 			ApplicationData.animate.addHpAnimation(target);
 			
 		} else {
@@ -39,5 +39,14 @@ public class Lick extends PokemonMove {
 		charges -= 1;
 	}
 
-
+	public void playSFX() {
+		ApplicationData.sfx.playFile(3,1.0f);
+		try {
+			Thread.sleep(ApplicationData.sfx.getLength()/1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		super.playSFX();
+	}
 }

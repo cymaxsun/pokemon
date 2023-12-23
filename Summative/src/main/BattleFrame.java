@@ -40,7 +40,6 @@ public class BattleFrame extends JFrame {
 	private Image pokemonPressed = new ImageIcon("res/buttons/pokemonPressed.png").getImage();
 	private Image run = new ImageIcon("res/buttons/run.png").getImage();
 	private Image runPressed = new ImageIcon("res/buttons/runPressed.png").getImage();
-	public JPanel battlePanel;
 	public JTextArea textBox;
 	public JButton move1, move2, move3, move4;
 	public CustomButton fightButton, bagButton, pokemonButton, runButton;
@@ -49,8 +48,8 @@ public class BattleFrame extends JFrame {
 	public ImagePanel bottomPanel, topPanel;
 	public boolean gameOver = false;
 	public Pokemon enemyPokemon, playerPokemon;
+	public boolean hi = true;
 
-	private Graphics2D g2;
 
 	// GAME STATE
 	public int gameState;
@@ -65,7 +64,6 @@ public class BattleFrame extends JFrame {
 	public BattleFrame() {
 		setFocusable(true);
 		setResizable(false);
-		battlePanel = new JPanel();
 		playerPokemon = ApplicationData.playerPokemon;
 		enemyPokemon = ApplicationData.enemyPokemon;
 		ApplicationData.animate = new AnimationHandler(this);
@@ -76,8 +74,7 @@ public class BattleFrame extends JFrame {
 		setTitle("Pokemon");
 
 		setBounds(0, 0, ApplicationData.frameWidth, ApplicationData.frameHeight);
-
-		setContentPane(battlePanel);
+		
 		getContentPane().setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -96,7 +93,7 @@ public class BattleFrame extends JFrame {
 		enemyPoke.setVerticalAlignment(SwingConstants.CENTER);
 		enemyPoke.setHorizontalAlignment(SwingConstants.CENTER);
 		enemyPoke.setIcon(new ImageIcon(enemyPokemon.getImage()));
-		topPanel.add(enemyPoke, "cell 2 1 2 3,alignx center,aligny center");
+//		topPanel.add(enemyPoke, "cell 2 1 2 3,alignx center,aligny center");
 
 		allyPoke = new JLabel();
 		allyPoke.setHorizontalAlignment(SwingConstants.CENTER);
@@ -105,7 +102,7 @@ public class BattleFrame extends JFrame {
 		allyPoke.setIcon(new ImageIcon(enemyPokemon.getImage()));
 		allyPoke.setVerticalAlignment(SwingConstants.CENTER);
 		allyPoke.setHorizontalAlignment(SwingConstants.CENTER);
-		topPanel.add(allyPoke, "flowx,cell 0 4 2 2,growx,aligny center");
+	//	topPanel.add(allyPoke, "flowx,cell 0 4 2 2,growx,aligny center");
 
 		topPanel.add(playerPokemon.getInfoPanel(), "cell 3 4,grow");
 
@@ -115,6 +112,7 @@ public class BattleFrame extends JFrame {
 		bottomPanel.setBorder(new CompoundBorder(new MatteBorder(5, 0, 0, 0, (Color) new Color(0, 0, 0)),
 				new MatteBorder(5, 0, 5, 0, (Color) new Color(130, 212, 126))));
 		getContentPane().add(bottomPanel, "cell 0 1 4 1,grow");
+		
 		bottomPanel.setLayout(new MigLayout("", "[49%,grow]1%[49%,grow]", "[::100%,grow]"));
 
 		actionPanel = new JPanel();
@@ -232,9 +230,10 @@ public class BattleFrame extends JFrame {
 
 			}
 		});
-
+		
+	setVisible(true);
 	}
-
+		
 	private void enemyMove() {
 		Random random = new Random();
 		int randomMove = random.nextInt(4);
@@ -306,8 +305,8 @@ public class BattleFrame extends JFrame {
 			ApplicationData.animate.textAnimation("The enemy " + playerPokemon.getName() + " has fainted!");
 		}
 		System.out.println("Game Over");
-		repaint();
-		revalidate();
+		topPanel.repaint();
+		topPanel.revalidate();
 	}
 
 	private void moveSelection() {

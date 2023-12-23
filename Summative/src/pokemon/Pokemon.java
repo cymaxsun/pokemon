@@ -1,4 +1,6 @@
 package pokemon;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -27,6 +29,7 @@ public class Pokemon {
     private boolean isAllied;
     private Map<Status, Integer> statuses;
     private InfoPanel infoPanel;
+    
     
     
     public Pokemon(String name, String type, int lvl, int maxHp, int baseAtk, int baseDef, PokemonMove move1, PokemonMove move2, PokemonMove move3, PokemonMove move4) {
@@ -219,7 +222,12 @@ public class Pokemon {
 	}
     
 
-    
+    public void draw(Graphics2D g2) {
+    	g2.drawImage(image, 50, 50, null);
+    	g2.setColor(Color.black);
+
+    	
+    }
     
 }
 

@@ -31,12 +31,18 @@ public class PhoPhrenzy extends PokemonMove{
 		} else {
 			attacker.setCurrentHp(attacker.getCurrentHp()-baseAtk);
 		}
+		ApplicationData.eventQueue.add(()->playSFX());	
 		ApplicationData.animate.addHpAnimation(attacker);
 		ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " restored its HP!");
-		ApplicationData.sfx.playFile(2,1.0f);
+		
 		attacker.setBonusAtk(attacker.getBonusAtk()+10);
 		ApplicationData.animate.addTextAnimation("Brian is high on pho! \nHe gains an attack bonus!");
 
 		charges -= 1;
+	}
+	
+	public void playSFX() {
+		ApplicationData.sfx.playFile(2,1.0f);
+		ApplicationData.eventQueue.pop().run();
 	}
 }

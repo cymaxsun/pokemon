@@ -50,6 +50,7 @@ public class AnimationHandler {
 	}
 
 	public void hpAnimation(Pokemon pokemon) {
+		//ApplicationData.sfx.playFile(4, 1.0f);
 		hpAnimation = new Timer(5, new ActionListener() {
 			int value = pokemon.getInfoPanel().hpBar.getValue();
 			int targetValue = pokemon.getCurrentHp();

@@ -18,7 +18,7 @@ public class Sound {
 	
 		clips[0] = getClass().getResource("/sound/battle.wav");
 		clips[1] = getClass().getResource("/sound/button.wav");
-		clips[2] = getClass().getResource("/sound/Absorb.wav");
+		clips[2] = getClass().getResource("/sound/heal.wav");
 		clips[3] = getClass().getResource("/sound/Lick.wav");
 		clips[4] = getClass().getResource("/sound/hit.wav");
 		
@@ -30,6 +30,7 @@ public class Sound {
 			sis = AudioSystem.getAudioInputStream(clips[i]);
 			clip = AudioSystem.getClip();
 			clip.open(sis);
+			
 			
 		} catch (Exception e) {
 		
@@ -53,6 +54,7 @@ public class Sound {
 		setFile(i);
 		setVolume(f);
 		play();
+		
 	}
 	
 	public void setVolume(float f) {
@@ -62,4 +64,9 @@ public class Sound {
 		gainControl.setValue(gain);
 	}
 
+	
+	public long getLength() {
+		
+		return clip.getMicrosecondLength();
+	}
 }
