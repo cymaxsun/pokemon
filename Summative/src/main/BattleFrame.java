@@ -48,7 +48,7 @@ public class BattleFrame extends JFrame {
 	public ImagePanel bottomPanel, topPanel;
 	public boolean gameOver = false;
 	public Pokemon enemyPokemon, playerPokemon;
-	public boolean hi = true;
+	public SpritePanel playerSprite, enemySprite;
 
 
 	// GAME STATE
@@ -89,20 +89,11 @@ public class BattleFrame extends JFrame {
 
 		topPanel.add(enemyPokemon.getInfoPanel(), "cell 0 1,grow");
 
-		enemyPoke = new JLabel();
-		enemyPoke.setVerticalAlignment(SwingConstants.CENTER);
-		enemyPoke.setHorizontalAlignment(SwingConstants.CENTER);
-		enemyPoke.setIcon(new ImageIcon(enemyPokemon.getImage()));
-//		topPanel.add(enemyPoke, "cell 2 1 2 3,alignx center,aligny center");
+		
+		topPanel.add(enemyPokemon.getSpritePanel(), "cell 2 1 2 3,grow");
 
-		allyPoke = new JLabel();
-		allyPoke.setHorizontalAlignment(SwingConstants.CENTER);
-		allyPoke.setVerticalAlignment(SwingConstants.CENTER);
-
-		allyPoke.setIcon(new ImageIcon(enemyPokemon.getImage()));
-		allyPoke.setVerticalAlignment(SwingConstants.CENTER);
-		allyPoke.setHorizontalAlignment(SwingConstants.CENTER);
-	//	topPanel.add(allyPoke, "flowx,cell 0 4 2 2,growx,aligny center");
+		
+	    topPanel.add(playerPokemon.getSpritePanel(), ",cell 0 4 2 2,growx,growy ");
 
 		topPanel.add(playerPokemon.getInfoPanel(), "cell 3 4,grow");
 
@@ -193,7 +184,6 @@ public class BattleFrame extends JFrame {
 
 		abilityInfo.add(movePP, "cell 0 1, grow");
 
-		ApplicationData.animate.entryAnimation(playerPokemon);
 
 		fightButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -297,11 +287,11 @@ public class BattleFrame extends JFrame {
 	private void gameOver() {
 		if (playerPokemon.getCurrentHp() <= 0) {
 			topPanel.remove(playerPokemon.getInfoPanel());
-			topPanel.remove(allyPoke);
+			topPanel.remove(playerSprite);
 			ApplicationData.animate.textAnimation("Your " + playerPokemon.getName() + " has fainted!");
 		} else if (enemyPokemon.getCurrentHp() <= 0) {
 			topPanel.remove(enemyPokemon.getInfoPanel());
-			topPanel.remove(enemyPoke);
+			topPanel.remove(enemySprite);
 			ApplicationData.animate.textAnimation("The enemy " + playerPokemon.getName() + " has fainted!");
 		}
 		System.out.println("Game Over");

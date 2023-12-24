@@ -25,7 +25,7 @@ public class Main {
 		ApplicationData.window.add(tp);
        
         //window.setResizable(false); 	
-		ApplicationData. window.setTitle("Pokemon");
+		ApplicationData.window.setTitle("Pokemon");
 		ApplicationData.window.setVisible(true);
         tp.startAnimtion();
 		

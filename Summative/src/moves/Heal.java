@@ -6,10 +6,10 @@ import main.ApplicationData;
 import pokemon.Pokemon;
 import pokemon.PokemonTypes;
 
-public class PhoPhrenzy extends PokemonMove{
+public class Heal extends PokemonMove{
 	
-	public PhoPhrenzy() {
-		super("Pho Phrenzy", PokemonTypes.GRASS, -60, 20, 100);
+	public Heal() {
+		super("Heal", PokemonTypes.GRASS, -60, 20, 100);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -36,7 +36,7 @@ public class PhoPhrenzy extends PokemonMove{
 		ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " restored its HP!");
 		
 		attacker.setBonusAtk(attacker.getBonusAtk()+10);
-		ApplicationData.animate.addTextAnimation("Brian is high on pho! \nHe gains an attack bonus!");
+		ApplicationData.animate.addTextAnimation("Brian is reinvigorated! \nHe gains an attack bonus!");
 
 		charges -= 1;
 	}

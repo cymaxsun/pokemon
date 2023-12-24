@@ -1,11 +1,13 @@
 package pokemon;
 import java.awt.Image;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import moves.Lick;
-import moves.MonkeyDance;
-import moves.PhoPhrenzy;
+import moves.Tackle;
+import moves.Heal;
 import moves.PizzaToss;
 
 public class Brian extends Pokemon{
@@ -14,8 +16,13 @@ public class Brian extends Pokemon{
 	
 	
 	public Brian( ) {
-		super("Brian", PokemonTypes.DARK, 69, 400, 10, 50, new MonkeyDance(), new PizzaToss(), new Lick(),new PhoPhrenzy());
-		setImage(new ImageIcon("res/pokemon/image.png").getImage().getScaledInstance(150, 155, Image.SCALE_SMOOTH));
+		super("Brian", PokemonTypes.DARK, 69, 400, 10, 50, new Tackle(), new PizzaToss(), new Lick(),new Heal());
+		try {
+			getSpritePanel().setImage(ImageIO.read(getClass().getResourceAsStream("/pokemon/image.png")).getScaledInstance(150, 155, Image.SCALE_SMOOTH));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	

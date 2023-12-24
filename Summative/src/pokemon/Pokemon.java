@@ -2,19 +2,20 @@ package pokemon;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import main.InfoPanel;
+import main.SpritePanel;
 import moves.PokemonMove;
 
 public class Pokemon {
 
     private String name;
     private String type;
-    private Image image;
     private PokemonMove move1;
     private PokemonMove move2;
     private PokemonMove move3;
@@ -29,6 +30,7 @@ public class Pokemon {
     private boolean isAllied;
     private Map<Status, Integer> statuses;
     private InfoPanel infoPanel;
+    private SpritePanel spritePanel;
     
     
     
@@ -49,6 +51,7 @@ public class Pokemon {
         this.setAllied(true);
         this.statuses = new HashMap<>();
         setInfoPanel(new InfoPanel(this));
+        setSpritePanel(new SpritePanel(this));
     }
 
     private void reduceStatusDurations() {
@@ -189,13 +192,6 @@ public class Pokemon {
 		statuses.remove(status);
 	}
 
-	public Image getImage() {
-		return image;
-	}
-
-	public void setImage(Image image) {
-		this.image = image;
-	}
 
 	public InfoPanel getInfoPanel() {
 		return infoPanel;
@@ -222,12 +218,14 @@ public class Pokemon {
 	}
     
 
-    public void draw(Graphics2D g2) {
-    	g2.drawImage(image, 50, 50, null);
-    	g2.setColor(Color.black);
+    
+	public SpritePanel getSpritePanel() {
+		return spritePanel;
+	}
 
-    	
-    }
+	public void setSpritePanel(SpritePanel spritePanel) {
+		this.spritePanel = spritePanel;
+	}
     
 }
 

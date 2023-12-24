@@ -60,6 +60,8 @@ public class AnimationHandler {
 				if (value <= 0 || value > pokemon.getMaxHp() || value == targetValue) {
 
 					((Timer) e.getSource()).stop();
+					pokemon.getSpritePanel().damageTaken.stop();
+					pokemon.getSpritePanel().tick = 0;
 					if (ApplicationData.eventQueue.peek() != null) {
 						try {
 							Thread.sleep(200);
@@ -89,26 +91,6 @@ public class AnimationHandler {
 	}
 
 	
-	public void entryAnimation(Pokemon p) {
-        Timer timer = new Timer(10, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                 panelX -= 2; // Adjust the movement speed here
-
-                if (panelX <= bf.getWidth() - p.getInfoPanel().getWidth()) {
-                    panelX = bf.getWidth() - p.getInfoPanel().getWidth();
-                    ((Timer) e.getSource()).stop(); // Stop the animation when the panel is in position
-                }
-
-                
-                bf.repaint();
-            }
-        });
-
-        timer.start();
-    
-	}
-	
 	public void stopAnimation() {
 		if (textAnimation != null) {
 			textAnimation.stop();
@@ -126,8 +108,5 @@ public class AnimationHandler {
 		ApplicationData.eventQueue.add(() -> textAnimation(s));
 	}
 
-	public void playSFX(int i) {
-		ApplicationData.eventQueue.add(()->ApplicationData.sfx.setFile(i));
-		
-	}
+	
 }

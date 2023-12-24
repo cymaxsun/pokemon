@@ -24,6 +24,7 @@ public class PizzaToss extends PokemonMove{
 		charges -= 1;
 		target.setCurrentHp(target.getCurrentHp()-(baseAtk+attacker.getBonusAtk()));
 		ApplicationData.eventQueue.add(()->playSFX());
+		ApplicationData.eventQueue.add(()->target.getSpritePanel().damageTaken());
 		ApplicationData.animate.addHpAnimation(target);
 		
 		 

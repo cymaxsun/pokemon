@@ -8,10 +8,10 @@ import pokemon.Pokemon;
 import pokemon.PokemonTypes;
 import pokemon.Status;
 
-public class MonkeyDance extends PokemonMove {
+public class Tackle extends PokemonMove {
 
-	public MonkeyDance() {
-		super("Monkey Dance", PokemonTypes.DARK, 75, 10, 100);
+	public Tackle() {
+		super("Tackle", PokemonTypes.DARK, 75, 10, 100);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -57,6 +57,7 @@ public class MonkeyDance extends PokemonMove {
 		if (x < acc) {
 			ApplicationData.eventQueue.add(()->playSFX());
 			target.setCurrentHp(target.getCurrentHp() - (baseAtk+attacker.getBonusAtk()));
+			ApplicationData.eventQueue.add(()->target.getSpritePanel().damageTaken());
 			ApplicationData.animate.addHpAnimation(target);
 			if (target.getCurrentHp() <= 0) {
 				return;
