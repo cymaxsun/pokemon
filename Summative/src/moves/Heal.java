@@ -35,7 +35,7 @@ public class Heal extends PokemonMove{
 		ApplicationData.animate.addHpAnimation(attacker);
 		ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " restored its HP!");
 		
-		attacker.setBonusAtk(attacker.getBonusAtk()+10);
+		attacker.setBaseAtk(attacker.getBaseAtk()+10);
 		ApplicationData.animate.addTextAnimation("Brian is reinvigorated! \nHe gains an attack bonus!");
 
 		charges -= 1;

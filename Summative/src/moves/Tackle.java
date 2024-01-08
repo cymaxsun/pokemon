@@ -56,7 +56,7 @@ public class Tackle extends PokemonMove {
 		ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " used " + name + "!");
 		if (x < acc) {
 			ApplicationData.eventQueue.add(()->playSFX());
-			target.setCurrentHp(target.getCurrentHp() - (baseAtk+attacker.getBonusAtk()));
+			target.setCurrentHp(target.getCurrentHp() - (baseAtk+attacker.getBaseAtk()));
 			ApplicationData.eventQueue.add(()->target.getSpritePanel().damageTaken());
 			ApplicationData.animate.addHpAnimation(target);
 			if (target.getCurrentHp() <= 0) {

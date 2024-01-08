@@ -28,7 +28,7 @@ public class Lick extends PokemonMove {
 		
 		Random random = new Random();
 		if (random.nextInt(101)<=acc) {
-			target.setCurrentHp(target.getCurrentHp()-(baseAtk+attacker.getBonusAtk()));
+			target.setCurrentHp(target.getCurrentHp()-(baseAtk+attacker.getBaseAtk()));
 			ApplicationData.eventQueue.add(()->playSFX());
 			ApplicationData.eventQueue.add(()->target.getSpritePanel().damageTaken());
 			ApplicationData.animate.addHpAnimation(target);

@@ -60,8 +60,11 @@ public class AnimationHandler {
 				if (value <= 0 || value > pokemon.getMaxHp() || value == targetValue) {
 
 					((Timer) e.getSource()).stop();
-					pokemon.getSpritePanel().damageTaken.stop();
-					pokemon.getSpritePanel().tick = 0;
+					if (pokemon.getSpritePanel().damageTaken != null) {
+						pokemon.getSpritePanel().damageTaken.stop();
+						pokemon.getSpritePanel().tick = 0;
+					}
+					
 					if (ApplicationData.eventQueue.peek() != null) {
 						try {
 							Thread.sleep(200);

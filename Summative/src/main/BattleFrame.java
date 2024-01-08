@@ -44,11 +44,11 @@ public class BattleFrame extends JFrame {
 	public JButton move1, move2, move3, move4;
 	public CustomButton fightButton, bagButton, pokemonButton, runButton;
 	public JLabel allyPoke, enemyPoke, movePP, moveType;
-	public JPanel movePanel, abilityInfo, textPanel, actionPanel, textAreaPanel;
+	public JPanel movePanel, moveInfo, textPanel, actionPanel, textAreaPanel;
 	public ImagePanel bottomPanel, topPanel;
 	public boolean gameOver = false;
 	public Pokemon enemyPokemon, playerPokemon;
-	public SpritePanel playerSprite, enemySprite;
+	private PokemonMove selectedMove;
 
 
 	// GAME STATE
@@ -164,9 +164,9 @@ public class BattleFrame extends JFrame {
 		move4.setText(playerPokemon.getMove4().getName());
 		movePanel.add(move4, "cell 1 1, grow");
 
-		abilityInfo = new JPanel();
-		abilityInfo.setLayout(new MigLayout("insets 15 40 15 40, gapx 0", "[100%,grow]", "[50%,grow][50%,grow]"));
-		abilityInfo.setBackground(Color.WHITE);
+		moveInfo = new JPanel();
+		moveInfo.setLayout(new MigLayout("insets 15 40 15 40, gapx 0", "[100%,grow]", "[50%,grow][50%,grow]"));
+		moveInfo.setBackground(Color.WHITE);
 
 		moveType = new JLabel(playerPokemon.getType());
 		moveType.setFont(moveType.getFont().deriveFont(Font.PLAIN, 40));
@@ -174,7 +174,7 @@ public class BattleFrame extends JFrame {
 		moveType.setForeground(Color.WHITE);
 		moveType.setHorizontalAlignment(SwingConstants.CENTER);
 		moveType.setOpaque(true);
-		abilityInfo.add(moveType, "cell 0 0, grow");
+		moveInfo.add(moveType, "cell 0 0, grow");
 
 		movePP = new JLabel(
 				"PP:" + playerPokemon.getMove1().getCharges() + "/" + playerPokemon.getMove1().getMaxCharges());
@@ -182,7 +182,7 @@ public class BattleFrame extends JFrame {
 		movePP.setFont(moveType.getFont().deriveFont(Font.PLAIN, 40));
 		movePP.setHorizontalAlignment(SwingConstants.CENTER);
 
-		abilityInfo.add(movePP, "cell 0 1, grow");
+		moveInfo.add(movePP, "cell 0 1, grow");
 
 
 		fightButton.addMouseListener(new MouseAdapter() {
@@ -197,6 +197,11 @@ public class BattleFrame extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 				playerMove(playerPokemon.getMove1());
 
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				selectedMove = playerPokemon.getMove1();
+				moveInfo.repaint();
 			}
 		});
 		move2.addMouseListener(new MouseAdapter() {
@@ -265,7 +270,7 @@ public class BattleFrame extends JFrame {
 		}
 		bottomPanel.removeAll();
 		bottomPanel.setLayout(new MigLayout("", "[100%,grow]", "[100%,grow]"));
-		textPanel.remove(abilityInfo);
+		textPanel.remove(moveInfo);
 		textPanel.add(textAreaPanel, "cell 0 0, span, grow");
 		bottomPanel.add(textPanel, "grow");
 		repaint();
@@ -287,11 +292,11 @@ public class BattleFrame extends JFrame {
 	private void gameOver() {
 		if (playerPokemon.getCurrentHp() <= 0) {
 			topPanel.remove(playerPokemon.getInfoPanel());
-			topPanel.remove(playerSprite);
+			topPanel.remove(playerPokemon.getSpritePanel());
 			ApplicationData.animate.textAnimation("Your " + playerPokemon.getName() + " has fainted!");
 		} else if (enemyPokemon.getCurrentHp() <= 0) {
 			topPanel.remove(enemyPokemon.getInfoPanel());
-			topPanel.remove(enemySprite);
+			topPanel.remove(enemyPokemon.getSpritePanel());
 			ApplicationData.animate.textAnimation("The enemy " + playerPokemon.getName() + " has fainted!");
 		}
 		System.out.println("Game Over");
@@ -303,7 +308,7 @@ public class BattleFrame extends JFrame {
 		bottomPanel.removeAll();
 		bottomPanel.setLayout(new MigLayout("gap 0", "[74.5%,grow]1%[24.5%,grow]", "[100%,grow]"));
 		textPanel.remove(textAreaPanel);
-		textPanel.add(abilityInfo, "cell 1 0,grow");
+		textPanel.add(moveInfo, "cell 1 0,grow");
 		movePP.setText("PP:" + playerPokemon.getMove1().getCharges() + "/" + playerPokemon.getMove1().getMaxCharges());
 		bottomPanel.add(movePanel, "cell 0 0, grow");
 		bottomPanel.add(textPanel, "cell 1 0, grow");
@@ -316,7 +321,7 @@ public class BattleFrame extends JFrame {
 		bottomPanel.setLayout(new MigLayout("", "[49%,grow]1%[49%,grow]", "[::100%,grow]"));
 		ApplicationData.animate.textAnimation("What will \n" + playerPokemon.getName() + " do?");
 		textPanel.add(textAreaPanel, "cell 1 0 , grow");
-		textPanel.remove(abilityInfo);
+		textPanel.remove(moveInfo);
 		bottomPanel.add(textPanel, "cell 0 0, grow");
 		bottomPanel.add(actionPanel, "cell 1 0, grow");
 		bottomPanel.repaint();

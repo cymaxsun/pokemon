@@ -25,7 +25,6 @@ public class Pokemon {
     private int currentDef;
     private int baseDef;
     private int baseAtk;
-    private int bonusAtk;
     private int currentHp;
     private boolean isAllied;
     private Map<Status, Integer> statuses;
@@ -40,7 +39,6 @@ public class Pokemon {
         this.maxHp = maxHp;
         this.currentHp = maxHp;
         this.baseAtk = baseAtk;
-        this.bonusAtk = 0;
         this.baseDef = baseDef;
         this.currentDef = baseDef;
         this.type = type;
@@ -209,16 +207,6 @@ public class Pokemon {
 		this.baseAtk = baseAtk;
 	}
 
-	public int getBonusAtk() {
-		return bonusAtk;
-	}
-
-	public void setBonusAtk(int currentAtk) {
-		this.bonusAtk = currentAtk;
-	}
-    
-
-    
 	public SpritePanel getSpritePanel() {
 		return spritePanel;
 	}

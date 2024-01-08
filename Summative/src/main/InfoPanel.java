@@ -32,7 +32,7 @@ public class InfoPanel extends JPanel {
 	public Pokemon p;
 
 	public String insets;
-	public String name1 = "Brian";
+	public String name1;
 	public int hpValue1;
 
 	private Color background = this.getBackground();
@@ -43,6 +43,7 @@ public class InfoPanel extends JPanel {
 		this.p = p;
 		hpBar = new JProgressBar(0, p.getMaxHp());
 		hpValue1 = p.getMaxHp();
+		name1 = p.getName();
 
 		setLayout(new MigLayout("insets 20 45 20 45, gapy 0", "[80px][70%,grow]", "[55%,grow][5%,grow]5[45%,grow]"));
 		
@@ -102,27 +103,14 @@ public class InfoPanel extends JPanel {
 		super.paintComponent(g2);
 
 		drawBackground(g2);
-		
-		drawName(g2);
-
-		
-		
-		
-		g2.setFont(ApplicationData.font.deriveFont(Font.BOLD, 20));
-		int width = g2.getFontMetrics().stringWidth(hpValue1 + "/" + p.getMaxHp());
-		int height = g2.getFontMetrics().getHeight();
-		g2.setColor(background);
-		g2.fillRoundRect(this.getWidth()/2-30, this.getHeight()*3/5+5, width + 60, height+10, 20, 15);
-		g2.setColor(textColor);
-		g2.drawString(hpValue1 + "/" + p.getMaxHp(), this.getWidth()/2, this.getHeight()*4/5+5);
-		
+		drawText(g2);
 		drawBorder(g2);
 	
 	}
 
 
 
-	public void drawName(Graphics2D g2) {
+	public void drawText(Graphics2D g2) {
 		int x ;
 		int y  = 48 ;
 		g2.setColor(textColor);
@@ -132,7 +120,15 @@ public class InfoPanel extends JPanel {
 		} else {
 			x = 60;
 		}
+		
 		g2.drawString(name1, x, y);
+		g2.setFont(ApplicationData.font.deriveFont(Font.BOLD, 20));
+		int width = g2.getFontMetrics().stringWidth(hpValue1 + "/" + p.getMaxHp());
+		int height = g2.getFontMetrics().getHeight();
+		g2.setColor(background);
+		g2.fillRoundRect(this.getWidth()/2-30, this.getHeight()*3/5+5, width + 60, height+10, 20, 15);
+		g2.setColor(textColor);
+		g2.drawString(hpValue1 + "/" + p.getMaxHp(), this.getWidth()/2, this.getHeight()*4/5+5);
 	}
 	
 	public void drawBackground(Graphics2D g2) {

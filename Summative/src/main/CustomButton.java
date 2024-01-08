@@ -83,5 +83,9 @@ public class CustomButton extends JButton {
 		g.drawString(text, (this.getWidth() - width) / 2, (this.getHeight() + height) / 2 - 5);
 
 	}
+	
+	public boolean isPressed() {
+		return pressed;
+	}
 
 }

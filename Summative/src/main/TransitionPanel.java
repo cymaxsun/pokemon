@@ -12,8 +12,6 @@ public class TransitionPanel extends JPanel {
 	private boolean transitionComplete = false;
 
 	public TransitionPanel() {
-    	ApplicationData.soundtrack.playFile(0,0.8f);
-    	ApplicationData.soundtrack.loop();
     	 timer = new Timer(20, new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
@@ -35,13 +33,16 @@ public class TransitionPanel extends JPanel {
                 	 timer.stop(); // Stop the timer
                      
                  }
+                 repaint();
              }
+             
          });
-         timer.start(); // Start the timer
+          // Start the timer
      }
 
      @Override
      protected void paintComponent(Graphics g) {
+    	 
          super.paintComponent(g);
          Graphics2D g2 = (Graphics2D) g.create();
 
@@ -72,6 +73,8 @@ public class TransitionPanel extends JPanel {
 
 
 	public void startAnimtion() {
-		timer.start(); // Start the timer
+		timer.start();
+		ApplicationData.soundtrack.playFile(0,0.8f);
+    	ApplicationData.soundtrack.loop();
 	}
 }

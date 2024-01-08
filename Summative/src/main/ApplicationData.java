@@ -21,6 +21,7 @@ public class ApplicationData {
 	final static int frameWidth = 1336;
 	final static int frameHeight = 768;
 	static Font font;
+	final static int numOfPokemon = 2;
 
     static {
         try {
