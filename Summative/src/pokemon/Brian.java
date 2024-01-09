@@ -16,7 +16,7 @@ public class Brian extends Pokemon{
 	
 	
 	public Brian( ) {
-		super("Brian", PokemonTypes.DARK, 69, 400, 10, 50, new Tackle(), new PizzaToss(), new Lick(),new Heal());
+		super("Brian", PokemonTypes.DARK, 69, 10000, 100, 50, new Tackle(), new PizzaToss(), new Lick(),new Heal());
 		try {
 			getSpritePanel().setImage(ImageIO.read(getClass().getResourceAsStream("/pokemon/image.png")).getScaledInstance(150, 155, Image.SCALE_SMOOTH));
 		} catch (IOException e) {

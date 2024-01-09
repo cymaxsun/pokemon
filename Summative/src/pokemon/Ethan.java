@@ -14,7 +14,7 @@ import moves.Tackle;
 public class Ethan extends Pokemon{
 
 	public Ethan() {
-		super("Mongol Man", PokemonTypes.NORMAL, 69, 100, 100000, 50, new Tackle(), new Tackle(), new Lick(),new Heal());
+		super("Elthan", PokemonTypes.NORMAL, 69, 500, 20, 50, new Tackle(), new Tackle(), new Lick(),new Heal());
 		try {
 			getSpritePanel().setImage(ImageIO.read(getClass().getResourceAsStream("/pokemon/images.png")).getScaledInstance(150, 155, Image.SCALE_SMOOTH));
 		} catch (IOException e) {

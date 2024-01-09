@@ -52,7 +52,7 @@ public class AnimationHandler {
 	public void hpAnimation(Pokemon pokemon) {
 		//ApplicationData.sfx.playFile(4, 1.0f);
 		hpAnimation = new Timer(5, new ActionListener() {
-			int value = pokemon.getInfoPanel().hpBar.getValue();
+			int value = pokemon.getStatusPanel().hpBar.getValue();
 			int targetValue = pokemon.getCurrentHp();
 
 			public void actionPerformed(ActionEvent e) {
@@ -84,8 +84,8 @@ public class AnimationHandler {
 					}
 
 				}
-				pokemon.getInfoPanel().hpBar.setValue(value);
-				pokemon.getInfoPanel().hpValue1 = value;
+				pokemon.getStatusPanel().hpBar.setValue(value);
+				pokemon.getStatusPanel().hpValue1 = value;
 				bf.repaint();
 
 			}

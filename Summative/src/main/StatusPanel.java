@@ -20,7 +20,7 @@ import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 import pokemon.Pokemon;
 
-public class InfoPanel extends JPanel {
+public class StatusPanel extends JPanel {
 
 	public JLabel name;
 	public JLabel lvl;
@@ -39,7 +39,7 @@ public class InfoPanel extends JPanel {
 	private Color highlights = new Color(184, 184, 184);
 	private Color textColor = Color.black;
 
-	public InfoPanel(Pokemon p) {
+	public StatusPanel(Pokemon p) {
 		this.p = p;
 		hpBar = new JProgressBar(0, p.getMaxHp());
 		hpValue1 = p.getMaxHp();

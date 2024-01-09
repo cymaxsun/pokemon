@@ -44,11 +44,12 @@ public class BattleFrame extends JFrame {
 	public JButton move1, move2, move3, move4;
 	public CustomButton fightButton, bagButton, pokemonButton, runButton;
 	public JLabel allyPoke, enemyPoke, movePP, moveType;
-	public JPanel movePanel, moveInfo, textPanel, actionPanel, textAreaPanel;
+	public JPanel movePanel, textPanel, actionPanel, textAreaPanel;
 	public ImagePanel bottomPanel, topPanel;
 	public boolean gameOver = false;
 	public Pokemon enemyPokemon, playerPokemon;
 	private PokemonMove selectedMove;
+	public MoveInfoPanel moveInfo;
 
 
 	// GAME STATE
@@ -87,7 +88,7 @@ public class BattleFrame extends JFrame {
 				"[10%,grow][25%,grow][15%,grow][15%,grow][25%,grow][10%,grow]"));
 		getContentPane().add(topPanel, "grow, span");
 
-		topPanel.add(enemyPokemon.getInfoPanel(), "cell 0 1,grow");
+		topPanel.add(enemyPokemon.getStatusPanel(), "cell 0 1,grow");
 
 		
 		topPanel.add(enemyPokemon.getSpritePanel(), "cell 2 1 2 3,grow");
@@ -95,7 +96,7 @@ public class BattleFrame extends JFrame {
 		
 	    topPanel.add(playerPokemon.getSpritePanel(), ",cell 0 4 2 2,growx,growy ");
 
-		topPanel.add(playerPokemon.getInfoPanel(), "cell 3 4,grow");
+		topPanel.add(playerPokemon.getStatusPanel(), "cell 3 4,grow");
 
 		bottomPanel = new ImagePanel(panelBkg);
 		// JPanel bottomPanel = new JPanel();
@@ -108,7 +109,7 @@ public class BattleFrame extends JFrame {
 
 		actionPanel = new JPanel();
 		actionPanel.setOpaque(false);
-		actionPanel.setLayout(new MigLayout("insets 0, gap 0", "[50%,grow][50%,grow]", "[50%,grow,fill][50%,grow]"));
+		actionPanel.setLayout(new MigLayout("insets 0, gap 0", "[50%,grow][50%,grow]", "[50%,grow][50%,grow]"));
 		bottomPanel.add(actionPanel, "cell 1 0,grow");
 
 		textPanel = new JPanel();
@@ -164,26 +165,7 @@ public class BattleFrame extends JFrame {
 		move4.setText(playerPokemon.getMove4().getName());
 		movePanel.add(move4, "cell 1 1, grow");
 
-		moveInfo = new JPanel();
-		moveInfo.setLayout(new MigLayout("insets 15 40 15 40, gapx 0", "[100%,grow]", "[50%,grow][50%,grow]"));
-		moveInfo.setBackground(Color.WHITE);
-
-		moveType = new JLabel(playerPokemon.getType());
-		moveType.setFont(moveType.getFont().deriveFont(Font.PLAIN, 40));
-		moveType.setBackground(Color.DARK_GRAY);
-		moveType.setForeground(Color.WHITE);
-		moveType.setHorizontalAlignment(SwingConstants.CENTER);
-		moveType.setOpaque(true);
-		moveInfo.add(moveType, "cell 0 0, grow");
-
-		movePP = new JLabel(
-				"PP:" + playerPokemon.getMove1().getCharges() + "/" + playerPokemon.getMove1().getMaxCharges());
-		movePP.setBorder(new MatteBorder(10, 0, 10, 0, Color.white));
-		movePP.setFont(moveType.getFont().deriveFont(Font.PLAIN, 40));
-		movePP.setHorizontalAlignment(SwingConstants.CENTER);
-
-		moveInfo.add(movePP, "cell 0 1, grow");
-
+		moveInfo = new MoveInfoPanel(playerPokemon);
 
 		fightButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -200,8 +182,7 @@ public class BattleFrame extends JFrame {
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				selectedMove = playerPokemon.getMove1();
-				moveInfo.repaint();
+				moveInfo.updateMove(playerPokemon.getMove1());
 			}
 		});
 		move2.addMouseListener(new MouseAdapter() {
@@ -210,6 +191,10 @@ public class BattleFrame extends JFrame {
 				playerMove(playerPokemon.getMove2());
 
 			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				moveInfo.updateMove(playerPokemon.getMove2());
+			}
 		});
 		move3.addMouseListener(new MouseAdapter() {
 			@Override
@@ -217,12 +202,20 @@ public class BattleFrame extends JFrame {
 				playerMove(playerPokemon.getMove3());
 
 			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				moveInfo.updateMove(playerPokemon.getMove3());
+			}
 		});
 		move4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				playerMove(playerPokemon.getMove4());
 
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				moveInfo.updateMove(playerPokemon.getMove4());
 			}
 		});
 		
@@ -291,13 +284,13 @@ public class BattleFrame extends JFrame {
 
 	private void gameOver() {
 		if (playerPokemon.getCurrentHp() <= 0) {
-			topPanel.remove(playerPokemon.getInfoPanel());
+			topPanel.remove(playerPokemon.getStatusPanel());
 			topPanel.remove(playerPokemon.getSpritePanel());
 			ApplicationData.animate.textAnimation("Your " + playerPokemon.getName() + " has fainted!");
 		} else if (enemyPokemon.getCurrentHp() <= 0) {
-			topPanel.remove(enemyPokemon.getInfoPanel());
+			topPanel.remove(enemyPokemon.getStatusPanel());
 			topPanel.remove(enemyPokemon.getSpritePanel());
-			ApplicationData.animate.textAnimation("The enemy " + playerPokemon.getName() + " has fainted!");
+			ApplicationData.animate.textAnimation("The enemy " + enemyPokemon.getName() + " has fainted!");
 		}
 		System.out.println("Game Over");
 		topPanel.repaint();
@@ -306,10 +299,10 @@ public class BattleFrame extends JFrame {
 
 	private void moveSelection() {
 		bottomPanel.removeAll();
-		bottomPanel.setLayout(new MigLayout("gap 0", "[74.5%,grow]1%[24.5%,grow]", "[100%,grow]"));
+		bottomPanel.setLayout(new MigLayout("gap 0", "[74.5%,grow]1%[24.5%:24.5%:,grow]", "[100%,grow]"));
 		textPanel.remove(textAreaPanel);
-		textPanel.add(moveInfo, "cell 1 0,grow");
-		movePP.setText("PP:" + playerPokemon.getMove1().getCharges() + "/" + playerPokemon.getMove1().getMaxCharges());
+		textPanel.add(moveInfo, "cell 1 0");
+		moveInfo.updateMove();
 		bottomPanel.add(movePanel, "cell 0 0, grow");
 		bottomPanel.add(textPanel, "cell 1 0, grow");
 		bottomPanel.repaint();

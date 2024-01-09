@@ -28,15 +28,7 @@ public class PokemonMove {
 		this.charges = charges;
 		this.maxCharges = charges;
 		this.acc = acc;
-		
-		switch(type){
-			case "DARK": 
-				typeColor = Color.DARK_GRAY;
-				break;
-			case "GRASS":
-				typeColor = Color.GREEN;
-				break;
-		}
+
 		
 		setButton(new ImageIcon("res/buttons/"+type+".png").getImage());
 		buttonPressed = new ImageIcon("res/buttons/"+type+"Pressed.png").getImage();

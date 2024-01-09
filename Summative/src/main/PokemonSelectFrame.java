@@ -1,23 +1,19 @@
 package main;
 
-import javax.swing.JPanel;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.Timer;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.Rectangle;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Dimension;
+import java.awt.event.ActionListener;
 
-public class PokemonSelect extends JPanel {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+
+import net.miginfocom.swing.MigLayout;
+
+public class PokemonSelectFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private Timer timer;
@@ -29,14 +25,14 @@ public class PokemonSelect extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PokemonSelect() {
-		setLayout(new MigLayout("", "[33%,grow][33%,grow][33%,grow]", "[grow]"));
+	public PokemonSelectFrame() {
+		getContentPane().setLayout(new MigLayout("", "[33%,grow][33%,grow][33%,grow]", "[grow]"));
 		
 		PokemonScrollPane scrollPane = new PokemonScrollPane();
-		add(scrollPane, "cell 0 0,grow");
+		getContentPane().add(scrollPane, "cell 0 0,grow");
 		
 		JPanel panel = new JPanel();
-		add(panel, "cell 1 0 2 1,grow");
+		getContentPane().add(panel, "cell 1 0 2 1,grow");
 		panel.setLayout(null);
 		
 		JButton btnNewButton = new JButton("New button");
@@ -65,7 +61,6 @@ public class PokemonSelect extends JPanel {
                      }
                      repaint(); // Trigger repaint to update the panel
                  } else {
-                	 System.out.println("end");
                 	 ApplicationData.window.setVisible(false);
                      ApplicationData.battleFrame = new BattleFrame();
                 	 timer.stop(); // Stop the timer
@@ -83,7 +78,6 @@ public class PokemonSelect extends JPanel {
 		Graphics2D g2 = (Graphics2D) g;
         super.paint(g2);
         
-
         int centerX = getWidth() / 2;
         int centerY = getHeight() / 2;
 

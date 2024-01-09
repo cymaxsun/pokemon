@@ -18,13 +18,11 @@ public class Main {
 		ApplicationData.enemyPokemon = new Ethan();
 		ApplicationData.enemyPokemon.setAllied(false);
 		
+	
 		
-		PokemonSelect ps = new PokemonSelect();
-		
-		ApplicationData.window = new JFrame();
+		ApplicationData.window = new PokemonSelectFrame();
 		ApplicationData.window.setBounds(0, 0, ApplicationData.frameWidth,  ApplicationData.frameHeight);
 		ApplicationData.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ApplicationData.window.add(ps);
        
         //window.setResizable(false); 	
 		ApplicationData.window.setTitle("Pokemon");

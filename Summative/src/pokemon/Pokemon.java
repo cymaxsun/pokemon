@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import main.InfoPanel;
 import main.SpritePanel;
+import main.StatusPanel;
 import moves.PokemonMove;
 
 public class Pokemon {
@@ -28,7 +28,7 @@ public class Pokemon {
     private int currentHp;
     private boolean isAllied;
     private Map<Status, Integer> statuses;
-    private InfoPanel infoPanel;
+    private StatusPanel statusPanel;
     private SpritePanel spritePanel;
     
     
@@ -48,7 +48,7 @@ public class Pokemon {
         this.move4 = move4;
         this.setAllied(true);
         this.statuses = new HashMap<>();
-        setInfoPanel(new InfoPanel(this));
+        setStatusPanel(new StatusPanel(this));
         setSpritePanel(new SpritePanel(this));
     }
 
@@ -191,12 +191,12 @@ public class Pokemon {
 	}
 
 
-	public InfoPanel getInfoPanel() {
-		return infoPanel;
+	public StatusPanel getStatusPanel() {
+		return statusPanel;
 	}
 
-	public void setInfoPanel(InfoPanel infoPanel) {
-		this.infoPanel = infoPanel;
+	public void setStatusPanel(StatusPanel statusPanel) {
+		this.statusPanel = statusPanel;
 	}
 
 	public int getBaseAtk() {
