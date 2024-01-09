@@ -15,7 +15,7 @@ import pokemon.Pokemon;
 public class SpritePanel extends JPanel{
 
 	Pokemon p;
-	Image image; 
+	public Image image; 
 	Graphics2D g2;
 	public int tick = 0;
 	public Timer damageTaken;

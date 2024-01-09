@@ -47,6 +47,7 @@ public class CustomButton extends JButton {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				pressed = true;
+				repaint();
 				ApplicationData.sfx.playFile(1,1f);
 				
 			}

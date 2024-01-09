@@ -1,38 +1,65 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.Timer;
 
 import net.miginfocom.swing.MigLayout;
+import pokemon.Brian;
+import pokemon.Ethan;
+import pokemon.Pokemon;
 
-public class PokemonSelectFrame extends JFrame {
+public class PokemonSelectPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private Timer timer;
 	private int startAngle = 0;
 	private int trailAngle = 0;
 	private boolean transitionComplete = false;
-	
+	JPanel viewport;
+	JLabel label;
+	public PokemonPreviewPanel[] pokemon;
+	Pokemon[] pokemonList = {new Brian(), new Ethan(), new Brian(), new Ethan()};
 	
 	/**
 	 * Create the panel.
 	 */
-	public PokemonSelectFrame() {
-		getContentPane().setLayout(new MigLayout("", "[33%,grow][33%,grow][33%,grow]", "[grow]"));
+	public PokemonSelectPanel() {
+		setLayout(new MigLayout("", "[33%,grow][33%,grow][33%,grow]", "[grow]"));
 		
-		PokemonScrollPane scrollPane = new PokemonScrollPane();
-		getContentPane().add(scrollPane, "cell 0 0,grow");
+		JScrollPane scrollPane = new JScrollPane();
+		viewport = new JPanel();
+		viewport.setPreferredSize(new Dimension(10, ApplicationData.numOfPokemon*300));
+		viewport.setLayout(new GridLayout(ApplicationData.numOfPokemon, 0, 0, 0));
+		pokemon = new PokemonPreviewPanel[ApplicationData.numOfPokemon];
+		viewport.setBackground(new Color(255, 255, 255));
+		for (int i = 0; i < ApplicationData.numOfPokemon;i++) {
+			pokemon[i] = new PokemonPreviewPanel(this,pokemonList[i]);
+			viewport.add(pokemon[i]);
+		}
+		label = new JLabel("pokemon");
+			
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		
+		
+		scrollPane.setColumnHeaderView(label);	
+		scrollPane.setViewportView(viewport);
+		add(scrollPane, "cell 0 0,grow");
 		
 		JPanel panel = new JPanel();
-		getContentPane().add(panel, "cell 1 0 2 1,grow");
+		add(panel, "cell 1 0 2 1,grow");
 		panel.setLayout(null);
 		
 		JButton btnNewButton = new JButton("New button");
@@ -46,7 +73,7 @@ public class PokemonSelectFrame extends JFrame {
 		btnNewButton.setBounds(144, 234, 89, 23);
 		panel.add(btnNewButton);
 		
-		timer = new Timer(20, new ActionListener() {
+		timer = new Timer(50, new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
                  if (!transitionComplete) {

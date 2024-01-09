@@ -1,7 +1,5 @@
 package main;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 
 import pokemon.Brian;
@@ -18,12 +16,12 @@ public class Main {
 		ApplicationData.enemyPokemon = new Ethan();
 		ApplicationData.enemyPokemon.setAllied(false);
 		
-	
+		PokemonSelectPanel charSelect = new PokemonSelectPanel();
 		
-		ApplicationData.window = new PokemonSelectFrame();
+		ApplicationData.window = new JFrame();
 		ApplicationData.window.setBounds(0, 0, ApplicationData.frameWidth,  ApplicationData.frameHeight);
 		ApplicationData.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       
+		ApplicationData.window.add(charSelect);
         //window.setResizable(false); 	
 		ApplicationData.window.setTitle("Pokemon");
 		ApplicationData.window.setVisible(true);
