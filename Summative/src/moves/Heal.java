@@ -9,7 +9,12 @@ import pokemon.PokemonTypes;
 public class Heal extends PokemonMove{
 	
 	public Heal() {
-		super("Heal", PokemonTypes.GRASS, -60, 20, 100);
+		super();
+		setName("Heal");
+		setType(PokemonTypes.GRASS);
+		setBaseAtk(-60);
+		setMaxCharges(10);
+		setAcc(100);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -36,8 +41,8 @@ public class Heal extends PokemonMove{
 		ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " restored its HP!");
 		
 		attacker.setBaseAtk(attacker.getBaseAtk()+10);
-		ApplicationData.animate.addTextAnimation(attacker.getName()+ " is reinvigorated! \nIt gain an attack bonus!");
-
+		ApplicationData.animate.addTextAnimation(attacker.getName()+ " is reinvigorated!");
+		ApplicationData.animate.addTextAnimation(attacker.getName() + " gains an attack bonus!");
 		charges -= 1;
 	}
 	

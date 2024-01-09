@@ -1,18 +1,14 @@
 package main;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
+import javax.swing.JTextArea;
 import javax.swing.Timer;
 
 import net.miginfocom.swing.MigLayout;
@@ -28,52 +24,70 @@ public class PokemonSelectPanel extends JPanel {
 	private int trailAngle = 0;
 	private boolean transitionComplete = false;
 	JPanel viewport;
-	JLabel label;
 	public PokemonPreviewPanel[] pokemon;
-	Pokemon[] pokemonList = {new Brian(), new Ethan(), new Brian(), new Ethan()};
+	Pokemon[] pokemonList = {new Brian(), new Ethan(), new Brian(), new Ethan(),new Brian(), new Ethan()};
+	private JPanel previewInfoPanel;
+	PokemonPreviewPanel selectedPokemon;
+	private JPanel panel_2;
+	JPanel pokemonListDisplay;
+	private JButton btnNewButton;
+	private JTextArea textArea;
 	
 	/**
 	 * Create the panel.
 	 */
 	public PokemonSelectPanel() {
-		setLayout(new MigLayout("", "[33%,grow][33%,grow][33%,grow]", "[grow]"));
+		//setBackground(new Color(25, 206, 115));
+		setBackground(new Color(25, 132, 66));
+		setLayout(new MigLayout("insets 100 100 50 100", "[50%,grow]100[30%,grow]", "[grow]"));
 		
-		JScrollPane scrollPane = new JScrollPane();
-		viewport = new JPanel();
-		viewport.setPreferredSize(new Dimension(10, ApplicationData.numOfPokemon*300));
-		viewport.setLayout(new GridLayout(ApplicationData.numOfPokemon, 0, 0, 0));
+		pokemonListDisplay = new JPanel();
+		pokemonListDisplay.setOpaque(false);
+		pokemonListDisplay.setLayout(new MigLayout("gap 25", "[33.3%,grow][33.3%,grow][33.3%,grow]", "[33.3%,grow][33.3%,grow][33.3%,grow]"));
 		pokemon = new PokemonPreviewPanel[ApplicationData.numOfPokemon];
-		viewport.setBackground(new Color(255, 255, 255));
 		for (int i = 0; i < ApplicationData.numOfPokemon;i++) {
-			pokemon[i] = new PokemonPreviewPanel(this,pokemonList[i]);
-			viewport.add(pokemon[i]);
-		}
-		label = new JLabel("pokemon");
+			pokemon[i] = new PokemonPreviewPanel(this);
+			pokemon[i].setPokemon(pokemonList[i]);
+			if (i<3) {
+				pokemonListDisplay.add(pokemon[i],"cell " 	+ i + " 0 , grow");
+				
+			} else {
+				pokemonListDisplay.add(pokemon[i],"cell " + (i-3) + " 1 , grow");
+				
+			}
 			
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		}
+		add(pokemonListDisplay, "cell 0 0,grow");
+
 		
+		previewInfoPanel = new JPanel();
+		previewInfoPanel.setOpaque(false);
+		add(previewInfoPanel, "cell 1 0,grow");
+		previewInfoPanel.setLayout(new MigLayout("insets 0", "[grow]", "[65%,grow][35%,grow]"));
 		
-		scrollPane.setColumnHeaderView(label);	
-		scrollPane.setViewportView(viewport);
-		add(scrollPane, "cell 0 0,grow");
+		selectedPokemon = new PokemonPreviewPanel(this);
+		selectedPokemon.setBorderEnabled(false);
+		previewInfoPanel.add(selectedPokemon, "cell 0 0,grow");
 		
-		JPanel panel = new JPanel();
-		add(panel, "cell 1 0 2 1,grow");
-		panel.setLayout(null);
+		panel_2 = new JPanel();
+		previewInfoPanel.add(panel_2, "cell 0 1,grow");
 		
-		JButton btnNewButton = new JButton("New button");
+		btnNewButton = new JButton("New button");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ApplicationData.playerPokemon = selectedPokemon.getPokemon();
 				timer.start();
-				ApplicationData.soundtrack.playFile(0,0.8f);
-		    	ApplicationData.soundtrack.loop();
+		  	 	ApplicationData.soundtrack.playFile(0,0.8f);
+		  	 	ApplicationData.soundtrack.loop();
 			}
 		});
-		btnNewButton.setBounds(144, 234, 89, 23);
-		panel.add(btnNewButton);
+		panel_2.setLayout(new MigLayout("", "[grow]", "[grow][]"));
+		panel_2.add(btnNewButton, "cell 0 1,alignx center,aligny top");
 		
-		timer = new Timer(50, new ActionListener() {
+		textArea = new JTextArea();
+		panel_2.add(textArea, "cell 0 0,grow");
+		
+		timer = new Timer(20, new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
                  if (!transitionComplete) {
@@ -101,34 +115,47 @@ public class PokemonSelectPanel extends JPanel {
 	}
 	
 	@Override
-	public void paint(Graphics g) {
+	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-        super.paint(g2);
+		
         
-        int centerX = getWidth() / 2;
-        int centerY = getHeight() / 2;
-
-        if (!transitionComplete) {
-            // Set the color to black
-            g2.setColor(Color.BLACK);
-
-            // Calculate the bounding box for the arc
-            int radius = (int) Math.sqrt(Math.pow(centerX, 2) + Math.pow(centerY, 2));
-            int x = centerX - radius;
-            int y = centerY - radius;
-            int width = 2 * radius;
-            int height = 2 * radius;
-
-            // Draw the counterclockwise arc
-            g2.fillArc(x, y, width, height, startAngle, trailAngle);
-        } else {
-            // Paint the entire panel black once transition is complete
-            g2.setColor(Color.BLACK);
-            g2.fillRect(0, 0, getWidth(), getHeight());
-        }
-
-        g2.dispose();
+        
+   
+		super.paintComponent(g2);
+		g2.setColor(new Color(25, 206, 115));
+		g2.fillRect(20, 90, getWidth()-40, getHeight()-120);
+        
+       
     }
+	
+	@Override
+	public void paint(Graphics g) {
+
+		int centerX = getWidth() / 2;
+        int centerY = getHeight() / 2;
+		Graphics2D g2 = (Graphics2D) g;
+		super.paint(g2);
+		 if (!transitionComplete) {
+	            // Set the color to black
+	            g2.setColor(Color.BLACK);
+
+	            // Calculate the bounding box for the arc
+	            int radius = (int) Math.sqrt(Math.pow(centerX, 2) + Math.pow(centerY, 2));
+	            int x = centerX - radius;
+	            int y = centerY - radius;
+	            int width = 2 * radius;
+	            int height = 2 * radius;
+
+	            // Draw the counterclockwise arc
+	            g2.fillArc(x, y, width, height, startAngle, trailAngle);
+	        } else {
+	            // Paint the entire panel black once transition is complete
+	            g2.setColor(Color.BLACK);
+	            g2.fillRect(0, 0, getWidth(), getHeight());
+	        }
+
+	        g2.dispose();
+	}
 
 
 	public void startAnimtion() {

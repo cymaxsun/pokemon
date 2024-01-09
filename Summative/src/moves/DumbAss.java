@@ -8,15 +8,16 @@ import pokemon.Pokemon;
 import pokemon.PokemonTypes;
 import pokemon.Status;
 
-public class Tackle extends PokemonMove {
+public class DumbAss extends PokemonMove {
 
-	public Tackle() {
+	public DumbAss() {
 		super();
-		setName("Tackle");
+		setName("Dumbass");
 		setType(PokemonTypes.DARK);
-		setBaseAtk(70);
+		setBaseAtk(100);
 		setMaxCharges(10);
 		setAcc(100);
+		// TODO Auto-generated constructor stub
 	}
 
 	public void useMove(Pokemon attacker, Pokemon target) {
@@ -58,6 +59,8 @@ public class Tackle extends PokemonMove {
 
 		x = random.nextInt(101);
 		ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " used " + name + "!");
+		ApplicationData.animate.addTextAnimation("Being such a dumbass dealt\nmassive mental damage!");
+		
 		if (x < acc) {
 			ApplicationData.eventQueue.add(()->playSFX());
 			target.setCurrentHp(target.getCurrentHp() - (baseAtk+attacker.getBaseAtk()));

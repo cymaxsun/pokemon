@@ -11,7 +11,7 @@ import javax.swing.JButton;
 
 public class CustomButton extends JButton {
 	private Image image, imagePressed;
-	private String text;
+	private String text = "";
 	private boolean pressed;
 	private Color textColor;
 	private Color textShadowColor;
@@ -20,7 +20,6 @@ public class CustomButton extends JButton {
 		super();
 		setContentAreaFilled(false);
 		setBorder(null);
-		text = "";
 		pressed = false;
 		this.image = image;
 		this.imagePressed = pressedImage;
@@ -55,8 +54,8 @@ public class CustomButton extends JButton {
 
 	}
 
-	public void setText(String text) {
-		this.text = text;
+	public CustomButton() {
+		super();
 	}
 
 	@Override
@@ -85,8 +84,48 @@ public class CustomButton extends JButton {
 
 	}
 	
-	public boolean isPressed() {
-		return pressed;
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
+
+	public Image getImagePressed() {
+		return imagePressed;
+	}
+
+	public void setImagePressed(Image imagePressed) {
+		this.imagePressed = imagePressed;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public Color getTextColor() {
+		return textColor;
+	}
+
+	public void setTextColor(Color textColor) {
+		this.textColor = textColor;
+	}
+
+	public Color getTextShadowColor() {
+		return textShadowColor;
+	}
+
+	public void setTextShadowColor(Color textShadowColor) {
+		this.textShadowColor = textShadowColor;
+	}
+
+	public void setPressed(boolean pressed) {
+		this.pressed = pressed;
 	}
 
 }

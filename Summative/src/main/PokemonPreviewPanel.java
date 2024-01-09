@@ -20,30 +20,33 @@ public class PokemonPreviewPanel extends JPanel{
 	Image image; 
 	Pokemon p;
 	PokemonSelectPanel psp;
-	boolean pressed = false;
+	boolean pressed;
+	Color borderColor;
+	Stroke borderStroke;
+	boolean enabled;
 	
-	public PokemonPreviewPanel(PokemonSelectPanel psp, Pokemon p) {
+
+
+	public PokemonPreviewPanel(PokemonSelectPanel psp) {
 		super();
 		this.psp = psp;
-		this.p = p;
-		image = p.getSpritePanel().image;
-		
+		enabled = true;
+		pressed = false;
+		borderColor = Color.RED;
 		addMouseListener(new MouseAdapter() {
+
 			@Override
-			public void mouseEntered(MouseEvent e) {
-				
+			public void mousePressed(MouseEvent e) {
+				if (!enabled) {
+					return;
+				}
 				for (PokemonPreviewPanel psp : psp.pokemon) {
 					psp.setPressed(false);
 					psp.repaint();
 				}
 				pressed = true;
-				repaint();
-				
-				
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
+				psp.selectedPokemon.setPokemon(p);
+				psp.repaint();
 				pressed = true;
 				repaint();
 				ApplicationData.sfx.playFile(1,1f);
@@ -59,19 +62,21 @@ public class PokemonPreviewPanel extends JPanel{
 		
 		super.paintComponent(g2);
 		
+		g2.drawImage(image, 0,0, this.getWidth(), this.getHeight(), null);
 		Stroke stroke = new BasicStroke(10f);
 		g2.setStroke(stroke);
-		if (!pressed) {
-			//g2.setColor(Color.GRAY);
-			
-			
-			
-		} else {
-			g2.setColor(Color.red);
-			g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+		if (borderColor != null) {
+			if (pressed) {
+				g2.setColor(borderColor);
+			} else {
+				g2.setColor(Color.black);
+			}
+			g2.drawRoundRect(0, 0, this.getWidth(), this.getHeight(),25,25);
+ 
 		}
 		
-		g2.drawImage(image, 10,10, this.getWidth()-20, this.getHeight()-20, null);
+		
+	
 		
 	
 	}
@@ -83,4 +88,30 @@ public class PokemonPreviewPanel extends JPanel{
 	public boolean getPressed() {
 		return pressed;
 	}
+
+	public Color getBorderColor() {
+		return borderColor;
+	}
+
+	public void setBorderColor(Color borderColor) {
+		this.borderColor = borderColor;
+	}
+	
+	public Pokemon getPokemon() {
+		return p;
+	}
+
+	public void setPokemon(Pokemon p) {
+		this.p = p;
+		image = p.getSpritePanel().image;
+	}
+	
+	public boolean isBorderEnabled() {
+		return enabled;
+	}
+
+	public void setBorderEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 }

@@ -6,7 +6,12 @@ import pokemon.PokemonTypes;
 public class PizzaToss extends PokemonMove{
 	
 	public PizzaToss() {
-		super("Pizza Toss", PokemonTypes.GRASS, 40, 5, 100);
+		super();
+		setName("Pizza Toss");
+		setType(PokemonTypes.GRASS);
+		setBaseAtk(70);
+		setMaxCharges(10);
+		setAcc(100);
 	}
 
 	public void useMove(Pokemon attacker, Pokemon target) {

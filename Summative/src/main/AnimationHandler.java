@@ -10,7 +10,6 @@ import pokemon.Pokemon;
 public class AnimationHandler {
 
 	private BattleFrame bf;
-	private boolean stop = false;
 	public Timer hpAnimation;
 	public Timer textAnimation;
 	int panelX;

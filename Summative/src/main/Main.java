@@ -12,8 +12,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		ApplicationData.playerPokemon = new Brian();
-		ApplicationData.enemyPokemon = new Ethan();
+		ApplicationData.enemyPokemon = new Brian();
 		ApplicationData.enemyPokemon.setAllied(false);
 		
 		PokemonSelectPanel charSelect = new PokemonSelectPanel();

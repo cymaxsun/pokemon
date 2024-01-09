@@ -8,8 +8,13 @@ import pokemon.PokemonTypes;
 public class Lick extends PokemonMove {
 
 	public Lick() {
-		super("Lick", PokemonTypes.GRASS, 50, 20, 100);
+		super();
 		// TODO Auto-generated constructor stub
+		setName("Lick");
+		setType(PokemonTypes.DARK);
+		setBaseAtk(50);
+		setMaxCharges(20);
+		setAcc(100);
 	}
 
 	public void useMove(Pokemon attacker, Pokemon target) {

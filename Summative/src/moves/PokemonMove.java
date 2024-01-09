@@ -20,18 +20,7 @@ public class PokemonMove {
 	int maxCharges;
 	int acc;
 	
-	public PokemonMove(String name, String type, int atk, int charges, int acc) {
-		this.name = name;
-		this.type = type;
-		this.baseAtk = atk;
-		this.currentAtk = atk;
-		this.charges = charges;
-		this.maxCharges = charges;
-		this.acc = acc;
-
-		
-		setButton(new ImageIcon("res/buttons/"+type+".png").getImage());
-		buttonPressed = new ImageIcon("res/buttons/"+type+"Pressed.png").getImage();
+	public PokemonMove() {
 	}
 
 	public String getName() {
@@ -49,6 +38,8 @@ public class PokemonMove {
 
     public void setType(String type) {
         this.type = type;
+        setButton(new ImageIcon("res/buttons/"+type+".png").getImage());
+		buttonPressed = new ImageIcon("res/buttons/"+type+"Pressed.png").getImage();
     }
 
     // Getters and setters for 'typeColor'
@@ -112,6 +103,7 @@ public class PokemonMove {
 
     public void setMaxCharges(int maxCharges) {
         this.maxCharges = maxCharges;
+        setCharges(maxCharges);
     }
 
     // Getters and setters for 'acc'
