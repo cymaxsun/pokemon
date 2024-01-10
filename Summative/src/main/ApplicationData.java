@@ -13,6 +13,7 @@ public class ApplicationData {
 	static BattleFrame battleFrame;
 	static JFrame window;
 	static TitlePanel titlePanel;
+	static PokemonSelectPanel charSelect;
 	public static LinkedList<Runnable> eventQueue = new LinkedList<Runnable>();
 	public static Sound soundtrack = new Sound();
 	public static Sound sfx = new Sound();
@@ -23,7 +24,7 @@ public class ApplicationData {
 	final static int frameWidth = 1336;
 	final static int frameHeight = 768;
 	static Font font;
-	final static int numOfPokemon = 6;
+	final static int numOfPokemon = 9;
 
     static {
         try {

@@ -1,17 +1,16 @@
 package moves;
 
-import java.util.Random;
-
 import main.ApplicationData;
 import pokemon.Pokemon;
 import pokemon.PokemonTypes;
 
-public class Heal extends PokemonMove{
+public class SwordsDance extends PokemonMove{
+
 	
-	public Heal() {
+	public SwordsDance() {
 		super();
-		setName("Heal");
-		setType(PokemonTypes.GRASS);
+		setName("Swords Dance");
+		setType(PokemonTypes.NORMAL);
 		setBaseAtk(-60);
 		setMaxCharges(10);
 		setAcc(100);
@@ -46,8 +45,4 @@ public class Heal extends PokemonMove{
 		charges -= 1;
 	}
 	
-	public void playSFX() {
-		ApplicationData.sfx.playFile(2,1.0f);
-		ApplicationData.eventQueue.pop().run();
-	}
 }

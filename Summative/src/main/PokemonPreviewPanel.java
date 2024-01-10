@@ -2,7 +2,6 @@ package main;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -11,7 +10,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import pokemon.Pokemon;
 
@@ -41,9 +39,12 @@ public class PokemonPreviewPanel extends JPanel{
 				if (!enabled) {
 					return;
 				}
-				for (PokemonPreviewPanel psp : psp.pokemon) {
-					psp.setPressed(false);
-					psp.repaint();
+				for (PokemonPreviewPanel[] psp : psp.pokemon) {
+					for (PokemonPreviewPanel p : psp) {
+						p.setPressed(false);
+						p.repaint();
+					}
+					
 				}
 				pressed = true;
 				psp.selectedPokemon.setPokemon(p);

@@ -1,23 +1,22 @@
 package pokemon;
 
 public interface PokemonTypes {
-	public static String NORMAL = "NORMAL";
-	public static String FIRE = "FIRE";
-	public static String WATER = "WATER";
-	public static String GRASS = "GRASS";
-	public static String FLYING = "FLYING";
-	public static String FIGHTING = "FIGHTING";
-	public static String POISON = "POISON";
-	public static String ELECTRIC = "ELECTRIC";
-	public static String GROUND = "WATER";
-	public static String ROCK = "ROCK";
-	public static String PSYCHIC = "PSYCHIC";
-	public static String ICE = "ICE";
-	public static String BUG = "BUG";
-	public static String GHOST = "GHOST";
-	public static String STEEL = "STEEL";
-	public static String DRAGON = "DRAGON";
-	public static String DARK = "DARK";
-	public static String FAIRY = "FAIRY";
-	
+	public static final int NORMAL = 1;
+	public static final int FIRE = 2;
+	public static final int WATER = 3;
+	public static final int GRASS = 4;
+	public static final int FLYING = 5;
+	public static final int FIGHTING = 6;
+	public static final int POISON = 7;
+	public static final int ELECTRIC = 8;
+	public static final int GROUND = 9;
+	public static final int ROCK = 10;
+	public static final int PSYCHIC = 11;
+	public static final int ICE = 12;
+	public static final int BUG = 13;
+	public static final int GHOST = 14;
+	public static final int STEEL = 15;
+	public static final int DRAGON = 16;
+	public static final int DARK = 17;
+	public static final int FAIRY = 18;
 }

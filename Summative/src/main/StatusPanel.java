@@ -24,7 +24,6 @@ public class StatusPanel extends JPanel {
 
 	public JLabel name;
 	public JLabel lvl;
-	public JLabel statuses;
 	public JPanel hpPanel;
 	public JLabel hpLbl;
 	public JProgressBar hpBar;
@@ -52,10 +51,7 @@ public class StatusPanel extends JPanel {
 		lvl.setFont(ApplicationData.font.deriveFont(Font.PLAIN, 15));
 		lvl.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lvl, "cell 1 0,alignx right,aligny bottom");
-
-		statuses = new JLabel("NORM");
-		add(statuses, "cell 0 1,alignx center");
-
+		
 		hpPanel = new JPanel();
 		hpPanel.setBackground(new Color(94, 94, 104));
 		add(hpPanel, "cell 1 1,grow");

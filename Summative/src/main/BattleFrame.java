@@ -248,7 +248,6 @@ public class BattleFrame extends JFrame {
 			ApplicationData.eventQueue.add(() -> actionSelection());
 		}
 
-		enemyPokemon.updateStatuses();
 		ApplicationData.eventQueue.pop().run();
 
 	}

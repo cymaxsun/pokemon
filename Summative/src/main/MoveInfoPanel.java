@@ -21,12 +21,15 @@ public class MoveInfoPanel extends JPanel {
 	private JLabel movePP;
 	private PokemonMove selectedMove;
 	private JPanel movePPPanel;
+	private Pokemon p;
 
 	public MoveInfoPanel(Pokemon pokemon) {
 
+		this.p = pokemon;
+		selectedMove = p.getMove1();
 		setLayout(new MigLayout("insets 10 40 10 40, gapx 0", "[100%,grow]", "[50%,grow]10[50%,grow]"));
 		setBackground(Color.WHITE);
-		moveType = new JLabel(pokemon.getType());
+		moveType = new JLabel(selectedMove.getTypeName());
 		moveType.setFont(moveType.getFont().deriveFont(Font.PLAIN, 40));
 
 		moveType.setForeground(Color.WHITE);
@@ -34,7 +37,7 @@ public class MoveInfoPanel extends JPanel {
 		moveType.setOpaque(true);
 		add(moveType, "cell 0 0, grow");
 
-		selectedMove = pokemon.getMove1();
+		
 
 		movePPPanel = new JPanel();
 		movePPPanel.setBackground(Color.white);
@@ -44,47 +47,25 @@ public class MoveInfoPanel extends JPanel {
 		movePP.setFont(ApplicationData.font.deriveFont(Font.PLAIN, 40));
 		movePP.setHorizontalAlignment(SwingConstants.CENTER);
 		movePPPanel.add(movePP);
-		
+
 		add(movePPPanel, "cell 0 1,grow");
-		
+
 		updateMove(selectedMove);
 
 	}
-	
-	
 
 	public void updateMove(PokemonMove selectedMove) {
-		this.selectedMove = selectedMove;
-
-		switch (selectedMove.getType()) {
-		case PokemonTypes.DARK:
-			moveType.setText(PokemonTypes.DARK);
-			moveType.setBackground(Color.DARK_GRAY);
-			break;
-		case PokemonTypes.GRASS:
-			moveType.setText(PokemonTypes.GRASS);
-			moveType.setBackground(Color.GREEN);
-			break;
-		}
-
+		moveType.setBackground(selectedMove.getTypeColor());
+		moveType.setText(selectedMove.getTypeName());
 		movePP.setText("PP:" + selectedMove.getCharges() + "/" + selectedMove.getMaxCharges());
 		repaint();
 
 	}
 
 	public void updateMove() {
-
-		switch (selectedMove.getType()) {
-		case PokemonTypes.DARK:
-			moveType.setText(PokemonTypes.DARK);
-			moveType.setBackground(Color.DARK_GRAY);
-			break;
-		case PokemonTypes.GRASS:
-			moveType.setText(PokemonTypes.GRASS);
-			moveType.setBackground(Color.GREEN);
-			break;
-		}
-
+		
+		moveType.setBackground(selectedMove.getTypeColor());
+		moveType.setText(selectedMove.getTypeName());
 		movePP.setText("PP:" + selectedMove.getCharges() + "/" + selectedMove.getMaxCharges());
 		repaint();
 

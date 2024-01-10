@@ -7,8 +7,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Shape;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
@@ -24,7 +26,9 @@ public class TitlePanel extends JPanel {
 	Image titleImage;
 	Image bgImage;
 	Image settingsImage;
-
+	final String subtitle = "JAVA EDITION";
+	final String pressStart = "PRESS ENTER";
+	
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -44,29 +48,31 @@ public class TitlePanel extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		addKeyListener(new KeyListener() {
+		addKeyListener(new KeyAdapter() {
 			 @Override
 			    public void keyPressed(KeyEvent e) {
-			        System.out.println("KeyPressed");
 			        char c = e.getKeyChar();
 			        if (c == KeyEvent.VK_ENTER) {
-			        	ApplicationData.titlePanel.setVisible(false);
-			        	PokemonSelectPanel charSelect = new PokemonSelectPanel();
-			        	ApplicationData.window.add(charSelect);
-			        	ApplicationData.window.remove(ApplicationData.titlePanel);
 			        	ApplicationData.sfx.playFile(1,1f);
+			        	ApplicationData.titlePanel.setVisible(false);
+			           	ApplicationData.window.add(ApplicationData.charSelect);
+			           	ApplicationData.charSelect.setVisible(true);
+			        	ApplicationData.window.remove(ApplicationData.titlePanel);
+			        	
 			        }
 			    }
-
-			    @Override
-			    public void keyReleased(KeyEvent e) {
-			        
-			    }
-
-			    @Override
-			    public void keyTyped(KeyEvent e) {
-			       
-			    }
+		});
+		
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				ApplicationData.sfx.playFile(1,1f);
+	        	ApplicationData.titlePanel.setVisible(false);
+	           	ApplicationData.window.add(ApplicationData.charSelect);
+	           	ApplicationData.charSelect.setVisible(true);
+	        	ApplicationData.window.remove(ApplicationData.titlePanel);
+	        	
+			}
 		});
 		setFocusable(true);
 	}
@@ -80,7 +86,7 @@ public class TitlePanel extends JPanel {
 		g2.setColor(Color.BLACK);
 		g2.setFont(ApplicationData.font.deriveFont(Font.BOLD, 50));
 		
-		int textWidth = g2.getFontMetrics().stringWidth("Monkey Edition");
+		int textWidth = g2.getFontMetrics().stringWidth(subtitle);
 		int textHeight = g2.getFontMetrics().getHeight();
 
 		Graphics2D tempG2 = (Graphics2D) g2.create();
@@ -90,8 +96,8 @@ public class TitlePanel extends JPanel {
 		transform.translate(x, y);
 		tempG2.transform(transform);
 		tempG2.setColor(Color.black);
-		FontRenderContext frc = tempG2.getFontRenderContext();
-		TextLayout tl = new TextLayout("Monkey Edition", tempG2.getFont().deriveFont(Font.BOLD,50f), frc);
+		FontRenderContext frc = g2.getFontRenderContext();
+		TextLayout tl = new TextLayout(subtitle, tempG2.getFont().deriveFont(Font.BOLD,50f), frc);
 		Shape shape = tl.getOutline(null);
 		tempG2.setStroke(new BasicStroke(5f));
 		tempG2.draw(shape);

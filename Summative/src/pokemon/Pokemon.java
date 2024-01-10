@@ -15,7 +15,8 @@ import moves.PokemonMove;
 public class Pokemon {
 
     private String name;
-    private String type;
+    private int type;
+    private String typeName;
     private PokemonMove move1;
     private PokemonMove move2;
     private PokemonMove move3;
@@ -27,13 +28,12 @@ public class Pokemon {
     private int baseAtk;
     private int currentHp;
     private boolean isAllied;
-    private Map<Status, Integer> statuses;
     private StatusPanel statusPanel;
     private SpritePanel spritePanel;
     
     
     
-    public Pokemon(String name, String type, int lvl, int maxHp, int baseAtk, int baseDef, PokemonMove move1, PokemonMove move2, PokemonMove move3, PokemonMove move4) {
+    public Pokemon(String name, int type, int lvl, int maxHp, int baseAtk, int baseDef, PokemonMove move1, PokemonMove move2, PokemonMove move3, PokemonMove move4) {
         this.name = name;
         this.lvl = lvl;
         this.maxHp = maxHp;
@@ -42,36 +42,17 @@ public class Pokemon {
         this.baseDef = baseDef;
         this.currentDef = baseDef;
         this.type = type;
+        this.typeName = getTypeName(type);
         this.move1 = move1;
         this.move2 = move2;
         this.move3 = move3;
         this.move4 = move4;
         this.setAllied(true);
-        this.statuses = new HashMap<>();
         setStatusPanel(new StatusPanel(this));
         setSpritePanel(new SpritePanel(this));
     }
 
-    private void reduceStatusDurations() {
-        Set<Status> statusesToRemove = new HashSet<>();
-        for (Map.Entry<Status, Integer> entry : statuses.entrySet()) {
-            Status status = entry.getKey();
-            int remainingDuration = entry.getValue();
-            if (remainingDuration > 0) {
-            	statuses.put(status, remainingDuration - 1);
-            } else {
-                statusesToRemove.add(status);
-            }
-        }
-        for (Status statusToRemove : statusesToRemove) {
-            removeStatus(statusToRemove);
-        }
-    }
-    
-    public void updateStatuses() {
-    	reduceStatusDurations();
-    	
-    }
+  
 
     
     // Getter and setter methods for each field
@@ -84,12 +65,13 @@ public class Pokemon {
         this.name = name;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
+        
     }
 
     public PokemonMove getMove1() {
@@ -174,22 +156,6 @@ public class Pokemon {
 		this.baseDef = baseDef;
 	}
 
-	public Map<Status, Integer> getStatuses() {
-		return statuses;
-	}
-
-	public void addStatus(Status status, int duration) {
-		for (Map.Entry<Status, Integer> entry : statuses.entrySet()) {
-			if (entry.getKey().equals(status)) {
-				return;
-			}
-		}
-		statuses.put(status, duration);
-	}
-	public void removeStatus(Status status) {
-		statuses.remove(status);
-	}
-
 
 	public StatusPanel getStatusPanel() {
 		return statusPanel;
@@ -215,5 +181,143 @@ public class Pokemon {
 		this.spritePanel = spritePanel;
 	}
     
+	
+	public static Color getTypeColor(int type) {
+	    Color color;
+	    switch(type) {
+	        case 1: // Normal
+	            color = Color.LIGHT_GRAY;
+	            break;
+	        case 2: // Fire
+	            color = Color.RED;
+	            break;
+	        case 3: // Water
+	            color = Color.BLUE;
+	            break;
+	        case 4: // Grass
+	            color = Color.GREEN;
+	            break;
+	        case 5: // Flying
+	            color = Color.CYAN;
+	            break;
+	        case 6: // Fighting
+	            color = Color.ORANGE;
+	            break;
+	        case 7: // Poison
+	            color = new Color(138, 43, 226); // Purple/Violet
+	            break;
+	        case 8: // Electric
+	            color = Color.YELLOW;
+	            break;
+	        case 9: // Ground
+	            color = new Color(205, 133, 63); // Brown
+	            break;
+	        case 10: // Rock
+	            color = new Color(128, 128, 128); // Gray
+	            break;
+	        case 11: // Psychic
+	            color = new Color(255, 20, 147); // Pink
+	            break;
+	        case 12: // Ice
+	            color = new Color(173, 216, 230); // Light Blue
+	            break;
+	        case 13: // Bug
+	            color = new Color(107, 142, 35); // Olive Green
+	            break;
+	        case 14: // Ghost
+	            color = new Color(128, 0, 128); // Dark Purple
+	            break;
+	        case 15: // Steel
+	            color = new Color(192, 192, 192); // Silver
+	            break;
+	        case 16: // Dragon
+	            color = new Color(255, 20, 147); // Another shade of Pink
+	            break;
+	        case 17: // Dark
+	            color = Color.DARK_GRAY;
+	            break;
+	        case 18: // Fairy
+	            color = new Color(255, 182, 193); // Light Pink
+	            break;
+	        default:
+	            color = Color.WHITE; // Default color
+	            break;
+	    }
+	    return color;
+	}
+
+	
+	public static String getTypeName(int type) {
+	    String typeName;
+	    switch (type) {
+	        case 1:
+	            typeName = "NORMAL";
+	            break;
+	        case 2:
+	            typeName = "FIRE";
+	            break;
+	        case 3:
+	            typeName = "WATER";
+	            break;
+	        case 4:
+	            typeName = "GRASS";
+	            break;
+	        case 5:
+	            typeName = "FLYING";
+	            break;
+	        case 6:
+	            typeName = "FIGHTING";
+	            break;
+	        case 7:
+	            typeName = "POISON";
+	            break;
+	        case 8:
+	            typeName = "ELECTRIC";
+	            break;
+	        case 9:
+	            typeName = "GROUND";
+	            break;
+	        case 10:
+	            typeName = "ROCK";
+	            break;
+	        case 11:
+	            typeName = "PSYCHIC";
+	            break;
+	        case 12:
+	            typeName = "ICE";
+	            break;
+	        case 13:
+	            typeName = "BUG";
+	            break;
+	        case 14:
+	            typeName = "GHOST";
+	            break;
+	        case 15:
+	            typeName = "STEEL";
+	            break;
+	        case 16:
+	            typeName = "DRAGON";
+	            break;
+	        case 17:
+	            typeName = "DARK";
+	            break;
+	        case 18:
+	            typeName = "FAIRY";
+	            break;
+	        default:
+	            typeName = "UNKNOWN";
+	            break;
+	    }
+	    return typeName;
+	}
+
+
+
+
+	public String getTypeName() {
+		return typeName;
+	}
+
+
 }
 

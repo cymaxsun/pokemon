@@ -1,25 +1,32 @@
 package main;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.Timer;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 
 import net.miginfocom.swing.MigLayout;
 import pokemon.Brian;
 import pokemon.Ethan;
 import pokemon.Pokemon;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.LineBorder;
-import java.awt.GridLayout;
-import java.awt.Insets;
 
 public class PokemonSelectPanel extends JPanel {
 
@@ -29,8 +36,8 @@ public class PokemonSelectPanel extends JPanel {
 	private int trailAngle = 0;
 	private boolean transitionComplete = false;
 	JPanel viewport;
-	public PokemonPreviewPanel[] pokemon;
-	Pokemon[] pokemonList = {new Brian(), new Ethan(), new Brian(), new Ethan(),new Brian(), new Ethan()};
+	public PokemonPreviewPanel[][] pokemon;
+	Pokemon[][] pokemonList = {{new Brian(), new Ethan(), new Brian()},{ new Ethan(),new Brian(), new Ethan()},{ new Brian(),new Ethan(), new Brian()}};
 	private JPanel previewInfoPanel;
 	PokemonPreviewPanel selectedPokemon;
 	private JPanel pokemonStats;
@@ -39,28 +46,31 @@ public class PokemonSelectPanel extends JPanel {
 	private JPanel panel;
 	private JTextArea txtrAtk;
 	private Color backgroundColor  = new Color(25, 132, 66);
+	private Image back;
+	private int backX = 20;
+	private int backY = 15;
+	private int backSize = 60;
+	
 	/**
 	 * Create the panel.
 	 */
 	public PokemonSelectPanel() {
 		setBackground(backgroundColor);
+		setBorder(new MatteBorder(0, 7, 7, 7	, Color.gray));
 		setLayout(new MigLayout("insets 100 100 50 100", "[50%,grow]100[30%,grow]", "[grow]"));
 		
 		pokemonListDisplay = new JPanel();
 		pokemonListDisplay.setBorder(new CompoundBorder(new LineBorder(new Color(255, 255, 255, 125), 2, true), new LineBorder(new Color(25, 206, 115), 2, true)));
 		pokemonListDisplay.setBackground(new Color(255,255,255,75));
 		pokemonListDisplay.setLayout(new MigLayout("insets 25, gap 25", "[33.3%,grow][33.3%,grow][33.3%,grow]", "[33.3%,grow][33.3%,grow][33.3%,grow]"));
-		pokemon = new PokemonPreviewPanel[ApplicationData.numOfPokemon];
-		for (int i = 0; i < ApplicationData.numOfPokemon;i++) {
-			pokemon[i] = new PokemonPreviewPanel(this);
-			pokemon[i].setPokemon(pokemonList[i]);
-			if (i<3) {
-				pokemonListDisplay.add(pokemon[i],"cell " 	+ i + " 0 , grow");
-				
-			} else {
-				pokemonListDisplay.add(pokemon[i],"cell " + (i-3) + " 1 , grow");
-				
+		pokemon = new PokemonPreviewPanel[3][3];
+		for (int row = 0; row < 3; row++) {
+			for (int col = 0; col < 3; col++) {
+				pokemon[row][col] = new PokemonPreviewPanel(this);
+				pokemon[row][col].setPokemon(pokemonList[row][col]);
+				pokemonListDisplay.add(pokemon[row][col],"cell " 	+ col + " " + row + " , grow");
 			}
+			
 			
 		}
 		add(pokemonListDisplay, "cell 0 0,grow");
@@ -132,25 +142,51 @@ public class PokemonSelectPanel extends JPanel {
              }
              
          });
-
+		
+		try {
+			back = ImageIO.read(getClass().getResourceAsStream("/assets/backButton.png")).getScaledInstance(backSize, -1, Image.SCALE_SMOOTH);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		addMouseListener(new MouseAdapter(){
+			@Override
+			public void mousePressed(MouseEvent e) {
+				int xPos = e.getX();
+				int yPos = e.getY();
+				if (xPos >= backX && yPos >= backY && xPos <= (backX + backSize) && yPos <= (backY + backSize)) {
+					ApplicationData.sfx.playFile(1,1f);
+					ApplicationData.charSelect.setVisible(false);
+		        	ApplicationData.window.add(ApplicationData.titlePanel);
+		        	ApplicationData.titlePanel.setVisible(true);
+		        	ApplicationData.titlePanel.requestFocusInWindow();
+		        	ApplicationData.window.remove(ApplicationData.charSelect);
+		        	
+				}
+			}
+		});
 	}
 	
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		
-        
+
         
    
 		super.paintComponent(g2);
 		g2.setColor(new Color(25, 206, 115));
-		g2.fillRect(20, 90, getWidth()-40, getHeight()-120);
+		g2.fillRect(20, 90, getWidth()-40, getHeight()-110);
+		g2.setColor(new Color(24, 173, 92));
+		Stroke stroke = new BasicStroke(5f);
+		g2.setStroke(stroke);
+		g2.drawRect(20, 90, getWidth()-40, getHeight()-110);
 		g2.setColor(Color.white);
 		g2.setFont(ApplicationData.font.deriveFont(Font.BOLD, 40));
 		int width = g2.getFontMetrics().stringWidth("SELECT A POKEMON");
 		int height = g2.getFontMetrics().getHeight();
 		g2.drawString("SELECT A POKEMON", (this.getWidth()-width)/2, (85+height)/2);
-        
+        g2.drawImage(back, backX, backY, null);
        
     }
 	
@@ -192,7 +228,7 @@ public class PokemonSelectPanel extends JPanel {
 	
 	public void updateStats() {
 		
-		txtrAtk.setText( selectedPokemon.getPokemon().getName() +"\nATK:  " + selectedPokemon.getPokemon().getBaseAtk() + "\nDEF:  "+ selectedPokemon.getPokemon().getBaseDef()+ "\nHP:  "+ selectedPokemon.getPokemon().getMaxHp() + "\nTYPE:  "+ selectedPokemon.getPokemon().getType());
+		txtrAtk.setText( selectedPokemon.getPokemon().getName() +"\nATK:  " + selectedPokemon.getPokemon().getBaseAtk() + "\nDEF:  "+ selectedPokemon.getPokemon().getBaseDef()+ "\nHP:  "+ selectedPokemon.getPokemon().getMaxHp() + "\nTYPE:  "+ Pokemon.getTypeName(selectedPokemon.getPokemon().getType()));
 		
 		
 	}

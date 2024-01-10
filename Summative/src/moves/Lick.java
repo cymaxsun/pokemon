@@ -20,29 +20,12 @@ public class Lick extends PokemonMove {
 	public void useMove(Pokemon attacker, Pokemon target) {
 		// TODO Auto-generated method stub
 
-		String prefix = "";
 		if (charges <= 0) {
 			ApplicationData.animate.addTextAnimation("Cannot use that move");
 			return;
 		}
 		
-		if (!attacker.isAllied()) {
-			prefix = "The enemy ";
-		}
-		ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " used " + name + "!");
-		
-		Random random = new Random();
-		if (random.nextInt(101)<=acc) {
-			target.setCurrentHp(target.getCurrentHp()-(baseAtk+attacker.getBaseAtk()));
-			ApplicationData.eventQueue.add(()->playSFX());
-			ApplicationData.eventQueue.add(()->target.getSpritePanel().damageTaken());
-			ApplicationData.animate.addHpAnimation(target);
-			
-		} else {
-			ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " tripped and fell...");
-			ApplicationData.animate.addTextAnimation("The move had no effect!");
-		}
-		charges -= 1;
+		attack(attacker,target);
 	}
 
 	public void playSFX() {
