@@ -15,20 +15,18 @@ public class Main {
 		ApplicationData.enemyPokemon = new Brian();
 		ApplicationData.enemyPokemon.setAllied(false);
 		
-		PokemonSelectPanel charSelect = new PokemonSelectPanel();
+		
+		ApplicationData.titlePanel = new TitlePanel();
 		
 		ApplicationData.window = new JFrame();
 		ApplicationData.window.setBounds(0, 0, ApplicationData.frameWidth,  ApplicationData.frameHeight);
+		ApplicationData.window.setResizable(false);
 		ApplicationData.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ApplicationData.window.add(charSelect);
-        //window.setResizable(false); 	
+		ApplicationData.window.add(ApplicationData.titlePanel);
 		ApplicationData.window.setTitle("Pokemon");
 		ApplicationData.window.setVisible(true);
-        //tp.startAnimtion();
 		
-       
-        //window.add(ApplicationData.battleFrame);
-        //window.pack();
+		
 
 	}
 }

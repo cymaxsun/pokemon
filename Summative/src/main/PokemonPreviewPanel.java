@@ -33,6 +33,7 @@ public class PokemonPreviewPanel extends JPanel{
 		enabled = true;
 		pressed = false;
 		borderColor = Color.RED;
+		setOpaque(false);
 		addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -48,6 +49,7 @@ public class PokemonPreviewPanel extends JPanel{
 				psp.selectedPokemon.setPokemon(p);
 				psp.repaint();
 				pressed = true;
+				psp.updateStats();
 				repaint();
 				ApplicationData.sfx.playFile(1,1f);
 				
@@ -68,10 +70,11 @@ public class PokemonPreviewPanel extends JPanel{
 		if (borderColor != null) {
 			if (pressed) {
 				g2.setColor(borderColor);
+				g2.drawRoundRect(0, 0, this.getWidth(), this.getHeight(),25,25);
 			} else {
-				g2.setColor(Color.black);
+			
 			}
-			g2.drawRoundRect(0, 0, this.getWidth(), this.getHeight(),25,25);
+			
  
 		}
 		

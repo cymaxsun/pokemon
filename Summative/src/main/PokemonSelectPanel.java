@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -15,6 +16,10 @@ import net.miginfocom.swing.MigLayout;
 import pokemon.Brian;
 import pokemon.Ethan;
 import pokemon.Pokemon;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
+import java.awt.GridLayout;
+import java.awt.Insets;
 
 public class PokemonSelectPanel extends JPanel {
 
@@ -28,22 +33,23 @@ public class PokemonSelectPanel extends JPanel {
 	Pokemon[] pokemonList = {new Brian(), new Ethan(), new Brian(), new Ethan(),new Brian(), new Ethan()};
 	private JPanel previewInfoPanel;
 	PokemonPreviewPanel selectedPokemon;
-	private JPanel panel_2;
+	private JPanel pokemonStats;
 	JPanel pokemonListDisplay;
 	private JButton btnNewButton;
-	private JTextArea textArea;
-	
+	private JPanel panel;
+	private JTextArea txtrAtk;
+	private Color backgroundColor  = new Color(25, 132, 66);
 	/**
 	 * Create the panel.
 	 */
 	public PokemonSelectPanel() {
-		//setBackground(new Color(25, 206, 115));
-		setBackground(new Color(25, 132, 66));
+		setBackground(backgroundColor);
 		setLayout(new MigLayout("insets 100 100 50 100", "[50%,grow]100[30%,grow]", "[grow]"));
 		
 		pokemonListDisplay = new JPanel();
-		pokemonListDisplay.setOpaque(false);
-		pokemonListDisplay.setLayout(new MigLayout("gap 25", "[33.3%,grow][33.3%,grow][33.3%,grow]", "[33.3%,grow][33.3%,grow][33.3%,grow]"));
+		pokemonListDisplay.setBorder(new CompoundBorder(new LineBorder(new Color(255, 255, 255, 125), 2, true), new LineBorder(new Color(25, 206, 115), 2, true)));
+		pokemonListDisplay.setBackground(new Color(255,255,255,75));
+		pokemonListDisplay.setLayout(new MigLayout("insets 25, gap 25", "[33.3%,grow][33.3%,grow][33.3%,grow]", "[33.3%,grow][33.3%,grow][33.3%,grow]"));
 		pokemon = new PokemonPreviewPanel[ApplicationData.numOfPokemon];
 		for (int i = 0; i < ApplicationData.numOfPokemon;i++) {
 			pokemon[i] = new PokemonPreviewPanel(this);
@@ -69,23 +75,38 @@ public class PokemonSelectPanel extends JPanel {
 		selectedPokemon.setBorderEnabled(false);
 		previewInfoPanel.add(selectedPokemon, "cell 0 0,grow");
 		
-		panel_2 = new JPanel();
-		previewInfoPanel.add(panel_2, "cell 0 1,grow");
+		pokemonStats = new JPanel();
+		pokemonStats.setOpaque(false);
+		previewInfoPanel.add(pokemonStats, "cell 0 1,grow");
 		
-		btnNewButton = new JButton("New button");
+		btnNewButton = new JButton("OK");
+		btnNewButton.setFont(ApplicationData.font.deriveFont(Font.BOLD, 15));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ApplicationData.playerPokemon = selectedPokemon.getPokemon();
 				timer.start();
+				ApplicationData.soundtrack.stop();
 		  	 	ApplicationData.soundtrack.playFile(0,0.8f);
 		  	 	ApplicationData.soundtrack.loop();
+		  	 	btnNewButton.setEnabled(false);
 			}
 		});
-		panel_2.setLayout(new MigLayout("", "[grow]", "[grow][]"));
-		panel_2.add(btnNewButton, "cell 0 1,alignx center,aligny top");
+		pokemonStats.setLayout(new MigLayout("", "[grow]", "[grow][]"));
+		pokemonStats.add(btnNewButton, "cell 0 1,alignx center,aligny top");
 		
-		textArea = new JTextArea();
-		panel_2.add(textArea, "cell 0 0,grow");
+		panel = new JPanel();
+		panel.setBackground(backgroundColor);
+		panel.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0), 3), new LineBorder(backgroundColor, 2)));
+		pokemonStats.add(panel, "flowx,cell 0 0,grow");
+		panel.setLayout(new MigLayout("insets 0", "[5%,grow][90%,grow][5%,grow]", "[165px]"));
+		
+		txtrAtk = new JTextArea();   
+		txtrAtk.setFont(ApplicationData.font.deriveFont(Font.PLAIN, 20));
+		txtrAtk.setText("\nATK:\t\nDEF:\t\nHP:\t\nTYPE:");
+		txtrAtk.setMargin(new Insets(25, 25, 25, 25));
+		txtrAtk.setLineWrap(true);
+		txtrAtk.setEditable(false);
+		panel.add(txtrAtk, "cell 1 0,grow");
 		
 		timer = new Timer(20, new ActionListener() {
              @Override
@@ -124,6 +145,11 @@ public class PokemonSelectPanel extends JPanel {
 		super.paintComponent(g2);
 		g2.setColor(new Color(25, 206, 115));
 		g2.fillRect(20, 90, getWidth()-40, getHeight()-120);
+		g2.setColor(Color.white);
+		g2.setFont(ApplicationData.font.deriveFont(Font.BOLD, 40));
+		int width = g2.getFontMetrics().stringWidth("SELECT A POKEMON");
+		int height = g2.getFontMetrics().getHeight();
+		g2.drawString("SELECT A POKEMON", (this.getWidth()-width)/2, (85+height)/2);
         
        
     }
@@ -162,5 +188,12 @@ public class PokemonSelectPanel extends JPanel {
 		timer.start();
   	 	ApplicationData.soundtrack.playFile(0,0.8f);
   	 	ApplicationData.soundtrack.loop();
+	}
+	
+	public void updateStats() {
+		
+		txtrAtk.setText( selectedPokemon.getPokemon().getName() +"\nATK:  " + selectedPokemon.getPokemon().getBaseAtk() + "\nDEF:  "+ selectedPokemon.getPokemon().getBaseDef()+ "\nHP:  "+ selectedPokemon.getPokemon().getMaxHp() + "\nTYPE:  "+ selectedPokemon.getPokemon().getType());
+		
+		
 	}
 }

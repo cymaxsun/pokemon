@@ -21,6 +21,7 @@ public class Sound {
 		clips[2] = getClass().getResource("/sound/heal.wav");
 		clips[3] = getClass().getResource("/sound/Lick.wav");
 		clips[4] = getClass().getResource("/sound/hit.wav");
+		clips[5] =  getClass().getResource("/sound/backgroundTrack.wav");
 		
 	}
 	

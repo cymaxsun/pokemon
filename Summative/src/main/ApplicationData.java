@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Component;
 import java.awt.Font;
 import java.io.InputStream;
 import java.util.LinkedList;
@@ -11,6 +12,7 @@ import pokemon.Pokemon;
 public class ApplicationData {
 	static BattleFrame battleFrame;
 	static JFrame window;
+	static TitlePanel titlePanel;
 	public static LinkedList<Runnable> eventQueue = new LinkedList<Runnable>();
 	public static Sound soundtrack = new Sound();
 	public static Sound sfx = new Sound();

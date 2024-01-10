@@ -36,10 +36,10 @@ public class SpritePanel extends JPanel{
 		Graphics2D g2 = (Graphics2D) g;
 		this.g2 = g2;
 		super.paintComponent(g2);
-		g2.drawImage(sprite, this.getWidth()/2-sprite.getWidth(null)/2, this.getHeight()*3/5-sprite.getHeight(null)/2, null);
+		g2.drawImage(sprite, this.getWidth()/2-sprite.getWidth(null)/2, this.getHeight()*3/5-sprite.getHeight(null)/2 - 10, null);
 		if (tick == 1) {
 			g2.setColor(new Color(255,255,255,75));
-			g2.fillRect(this.getWidth()/2-sprite.getWidth(null)/2, this.getHeight()*3/5-sprite.getHeight(null)/2, sprite.getWidth(null), sprite.getHeight(null));
+			g2.fillRect(this.getWidth()/2-sprite.getWidth(null)/2, this.getHeight()*3/5-sprite.getHeight(null)/2-10, sprite.getWidth(null), sprite.getHeight(null));
 		}
 	}
 	
