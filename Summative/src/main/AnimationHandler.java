@@ -12,7 +12,8 @@ public class AnimationHandler {
 	private BattleFrame bf;
 	public Timer hpAnimation;
 	public Timer textAnimation;
-	int panelX;
+	public Timer fadeToBlack;
+	
 
 	public AnimationHandler(BattleFrame bf) {
 		this.bf = bf;
@@ -93,6 +94,23 @@ public class AnimationHandler {
 	}
 
 	
+	public void fadeToBlack() {
+		fadeToBlack = new Timer(10, new ActionListener() {
+			int sat = 0;
+			public void actionPerformed(ActionEvent e) {
+				if (sat <= 250) {
+					sat +=5;
+				} else {
+					((Timer) e.getSource()).stop();
+				}
+				bf.fadeSat = sat;
+				bf.repaint();
+
+			}
+		});
+		fadeToBlack.start();
+	}
+	
 	public void stopAnimation() {
 		if (textAnimation != null) {
 			textAnimation.stop();
@@ -108,6 +126,10 @@ public class AnimationHandler {
 
 	public void addTextAnimation(String s) {
 		ApplicationData.eventQueue.add(() -> textAnimation(s));
+	}
+	
+	public void addFadeAnimation() {
+		ApplicationData.eventQueue.add(() -> fadeToBlack());
 	}
 
 	

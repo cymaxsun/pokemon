@@ -9,20 +9,21 @@ public class PizzaToss extends PokemonMove{
 		super();
 		setName("Pizza Toss");
 		setType(PokemonTypes.GRASS);
-		setBaseAtk(70);
+		setPower(70);
 		setMaxCharges(10);
 		setAcc(100);
+		setSFX(getClass().getResource("/sound/pizzaToss.wav"));
 	}
 
 	public void useMove(Pokemon attacker, Pokemon target) {
 		// TODO Auto-generated method stub
-		String prefix = "";
+
 		if (charges <= 0) {
-			struggled(attacker, target);
+			useStruggle(attacker, target);
 			return;
 		}
-
-		attack(attacker, target);
+		super.useMove(attacker, target);
+		attack(attacker,target, dmgCalc(attacker, target));
 		
 		
 		

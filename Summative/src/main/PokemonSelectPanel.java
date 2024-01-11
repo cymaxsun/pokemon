@@ -26,6 +26,7 @@ import javax.swing.border.MatteBorder;
 import net.miginfocom.swing.MigLayout;
 import pokemon.Brian;
 import pokemon.Ethan;
+import pokemon.Imogen;
 import pokemon.Pokemon;
 
 public class PokemonSelectPanel extends JPanel {
@@ -37,7 +38,7 @@ public class PokemonSelectPanel extends JPanel {
 	private boolean transitionComplete = false;
 	JPanel viewport;
 	public PokemonPreviewPanel[][] pokemon;
-	Pokemon[][] pokemonList = {{new Brian(), new Ethan(), new Brian()},{ new Ethan(),new Brian(), new Ethan()},{ new Brian(),new Ethan(), new Brian()}};
+	Pokemon[][] pokemonList = {{new Brian(), new Ethan(), new Imogen()},{ new Imogen(),new Brian(), new Ethan()},{ new Ethan(),new Imogen(), new Brian()}};
 	private JPanel previewInfoPanel;
 	PokemonPreviewPanel selectedPokemon;
 	private JPanel pokemonStats;
@@ -47,9 +48,9 @@ public class PokemonSelectPanel extends JPanel {
 	private JTextArea txtrAtk;
 	private Color backgroundColor  = new Color(25, 132, 66);
 	private Image back;
-	private int backX = 20;
-	private int backY = 15;
-	private int backSize = 60;
+	final private int backX = 20;
+	final private int backY = 15;
+	final private int backSize = 60;
 	
 	/**
 	 * Create the panel.
@@ -118,7 +119,7 @@ public class PokemonSelectPanel extends JPanel {
 		txtrAtk.setEditable(false);
 		panel.add(txtrAtk, "cell 1 0,grow");
 		
-		timer = new Timer(20, new ActionListener() {
+		timer = new Timer(35, new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
                  if (!transitionComplete) {
@@ -133,12 +134,14 @@ public class PokemonSelectPanel extends JPanel {
                      }
                      repaint(); // Trigger repaint to update the panel
                  } else {
-                	 ApplicationData.window.setVisible(false);
-                     ApplicationData.battleFrame = new BattleFrame();
+                	 ApplicationData.battleFrame = new BattleFrame();
+                	 ApplicationData.charSelect.setVisible(false);
+                	 ApplicationData.window.add(ApplicationData.battleFrame);
+                	 ApplicationData.battleFrame.setVisible(true);
                 	 timer.stop(); // Stop the timer
                      
                  }
-                 repaint();
+                 
              }
              
          });
@@ -197,7 +200,7 @@ public class PokemonSelectPanel extends JPanel {
         int centerY = getHeight() / 2;
 		Graphics2D g2 = (Graphics2D) g;
 		super.paint(g2);
-		 if (!transitionComplete) {
+		if (!transitionComplete) {
 	            // Set the color to black
 	            g2.setColor(Color.BLACK);
 
@@ -216,7 +219,7 @@ public class PokemonSelectPanel extends JPanel {
 	            g2.fillRect(0, 0, getWidth(), getHeight());
 	        }
 
-	        g2.dispose();
+	       g2.dispose();
 	}
 
 

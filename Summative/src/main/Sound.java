@@ -18,11 +18,13 @@ public class Sound {
 	
 		clips[0] = getClass().getResource("/sound/battle.wav");
 		clips[1] = getClass().getResource("/sound/button.wav");
-		clips[2] = getClass().getResource("/sound/heal.wav");
-		clips[3] = getClass().getResource("/sound/Lick.wav");
-		clips[4] = getClass().getResource("/sound/hit.wav");
-		clips[5] =  getClass().getResource("/sound/backgroundTrack.wav");
-		
+		clips[2] = getClass().getResource("/sound/hit.wav");
+		clips[3] = getClass().getResource("/sound/backgroundTrack.wav");
+		clips[4] = getClass().getResource("/sound/victory.wav");
+		clips[5] = getClass().getResource("/sound/fainted.wav");
+		clips[6] = getClass().getResource("/sound/lowHP.wav");
+		clips[7] = getClass().getResource("/sound/heal.wav");
+		clips[8] = getClass().getResource("/sound/backgroundTrack2.wav");
 	}
 	
 	public void setFile(int i) {
@@ -32,6 +34,19 @@ public class Sound {
 			clip = AudioSystem.getClip();
 			clip.open(sis);
 			
+			
+		} catch (Exception e) {
+		
+		}
+		
+	}
+	
+	public void setFile(URL clip) {
+		AudioInputStream sis;
+		try {
+			sis = AudioSystem.getAudioInputStream(clip);
+			this.clip = AudioSystem.getClip();
+			this.clip.open(sis);
 			
 		} catch (Exception e) {
 		
@@ -53,6 +68,13 @@ public class Sound {
 	
 	public void playFile(int i, float f) {
 		setFile(i);
+		setVolume(f);
+		play();
+		
+	}
+	
+	public void playFile(URL clip, float f) {
+		setFile(clip);
 		setVolume(f);
 		play();
 		

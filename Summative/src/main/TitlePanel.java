@@ -2,6 +2,7 @@ package main;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -15,6 +16,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -28,6 +30,10 @@ public class TitlePanel extends JPanel {
 	Image settingsImage;
 	final String subtitle = "JAVA EDITION";
 	final String pressStart = "PRESS ENTER";
+	final Random random = new Random();;
+	final int settingX = ApplicationData.frameWidth-90;
+	final int settingY = ApplicationData.frameHeight-90;
+	final int settingSize = 80;
 	
 	private static final long serialVersionUID = 1L;
 
@@ -35,7 +41,14 @@ public class TitlePanel extends JPanel {
 	 * Create the panel.
 	 */
 	public TitlePanel() {
-		ApplicationData.soundtrack.playFile(5,0.8f);
+		setPreferredSize(new Dimension(ApplicationData.frameWidth, ApplicationData.frameHeight));
+		int track;
+		if (random.nextBoolean()) {
+			track = 3;
+		} else {
+			track = 8;
+		}
+		ApplicationData.soundtrack.playFile(track,0.8f);
 		ApplicationData.soundtrack.loop();
 		setBackground(Color.WHITE);
 		setLayout(new MigLayout("", "[grow]", "[grow]"));
@@ -43,7 +56,7 @@ public class TitlePanel extends JPanel {
 			titleImage = ImageIO.read(getClass().getResourceAsStream("/assets/title.png"))
 					.getScaledInstance(ApplicationData.frameWidth / 2, -1, Image.SCALE_SMOOTH);
 			bgImage = ImageIO.read(getClass().getResourceAsStream("/backgrounds/titleBg.png"));
-			settingsImage = ImageIO.read(getClass().getResourceAsStream("/assets/settings.png")).getScaledInstance(80, -1, Image.SCALE_SMOOTH);;
+			settingsImage = ImageIO.read(getClass().getResourceAsStream("/assets/settings.png")).getScaledInstance(settingSize, -1, Image.SCALE_SMOOTH);;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -66,12 +79,16 @@ public class TitlePanel extends JPanel {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				ApplicationData.sfx.playFile(1,1f);
-	        	ApplicationData.titlePanel.setVisible(false);
-	           	ApplicationData.window.add(ApplicationData.charSelect);
-	           	ApplicationData.charSelect.setVisible(true);
-	        	ApplicationData.window.remove(ApplicationData.titlePanel);
-	        	
+				int xPos = e.getX();
+				int yPos = e.getY();
+				if (xPos >= settingX && yPos >= settingY && xPos <= (settingX + settingSize) && yPos <= (settingY + settingSize)) {
+					ApplicationData.sfx.playFile(1,1f);
+		        	ApplicationData.titlePanel.setVisible(false);
+		           	ApplicationData.window.add(ApplicationData.charSelect);
+		           	ApplicationData.charSelect.setVisible(true);
+		        	ApplicationData.window.remove(ApplicationData.titlePanel);
+		        	
+				}
 			}
 		});
 		setFocusable(true);
@@ -79,6 +96,7 @@ public class TitlePanel extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
+
 		Graphics2D g2 = (Graphics2D) g;
 
 		g2.drawImage(bgImage, 0, 0, this.getWidth(), this.getHeight(), null);
@@ -119,7 +137,7 @@ public class TitlePanel extends JPanel {
 		tempG2.setColor(Color.white);
 		tempG2.fill(shape);
 		
-		g2.drawImage(settingsImage, this.getWidth()-100, this.getHeight() - 100,null);
+		g2.drawImage(settingsImage, settingX, settingY,null);
 		//g2.drawLine(this.getWidth()/2, 0, this.getWidth()/2, this.getHeight());
 	}
 

@@ -6,7 +6,9 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -23,6 +25,12 @@ public class SpritePanel extends JPanel{
 	
 	public SpritePanel(Pokemon p) {
 		this.p = p;
+		try {
+			setImage(ImageIO.read(getClass().getResourceAsStream("/pokemon/" + p.getName().toLowerCase() + ".png")));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		setOpaque(false);
 	}
 	
@@ -36,7 +44,7 @@ public class SpritePanel extends JPanel{
 		Graphics2D g2 = (Graphics2D) g;
 		this.g2 = g2;
 		super.paintComponent(g2);
-		g2.drawImage(sprite, this.getWidth()/2-sprite.getWidth(null)/2, this.getHeight()*3/5-sprite.getHeight(null)/2 - 10, null);
+		g2.drawImage(sprite, this.getWidth()/2-sprite.getWidth(null)/2, this.getHeight()*3/5-sprite.getHeight(null)/2 -5, null);
 		if (tick == 1) {
 			g2.setColor(new Color(255,255,255,75));
 			g2.fillRect(this.getWidth()/2-sprite.getWidth(null)/2, this.getHeight()*3/5-sprite.getHeight(null)/2-10, sprite.getWidth(null), sprite.getHeight(null));

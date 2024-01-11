@@ -27,7 +27,7 @@ public class MoveInfoPanel extends JPanel {
 
 		this.p = pokemon;
 		selectedMove = p.getMove1();
-		setLayout(new MigLayout("insets 10 40 10 40, gapx 0", "[100%,grow]", "[50%,grow]10[50%,grow]"));
+		setLayout(new MigLayout("insets 15 40 15 40, gapx 0", "[100%,grow]", "[50%,grow]10[50%,grow]"));
 		setBackground(Color.WHITE);
 		moveType = new JLabel(selectedMove.getTypeName());
 		moveType.setFont(moveType.getFont().deriveFont(Font.PLAIN, 40));

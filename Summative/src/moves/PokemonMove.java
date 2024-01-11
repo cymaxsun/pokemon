@@ -1,6 +1,7 @@
 package moves;
 import java.awt.Color;
 import java.awt.Image;
+import java.net.URL;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -13,12 +14,12 @@ public class PokemonMove {
 	String name;
 	int type;
 	String typeName;
-
+	URL sfx;
 	Color typeColor;
 	Image button;
 	Image buttonPressed;
-	int baseAtk;
-	int currentAtk;
+	int power;
+	int dmg;
 	int charges;
 	int maxCharges;
 	int acc;
@@ -26,7 +27,9 @@ public class PokemonMove {
 	
 	public PokemonMove() {
 		random = new Random();
+		power = 50;	
 	}
+
 
 	public String getName() {
         return name;
@@ -36,7 +39,16 @@ public class PokemonMove {
         this.name = name;
     }
 
-    // Getters and setters for 'type'
+    public URL getSFX() {
+		return sfx;
+	}
+    
+    public void setSFX(URL sfx) {
+ 		this.sfx = sfx;
+ 	}
+
+
+	// Getters and setters for 'type'
     public int getType() {
         return type;
     }
@@ -75,22 +87,14 @@ public class PokemonMove {
     }
 
     // Getters and setters for 'baseAtk'
-    public int getBaseAtk() {
-        return baseAtk;
+    public int getPower() {
+        return power;
     }
 
-    public void setBaseAtk(int baseAtk) {
-        this.baseAtk = baseAtk;
+    public void setPower(int power) {
+        this.power = power;
     }
 
-    // Getters and setters for 'currentAtk'
-    public int getCurrentAtk() {
-        return currentAtk;
-    }
-
-    public void setCurrentAtk(int currentAtk) {
-        this.currentAtk = currentAtk;
-    }
 
     // Getters and setters for 'charges'
     public int getCharges() {
@@ -120,47 +124,91 @@ public class PokemonMove {
         this.acc = acc;
     }
 
-	public void useMove(Pokemon attacker, Pokemon target) {
-		// TODO Auto-generated method stub
-	}
-	
-	public void playSFX() {
-		ApplicationData.sfx.playFile(4,1.0f);
-		ApplicationData.eventQueue.pop().run();
-	}
-	
-	public void struggled(Pokemon attacker, Pokemon target) {
-		ApplicationData.animate.addTextAnimation(attacker.getName() + " can't use " + this.getName()+".");
-		ApplicationData.animate.addTextAnimation(attacker.getName() + " used Struggle!");
-		target.setCurrentHp(target.getCurrentHp() - (attacker.getBaseAtk() + 50 - target.getBaseDef()));
-		ApplicationData.eventQueue.add(()->target.getSpritePanel().damageTaken());
-		ApplicationData.animate.addHpAnimation(target);
-		attacker.setCurrentHp(attacker.getCurrentHp() - ((attacker.getBaseAtk() + 50 - target.getBaseDef())/4));
-		ApplicationData.eventQueue.add(()->attacker.getSpritePanel().damageTaken());
-		ApplicationData.animate.addHpAnimation(attacker);
-		
-	}
-	
-	public void attack(Pokemon attacker, Pokemon target) {
+    public void useMove(Pokemon attacker, Pokemon target) {
+		ApplicationData.animate.addTextAnimation(getAllied(attacker) + attacker.getName() + " used " + name + "!");
+		if (charges >  0) {
+			charges -= 1;
+		} 
+    }
+    
+    public String getAllied(Pokemon attacker) {
 		String prefix;
 		if (!attacker.isAllied()) {
 			prefix = "The enemy ";
 		} else {
 			prefix = "Your ";
 		}
-		ApplicationData.animate.addTextAnimation(prefix + attacker.getName() + " used " + name + "!");
+		return prefix;
+    }
+    
+    
+    public int dmgCalc(Pokemon attacker, Pokemon target) {
+    	dmg = power+attacker.getBaseAtk()-target.getBaseDef();
+    	return dmg;
+    }
+    
+	
+	public void useStruggle(Pokemon attacker, Pokemon target) {
+    	ApplicationData.animate.addTextAnimation(attacker.getName() + " can't use " + this.getName()+".");
+		ApplicationData.animate.addTextAnimation(attacker.getName() + " used Struggle!");
+		attack(attacker, target, power);
+		attack(target, attacker, attacker.getMaxHp()/4);
+	}
+	public void playAtkSFX() {
+		ApplicationData.sfx.playFile(2,1.0f);
+		ApplicationData.eventQueue.pop().run();
+	}
+	
+	public void playHealSFX() {
+		ApplicationData.sfx.playFile(7,1.0f);
+		ApplicationData.eventQueue.pop().run();
+	}
+	
+	public void playSFX() {
+		if (sfx != null) {
+			ApplicationData.sfx.playFile(sfx,1.0f);
+			try {
+				Thread.sleep(ApplicationData.sfx.getLength()/1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		ApplicationData.eventQueue.pop().run();
+	}
+	
+
+	
+	public void attack(Pokemon attacker, Pokemon target, int dmg) {
 		int x = random.nextInt(100);
 		if (x < acc) {
-			System.out.println(x);
-			ApplicationData.eventQueue.add(()->this.playSFX());
-			target.setCurrentHp(target.getCurrentHp() - (baseAtk+attacker.getBaseAtk()-target.getBaseDef()));
+			//System.out.println(x);
+			ApplicationData.eventQueue.add(()->playSFX());
+			ApplicationData.eventQueue.add(()->playAtkSFX());
+			//System.out.println(baseAtk + " " + attacker.getBaseAtk() + " " + target.getBaseDef() + " " + (baseAtk+attacker.getBaseAtk()-target.getBaseDef()));
+			target.setCurrentHp(target.getCurrentHp() - dmg);
 			ApplicationData.eventQueue.add(()->target.getSpritePanel().damageTaken());
 			ApplicationData.animate.addHpAnimation(target);
 			if (target.getCurrentHp() <= 0) {
 				return;
 			}
 		}
-		charges -= 1;
+
+		
+	}
+	
+	public void heal(Pokemon attacker, int healAmount) {
+
+		if (attacker.getCurrentHp()+healAmount > attacker.getMaxHp()) {
+			attacker.setCurrentHp(attacker.getMaxHp());
+		} else {
+			attacker.setCurrentHp(attacker.getCurrentHp()+ healAmount);
+		}
+		ApplicationData.eventQueue.add(()->playSFX());	
+		ApplicationData.eventQueue.add(()->playHealSFX());	
+		ApplicationData.animate.addHpAnimation(attacker);
+		ApplicationData.animate.addTextAnimation(getAllied(attacker) + attacker.getName() + " restored its HP!");
 		
 	}
 	

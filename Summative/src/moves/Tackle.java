@@ -12,21 +12,23 @@ public class Tackle extends PokemonMove {
 		super();
 		setName("Tackle");
 		setType(PokemonTypes.DARK);
-		setBaseAtk(70);
+		setPower(70);
 		setMaxCharges(10);
 		setAcc(100);
+		setSFX(getClass().getResource("/sound/tackle.wav"));
 	}
 
 	public void useMove(Pokemon attacker, Pokemon target) {
-		// TODO Auto-generated method stub\
+		
 
 
 		if (charges <= 0) {
-			struggled(attacker, target);
+			useStruggle(attacker, target);
 			return;
 		}
-
-		attack(attacker, target);
+		
+		super.useMove(attacker, target);
+		attack(attacker,target, dmgCalc(attacker, target));
 
 	}
 
