@@ -29,7 +29,8 @@ public class Tackle extends PokemonMove {
 		
 		super.useMove(attacker, target);
 		attack(attacker,target, dmgCalc(attacker, target));
-
+		
+		
 	}
 
 }

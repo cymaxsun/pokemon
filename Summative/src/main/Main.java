@@ -14,7 +14,7 @@ public class Main {
 		System.setProperty("sun.java2d.uiScale", "1.0");
 		ApplicationData.enemyPokemon = new Brian();
 		ApplicationData.enemyPokemon.setAllied(false);
-		
+		ApplicationData.soundtrack.setVolume(0.8f);
 		
 		ApplicationData.titlePanel = new TitlePanel();
 		ApplicationData.titlePanel.requestFocusInWindow();

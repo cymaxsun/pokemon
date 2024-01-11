@@ -97,7 +97,7 @@ public class PokemonSelectPanel extends JPanel {
 				ApplicationData.playerPokemon = selectedPokemon.getPokemon();
 				timer.start();
 				ApplicationData.soundtrack.stop();
-		  	 	ApplicationData.soundtrack.playFile(0,0.8f);
+		  	 	ApplicationData.soundtrack.playFile(0);
 		  	 	ApplicationData.soundtrack.loop();
 		  	 	btnNewButton.setEnabled(false);
 			}
@@ -134,7 +134,7 @@ public class PokemonSelectPanel extends JPanel {
                      }
                      repaint(); // Trigger repaint to update the panel
                  } else {
-                	 ApplicationData.battleFrame = new BattleFrame();
+                	 ApplicationData.battleFrame = new BattlePanel();
                 	 ApplicationData.charSelect.setVisible(false);
                 	 ApplicationData.window.add(ApplicationData.battleFrame);
                 	 ApplicationData.battleFrame.setVisible(true);
@@ -159,7 +159,7 @@ public class PokemonSelectPanel extends JPanel {
 				int xPos = e.getX();
 				int yPos = e.getY();
 				if (xPos >= backX && yPos >= backY && xPos <= (backX + backSize) && yPos <= (backY + backSize)) {
-					ApplicationData.sfx.playFile(1,1f);
+					ApplicationData.sfx.playFile(1);
 					ApplicationData.charSelect.setVisible(false);
 		        	ApplicationData.window.add(ApplicationData.titlePanel);
 		        	ApplicationData.titlePanel.setVisible(true);
@@ -225,7 +225,7 @@ public class PokemonSelectPanel extends JPanel {
 
 	public void startAnimtion() {
 		timer.start();
-  	 	ApplicationData.soundtrack.playFile(0,0.8f);
+  	 	ApplicationData.soundtrack.playFile(0);
   	 	ApplicationData.soundtrack.loop();
 	}
 	

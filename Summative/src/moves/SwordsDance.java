@@ -11,7 +11,7 @@ public class SwordsDance extends PokemonMove{
 		super();
 		setName("Swords Dance");
 		setType(PokemonTypes.NORMAL);
-		setPower(25);
+		setPower(0);
 		setMaxCharges(10);
 		setAcc(100);
 		setSFX(getClass().getResource("/sound/swordsDance.wav"));
@@ -29,10 +29,8 @@ public class SwordsDance extends PokemonMove{
 		
 
 		super.useMove(attacker, target);
-		ApplicationData.eventQueue.add(()->playSFX());	
-		ApplicationData.animate.addTextAnimation(attacker.getName() + "'s attack rose greatly!");
-		attacker.setBaseAtk(attacker.getBaseAtk()+power);
-		
+		attacker.setAtkStage(attacker.getAtkStage()+2);
+
 	}
 	
 }

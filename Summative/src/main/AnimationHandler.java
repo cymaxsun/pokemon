@@ -9,13 +9,13 @@ import pokemon.Pokemon;
 
 public class AnimationHandler {
 
-	private BattleFrame bf;
+	private BattlePanel bf;
 	public Timer hpAnimation;
 	public Timer textAnimation;
 	public Timer fadeToBlack;
 	
 
-	public AnimationHandler(BattleFrame bf) {
+	public AnimationHandler(BattlePanel bf) {
 		this.bf = bf;
 	}
 

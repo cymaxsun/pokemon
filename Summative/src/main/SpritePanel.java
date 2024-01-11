@@ -49,6 +49,7 @@ public class SpritePanel extends JPanel{
 			g2.setColor(new Color(255,255,255,75));
 			g2.fillRect(this.getWidth()/2-sprite.getWidth(null)/2, this.getHeight()*3/5-sprite.getHeight(null)/2-10, sprite.getWidth(null), sprite.getHeight(null));
 		}
+		g2.dispose();
 	}
 	
 	

@@ -11,8 +11,8 @@ public class DumbAss extends PokemonMove {
 	public DumbAss() {
 		super();
 		setName("Dumbass");
-		setType(PokemonTypes.FAIRY);
-		setPower(100);
+		setType(PokemonTypes.NORMAL);
+		setPower(50);
 		setMaxCharges(5);
 		setAcc(100);
 		// TODO Auto-generated constructor stub
@@ -26,6 +26,7 @@ public class DumbAss extends PokemonMove {
 		}
 		super.useMove(attacker, target);
 		attack(attacker,target, dmgCalc(attacker, target));
+		
 			
 
 	}

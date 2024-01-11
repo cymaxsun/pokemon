@@ -48,7 +48,7 @@ public class TitlePanel extends JPanel {
 		} else {
 			track = 8;
 		}
-		ApplicationData.soundtrack.playFile(track,0.8f);
+		ApplicationData.soundtrack.playFile(track);
 		ApplicationData.soundtrack.loop();
 		setBackground(Color.WHITE);
 		setLayout(new MigLayout("", "[grow]", "[grow]"));
@@ -66,7 +66,7 @@ public class TitlePanel extends JPanel {
 			    public void keyPressed(KeyEvent e) {
 			        char c = e.getKeyChar();
 			        if (c == KeyEvent.VK_ENTER) {
-			        	ApplicationData.sfx.playFile(1,1f);
+			        	ApplicationData.sfx.playFile(1);
 			        	ApplicationData.titlePanel.setVisible(false);
 			           	ApplicationData.window.add(ApplicationData.charSelect);
 			           	ApplicationData.charSelect.setVisible(true);
@@ -82,7 +82,7 @@ public class TitlePanel extends JPanel {
 				int xPos = e.getX();
 				int yPos = e.getY();
 				if (xPos >= settingX && yPos >= settingY && xPos <= (settingX + settingSize) && yPos <= (settingY + settingSize)) {
-					ApplicationData.sfx.playFile(1,1f);
+					ApplicationData.sfx.playFile(1);
 		        	ApplicationData.titlePanel.setVisible(false);
 		           	ApplicationData.window.add(ApplicationData.charSelect);
 		           	ApplicationData.charSelect.setVisible(true);
@@ -139,6 +139,7 @@ public class TitlePanel extends JPanel {
 		
 		g2.drawImage(settingsImage, settingX, settingY,null);
 		//g2.drawLine(this.getWidth()/2, 0, this.getWidth()/2, this.getHeight());
+		g2.dispose();
 	}
 
 }

@@ -25,10 +25,13 @@ public class Pokemon {
 	private PokemonMove move4;
 	private int lvl;
 	private int maxHp;
-	private int currentDef;
-	private int baseDef;
-	private int baseAtk;
 	private int currentHp;
+	private int baseDef;
+	private int currentDef;
+	private int baseAtk;
+	private int currentAtk;
+	private int atkStage;
+	private int defStage;
 	private boolean isAllied;
 	boolean lowHP;
 	private StatusPanel statusPanel;
@@ -41,6 +44,7 @@ public class Pokemon {
 		this.maxHp = maxHp;
 		this.currentHp = maxHp;
 		this.baseAtk = baseAtk;
+		this.currentAtk = baseAtk;
 		this.baseDef = baseDef;
 		this.currentDef = baseDef;
 		this.type = type;
@@ -53,6 +57,8 @@ public class Pokemon {
 		setStatusPanel(new StatusPanel(this));
 		setSpritePanel(new SpritePanel(this));
 		lowHP = false;
+		atkStage = 0;
+		defStage = 0;
 	}
 
 	// Getter and setter methods for each field
@@ -127,6 +133,10 @@ public class Pokemon {
 	}
 
 	public void setDef(int def) {
+		if (def < 0 ) {
+			this.currentDef = 0;
+			return;
+		}
 		this.currentDef = def;
 	}
 
@@ -316,10 +326,60 @@ public class Pokemon {
 	
 	public void lowHPSFX() {
 		if (lowHP) {
-			ApplicationData.sfx.playFile(6, 0.8f);
+			ApplicationData.sfx.playFile(6);
 			ApplicationData.sfx.loop();
 		} else {
 			ApplicationData.sfx.stop();
 		}
+	}
+	
+	public int getAtkStage() {
+		return atkStage;
+	}
+
+	public void setAtkStage(int atkStage) {
+		
+		if (atkStage <= 6 && atkStage >= -6) {
+			ApplicationData.animate.addTextAnimation(this.getName() + "'s attack sharply rose!");
+			this.atkStage = atkStage;
+		} else if (atkStage > 6){
+			ApplicationData.animate.addTextAnimation(this.getName() + "'s attack wont go any higher!");
+			this.atkStage = 6;
+		} else{
+			ApplicationData.animate.addTextAnimation(this.getName() + "'s attack wont go any lower!");
+			this.atkStage = -6;
+		}
+		setAtk(baseAtk + (baseAtk*atkStage/2));
+		
+	}
+
+	public int getDefStage() {
+		return defStage;
+	}
+
+	public void setDefStage(int defStage) {
+		if (defStage <= 6 && defStage >= -6) {
+			ApplicationData.animate.addTextAnimation(this.getName() + "'s defense sharply rose!");
+			
+			this.defStage = defStage;
+		} else if (defStage > 6){
+			ApplicationData.animate.addTextAnimation(this.getName() + "'s defense wont go any higher!");
+			this.defStage = 6;
+		} else{
+			ApplicationData.animate.addTextAnimation(this.getName() + "'s defense wont go any lower!");
+			this.defStage = -6;
+		}
+		setDef(baseDef + (baseDef*defStage/2));
+	}
+	
+	public int getAtk() {
+		return currentAtk;
+	}
+
+	public void setAtk(int currentAtk) {
+		if (currentAtk < 0) {
+			this.currentAtk = 0;
+		}
+		this.currentAtk = currentAtk;
 	}
 }

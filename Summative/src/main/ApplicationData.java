@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import pokemon.Pokemon;
 
 public class ApplicationData {
-	static BattleFrame battleFrame;
+	static BattlePanel battleFrame;
 	static JFrame window;
 	static TitlePanel titlePanel;
 	static PokemonSelectPanel charSelect;

@@ -125,10 +125,17 @@ public class PokemonMove {
     }
 
     public void useMove(Pokemon attacker, Pokemon target) {
-		ApplicationData.animate.addTextAnimation(getAllied(attacker) + attacker.getName() + " used " + name + "!");
+    	System.out.println("\nMove: " + this.name);
+    	System.out.println("Attacker Attack: " + attacker.getAtk());
+    	System.out.println("Attacker Defense: " + attacker.getDef());
+		System.out.println("Target Defense: " + target.getDef());
+		System.out.println("Move Power: " + this.getPower());
+		System.out.println("Dmg: " + dmgCalc(attacker, target));
+    	ApplicationData.animate.addTextAnimation(getAllied(attacker) + attacker.getName() + " used " + name + "!");
 		if (charges >  0) {
 			charges -= 1;
 		} 
+		ApplicationData.eventQueue.add(()->playSFX());
     }
     
     public String getAllied(Pokemon attacker) {
@@ -143,7 +150,10 @@ public class PokemonMove {
     
     
     public int dmgCalc(Pokemon attacker, Pokemon target) {
-    	dmg = power+attacker.getBaseAtk()-target.getBaseDef();
+    	dmg = power+attacker.getAtk()-target.getDef();
+    	if (dmg <= 0 ) {
+    		return 1;
+    	}
     	return dmg;
     }
     
@@ -155,18 +165,18 @@ public class PokemonMove {
 		attack(target, attacker, attacker.getMaxHp()/4);
 	}
 	public void playAtkSFX() {
-		ApplicationData.sfx.playFile(2,1.0f);
+		ApplicationData.sfx.playFile(2);
 		ApplicationData.eventQueue.pop().run();
 	}
 	
 	public void playHealSFX() {
-		ApplicationData.sfx.playFile(7,1.0f);
+		ApplicationData.sfx.playFile(7);
 		ApplicationData.eventQueue.pop().run();
 	}
 	
 	public void playSFX() {
 		if (sfx != null) {
-			ApplicationData.sfx.playFile(sfx,1.0f);
+			ApplicationData.sfx.playFile(sfx);
 			try {
 				Thread.sleep(ApplicationData.sfx.getLength()/1000);
 			} catch (InterruptedException e) {
@@ -184,7 +194,6 @@ public class PokemonMove {
 		int x = random.nextInt(100);
 		if (x < acc) {
 			//System.out.println(x);
-			ApplicationData.eventQueue.add(()->playSFX());
 			ApplicationData.eventQueue.add(()->playAtkSFX());
 			//System.out.println(baseAtk + " " + attacker.getBaseAtk() + " " + target.getBaseDef() + " " + (baseAtk+attacker.getBaseAtk()-target.getBaseDef()));
 			target.setCurrentHp(target.getCurrentHp() - dmg);
@@ -204,8 +213,7 @@ public class PokemonMove {
 			attacker.setCurrentHp(attacker.getMaxHp());
 		} else {
 			attacker.setCurrentHp(attacker.getCurrentHp()+ healAmount);
-		}
-		ApplicationData.eventQueue.add(()->playSFX());	
+		}	
 		ApplicationData.eventQueue.add(()->playHealSFX());	
 		ApplicationData.animate.addHpAnimation(attacker);
 		ApplicationData.animate.addTextAnimation(getAllied(attacker) + attacker.getName() + " restored its HP!");

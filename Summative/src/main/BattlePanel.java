@@ -4,22 +4,18 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
@@ -28,7 +24,7 @@ import moves.PokemonMove;
 import net.miginfocom.swing.MigLayout;
 import pokemon.Pokemon;
 
-public class BattleFrame extends JPanel {
+public class BattlePanel extends JPanel {
 
 	private Image panelBkg = new ImageIcon("res/backgrounds/btnbkg.png").getImage();
 	private Image fightBackground = new ImageIcon("res/backgrounds/bkg.png").getImage();
@@ -62,7 +58,7 @@ public class BattleFrame extends JPanel {
 	 * 
 	 * @throws IOException
 	 */
-	public BattleFrame() {
+	public BattlePanel() {
 		setFocusable(true);
 		playerPokemon = ApplicationData.playerPokemon;
 		enemyPokemon = ApplicationData.enemyPokemon;
@@ -284,7 +280,7 @@ public class BattleFrame extends JPanel {
 		if (playerPokemon.getCurrentHp() <= 0) {
 			topPanel.remove(playerPokemon.getStatusPanel());
 			topPanel.remove(playerPokemon.getSpritePanel());
-			ApplicationData.sfx.playFile(5, 1.0f);
+			ApplicationData.sfx.playFile(5);
 			ApplicationData.animate.textAnimation("Your " + playerPokemon.getName() + " has fainted!");
 			ApplicationData.animate.addFadeAnimation();
 			
@@ -293,7 +289,7 @@ public class BattleFrame extends JPanel {
 			topPanel.remove(enemyPokemon.getSpritePanel());
 			ApplicationData.animate.textAnimation("The enemy " + enemyPokemon.getName() + " has fainted!");
 			
-			ApplicationData.soundtrack.playFile(4, 0.8f);
+			ApplicationData.soundtrack.playFile(4);
 		}
 		System.out.println("Game Over");
 		

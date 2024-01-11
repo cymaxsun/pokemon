@@ -47,7 +47,7 @@ public class CustomButton extends JButton {
 			public void mousePressed(MouseEvent e) {
 				pressed = true;
 				repaint();
-				ApplicationData.sfx.playFile(1,1f);
+				ApplicationData.sfx.playFile(1);
 				
 			}
 		});
@@ -81,7 +81,7 @@ public class CustomButton extends JButton {
 
 		g.setColor(textColor);
 		g.drawString(text, (this.getWidth() - width) / 2, (this.getHeight() + height) / 2 - 5);
-
+		g.dispose();
 	}
 	
 	public Image getImage() {

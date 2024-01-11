@@ -52,7 +52,7 @@ public class PokemonPreviewPanel extends JPanel{
 				pressed = true;
 				psp.updateStats();
 				repaint();
-				ApplicationData.sfx.playFile(1,1f);
+				ApplicationData.sfx.playFile(1);
 				
 			}
 		});
@@ -78,7 +78,7 @@ public class PokemonPreviewPanel extends JPanel{
 			
  
 		}
-		
+		g2.dispose();
 		
 	
 		
