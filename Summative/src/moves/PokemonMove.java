@@ -126,10 +126,11 @@ public class PokemonMove {
 
     public void useMove(Pokemon attacker, Pokemon target) {
     	System.out.println("\nMove: " + this.name);
-    	System.out.println("Attacker Attack: " + attacker.getAtk());
-    	System.out.println("Attacker Defense: " + attacker.getDef());
-		System.out.println("Target Defense: " + target.getDef());
-		System.out.println("Move Power: " + this.getPower());
+    	System.out.println("Attacker: " + attacker.getName());
+    	System.out.println("Target: " + target.getName());
+    	System.out.println(attacker.getName() + " Attack: " + attacker.getAtk());
+    	System.out.println("Move Power: " + this.getPower());
+		System.out.println(target.getName()+ " Defense: " + target.getDef());
 		System.out.println("Dmg: " + dmgCalc(attacker, target));
     	ApplicationData.animate.addTextAnimation(getAllied(attacker) + attacker.getName() + " used " + name + "!");
 		if (charges >  0) {

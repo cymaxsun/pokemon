@@ -2,8 +2,7 @@ package main;
 
 import javax.swing.JFrame;
 
-import pokemon.Brian;
-import pokemon.Ethan;
+import pokemon.Imogen;
 
 public class Main {
 	
@@ -12,14 +11,16 @@ public class Main {
 	
 	public static void main(String[] args) {
 		System.setProperty("sun.java2d.uiScale", "1.0");
-		ApplicationData.enemyPokemon = new Brian();
+		ApplicationData.enemyPokemon = new Imogen();
 		ApplicationData.enemyPokemon.setAllied(false);
-		ApplicationData.soundtrack.setVolume(0.8f);
+		ApplicationData.soundtrack.setVolume(ApplicationData.soundtrackVolume);
+		ApplicationData.sfx.setVolume(ApplicationData.SFXVolume);
 		
 		ApplicationData.titlePanel = new TitlePanel();
 		ApplicationData.titlePanel.requestFocusInWindow();
 
 		ApplicationData.charSelect = new PokemonSelectPanel();
+		ApplicationData.settings = new SettingsPanel();
 		
 		
 		ApplicationData.window = new JFrame();

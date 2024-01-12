@@ -10,6 +10,10 @@ import java.awt.Insets;
 import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -134,10 +138,10 @@ public class PokemonSelectPanel extends JPanel {
                      }
                      repaint(); // Trigger repaint to update the panel
                  } else {
-                	 ApplicationData.battleFrame = new BattlePanel();
+                	 ApplicationData.battlePanel = new BattlePanel();
                 	 ApplicationData.charSelect.setVisible(false);
-                	 ApplicationData.window.add(ApplicationData.battleFrame);
-                	 ApplicationData.battleFrame.setVisible(true);
+                	 ApplicationData.window.add(ApplicationData.battlePanel);
+                	 ApplicationData.battlePanel.setVisible(true);
                 	 timer.stop(); // Stop the timer
                      
                  }
@@ -159,14 +163,27 @@ public class PokemonSelectPanel extends JPanel {
 				int xPos = e.getX();
 				int yPos = e.getY();
 				if (xPos >= backX && yPos >= backY && xPos <= (backX + backSize) && yPos <= (backY + backSize)) {
-					ApplicationData.sfx.playFile(1);
-					ApplicationData.charSelect.setVisible(false);
-		        	ApplicationData.window.add(ApplicationData.titlePanel);
-		        	ApplicationData.titlePanel.setVisible(true);
-		        	ApplicationData.titlePanel.requestFocusInWindow();
-		        	ApplicationData.window.remove(ApplicationData.charSelect);
-		        	
+					ApplicationData.switchPanel(ApplicationData.charSelect, ApplicationData.titlePanel);
+		    
 				}
+			}
+		});
+		
+		addKeyListener(new KeyAdapter() {
+			 @Override
+			    public void keyPressed(KeyEvent e) {
+			        char c = e.getKeyChar();
+			        if (c == KeyEvent.VK_ESCAPE) {
+			        	ApplicationData.switchPanel(ApplicationData.charSelect, ApplicationData.titlePanel);
+			        	
+			        }
+			    }
+		});
+		
+		addFocusListener(new FocusAdapter(){
+			@Override
+			public void focusLost(FocusEvent e) {
+				ApplicationData.charSelect.requestFocus();
 			}
 		});
 	}
@@ -188,7 +205,7 @@ public class PokemonSelectPanel extends JPanel {
 		g2.setFont(ApplicationData.font.deriveFont(Font.BOLD, 40));
 		int width = g2.getFontMetrics().stringWidth("SELECT A POKEMON");
 		int height = g2.getFontMetrics().getHeight();
-		g2.drawString("SELECT A POKEMON", (this.getWidth()-width)/2, (85+height)/2);
+		g2.drawString("SELECT A POKEMON", (this.getWidth()-width)/2, (75+height)/2);
         g2.drawImage(back, backX, backY, null);
        
     }

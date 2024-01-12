@@ -30,7 +30,7 @@ public class MoveInfoPanel extends JPanel {
 		setLayout(new MigLayout("insets 15 40 15 40, gapx 0", "[100%,grow]", "[50%,grow]10[50%,grow]"));
 		setBackground(Color.WHITE);
 		moveType = new JLabel(selectedMove.getTypeName());
-		moveType.setFont(moveType.getFont().deriveFont(Font.PLAIN, 40));
+		moveType.setFont(ApplicationData.font.deriveFont(Font.PLAIN, 40));
 
 		moveType.setForeground(Color.WHITE);
 		moveType.setHorizontalAlignment(SwingConstants.CENTER);

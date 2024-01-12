@@ -66,11 +66,9 @@ public class TitlePanel extends JPanel {
 			    public void keyPressed(KeyEvent e) {
 			        char c = e.getKeyChar();
 			        if (c == KeyEvent.VK_ENTER) {
-			        	ApplicationData.sfx.playFile(1);
-			        	ApplicationData.titlePanel.setVisible(false);
-			           	ApplicationData.window.add(ApplicationData.charSelect);
-			           	ApplicationData.charSelect.setVisible(true);
-			        	ApplicationData.window.remove(ApplicationData.titlePanel);
+			        	ApplicationData.switchPanel(ApplicationData.titlePanel, ApplicationData.charSelect);	
+			        } else if (c == KeyEvent.VK_ESCAPE) {
+			        	ApplicationData.switchPanel(ApplicationData.titlePanel, ApplicationData.settings);
 			        	
 			        }
 			    }
@@ -82,11 +80,7 @@ public class TitlePanel extends JPanel {
 				int xPos = e.getX();
 				int yPos = e.getY();
 				if (xPos >= settingX && yPos >= settingY && xPos <= (settingX + settingSize) && yPos <= (settingY + settingSize)) {
-					ApplicationData.sfx.playFile(1);
-		        	ApplicationData.titlePanel.setVisible(false);
-		           	ApplicationData.window.add(ApplicationData.charSelect);
-		           	ApplicationData.charSelect.setVisible(true);
-		        	ApplicationData.window.remove(ApplicationData.titlePanel);
+					ApplicationData.switchPanel(ApplicationData.titlePanel, ApplicationData.settings);
 		        	
 				}
 			}

@@ -46,6 +46,7 @@ public class BattlePanel extends JPanel {
 	public Pokemon enemyPokemon, playerPokemon;
 	public int fadeSat = 0;
 	public MoveInfoPanel moveInfo;
+	public int turnNumber = 0;
 
 
 	// GAME STATE
@@ -122,7 +123,7 @@ public class BattlePanel extends JPanel {
 		textBox.setLineWrap(true);
 		textBox.setMinimumSize(new Dimension(0, 0));
 		textBox.setText("What will \n" + playerPokemon.getName() + " do?");
-		textBox.setMargin(new Insets(35, 35, 15, 35));
+		textBox.setMargin(new Insets(20, 35, 15, 35));
 		textBox.setForeground(new Color(94, 94, 104));
 		textBox.setEditable(false);
 		textBox.setFont(ApplicationData.font.deriveFont(Font.PLAIN, 55));
@@ -298,6 +299,7 @@ public class BattlePanel extends JPanel {
 	}
 
 	private void moveSelection() {
+		turnNumber++;
 		bottomPanel.removeAll();
 		bottomPanel.setLayout(new MigLayout("gap 0", "[74.5%,grow]1%[24.5%:24.5%:,grow]", "[100%,grow]"));
 		textPanel.remove(textAreaPanel);

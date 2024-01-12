@@ -1,5 +1,4 @@
 package moves;
-import main.ApplicationData;
 import pokemon.Pokemon;
 import pokemon.PokemonTypes;
 

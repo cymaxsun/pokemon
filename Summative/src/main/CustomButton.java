@@ -63,8 +63,7 @@ public class CustomButton extends JButton {
 		super.paintComponent(g);
 		g.setFont(ApplicationData.font.deriveFont(Font.PLAIN, this.getWidth() / 11));
 		int width = g.getFontMetrics().stringWidth(text);
-		int height = g.getFontMetrics().getHeight();
-
+		int height = g.getFontMetrics().getAscent();
 		if (pressed) {
 			g.drawImage(imagePressed, 0, 0, this.getWidth(), this.getHeight(), null);
 			textColor = Color.red;
@@ -75,12 +74,12 @@ public class CustomButton extends JButton {
 			textColor = new Color(94, 94, 104);
 			textShadowColor = Color.GRAY;
 			g.setColor(textShadowColor);
-			g.drawString(text, (this.getWidth() - width) / 2 + 3, (this.getHeight() + height) / 2 - 3);
+			g.drawString(text, (this.getWidth() - width) / 2 + 3, (this.getHeight()+height) / 2 - 5 );
 
 		}
 
 		g.setColor(textColor);
-		g.drawString(text, (this.getWidth() - width) / 2, (this.getHeight() + height) / 2 - 5);
+		g.drawString(text, (this.getWidth() - width) / 2, (this.getHeight()+height) / 2  - 5);
 		g.dispose();
 	}
 	

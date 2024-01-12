@@ -124,7 +124,7 @@ public class StatusPanel extends JPanel {
 		g2.setColor(background);
 		g2.fillRoundRect(this.getWidth()/2-30, this.getHeight()*3/5+6, width + 60, height+10, 20, 15);
 		g2.setColor(textColor);
-		g2.drawString(hpValue1 + "/" + p.getMaxHp(), this.getWidth()/2, this.getHeight()*4/5+5);
+		g2.drawString(hpValue1 + "/" + p.getMaxHp(), this.getWidth()/2, this.getHeight()*4/5);
 	
 	}
 	

@@ -11,10 +11,13 @@ public class Sound {
 
 	FloatControl gainControl;
 	float range;
-	float gain;
 	Clip clip;
 	URL[] clips = new URL[10];
 	float volume;
+	final float mutedVol = -80f;
+	float prevVol;
+	boolean muted = false;
+	private long clipPos;
 
 	public Sound() {
 
@@ -27,7 +30,7 @@ public class Sound {
 		clips[6] = getClass().getResource("/sound/lowHP.wav");
 		clips[7] = getClass().getResource("/sound/heal.wav");
 		clips[8] = getClass().getResource("/sound/backgroundTrack2.wav");
-		setVolume(1f);
+
 	}
 
 	public void setFile(int i) {
@@ -36,6 +39,7 @@ public class Sound {
 			sis = AudioSystem.getAudioInputStream(clips[i]);
 			clip = AudioSystem.getClip();
 			clip.open(sis);
+			gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 
 		} catch (Exception e) {
 
@@ -43,13 +47,14 @@ public class Sound {
 
 	}
 
-	public void setFile(URL clip) {
+	public void setFile(URL path) {
 		AudioInputStream sis;
 		try {
-			sis = AudioSystem.getAudioInputStream(clip);
+			sis = AudioSystem.getAudioInputStream(path);
 			this.clip = AudioSystem.getClip();
 			this.clip.open(sis);
 
+			gainControl = (FloatControl) this.clip.getControl(FloatControl.Type.MASTER_GAIN);
 		} catch (Exception e) {
 
 		}
@@ -57,6 +62,7 @@ public class Sound {
 	}
 
 	public void play() {
+		gainControl.setValue(volume);
 		clip.start();
 	}
 
@@ -70,30 +76,51 @@ public class Sound {
 
 	public void playFile(int i) {
 		setFile(i);
-		gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-		range = gainControl.getMaximum() - gainControl.getMinimum();
-		gain = (range * volume) + gainControl.getMinimum();
-		gainControl.setValue(gain);
 		play();
 
 	}
 
 	public void playFile(URL path) {
 		setFile(path);
-		gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-		range = gainControl.getMaximum() - gainControl.getMinimum();
-		gain = (range * volume) + gainControl.getMinimum();
-		gainControl.setValue(gain);
 		play();
 
 	}
 
 	public void setVolume(float f) {
 		this.volume = f;
+		if (clip != null && !muted) {
+			gainControl.setValue(volume);
+		} 
 	}
 
 	public long getLength() {
 
 		return clip.getMicrosecondLength();
+	}
+	
+	public void muteClip() { 
+		if (!muted) {
+			this.prevVol = volume;
+			setVolume(mutedVol);
+			muted = true;
+		} else {
+			muted = false;
+			setVolume(prevVol);
+		}
+	}
+	
+	public void muteTrack() {
+		if (!muted) {
+			clipPos = clip.getMicrosecondPosition();
+			clip.stop();
+			muted = true;
+		} else {
+			clip.setMicrosecondPosition(clipPos);
+			play();
+			loop();
+			muted = false;
+		
+		
+	}
 	}
 }
