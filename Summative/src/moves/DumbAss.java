@@ -25,7 +25,7 @@ public class DumbAss extends PokemonMove {
 			return;
 		}
 		super.useMove(attacker, target);
-		attack(attacker,target, dmgCalc(attacker, target));
+		attack(attacker,target);
 		if (target.getCurrentHp() <= 0) {
 			return;
 		}

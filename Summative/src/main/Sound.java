@@ -36,10 +36,10 @@ public class Sound {
 		clips[8] = getClass().getResource("/sound/Stat Rise Up.wav");
 		
 		tracks[0] = getClass().getResource("/sound/Opening.wav");
-		tracks[1] = getClass().getResource("/sound/Pokémon Center.wav");
+		tracks[1] = getClass().getResource("/sound/Pokemon Center.wav");
 		tracks[2] = getClass().getResource("/sound/The Road To Veridian ~ From Pallet.wav");
-		tracks[3] = getClass().getResource("/sound/Pokémon Gym.wav");
-		tracks[4] = getClass().getResource("/sound/Pokémon Theme.wav");
+		tracks[3] = getClass().getResource("/sound/Pokemon Gym.wav");
+		tracks[4] = getClass().getResource("/sound/Pokemon Theme.wav");
 		tracks[5] = getClass().getResource("/sound/Driftveil City.wav");
 
 	}

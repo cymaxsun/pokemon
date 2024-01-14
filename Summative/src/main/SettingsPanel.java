@@ -31,9 +31,6 @@ public class SettingsPanel extends JPanel {
 	private JPanel settingPanel;
 	private JPanel headingPanel;
 	private CustomText header;
-	private JPanel scrollSpeedPanel;
-	private JSpinner spinner;
-	private CustomText scrollSpeedLabel;
 	private JPanel musicVolumePanel;
 	private CustomText musicVolumeLabel;
 	private JSlider musicSlider;
@@ -42,7 +39,6 @@ public class SettingsPanel extends JPanel {
 	private CustomText SFXvolumeLabel;
 	private CustomText SFXMuteButton;
 	private JSlider SFXSlider;
-	private CustomText spinnerEditor;
 	private Color enabledColor = Color.RED;
 	private Color enabledShadowColor = new Color(248,139,132);
 	private Color defaultColor = new Color(88, 88, 80);
@@ -74,40 +70,14 @@ public class SettingsPanel extends JPanel {
 				new MatteBorder(5, 5, 5, 5, (Color) new Color(235, 241, 255))));
 
 		add(settingPanel, BorderLayout.CENTER);
-		settingPanel.setLayout(new MigLayout("insets 30 20 30 20, gapy 20", "[grow]", "[][][][][grow]"));
-
-		scrollSpeedPanel = new JPanel();
-		scrollSpeedPanel.setOpaque(false);
-		settingPanel.add(scrollSpeedPanel, "cell 0 0,grow");
-		scrollSpeedPanel.setLayout(new MigLayout("insets 0", "[:40%:40%,grow][grow]", "[grow]"));
-
-		scrollSpeedLabel = new CustomText("Text Speed");
-		scrollSpeedLabel.setBorder(null);
-		scrollSpeedLabel.setRequestFocusEnabled(false);
-		scrollSpeedLabel.setForeground(new Color(192, 120, 0));
-		scrollSpeedLabel.setBackground(Color.ORANGE);
-		scrollSpeedLabel.setFont(ApplicationData.font.deriveFont(Font.PLAIN, 50f));
-		scrollSpeedPanel.add(scrollSpeedLabel, "cell 0 0,alignx left,aligny center");
-
-		spinner = new JSpinner();
-		spinner.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-
-			}
-		});
-		spinnerEditor = new CustomText("1");
-		spinnerEditor.setOpaque(false);
-		spinnerEditor.setFont(ApplicationData.font.deriveFont(15));
-		spinner.setEditor(spinnerEditor);
-
-		scrollSpeedPanel.add(spinner, "cell 1 0,grow");
+		settingPanel.setLayout(new MigLayout("insets 30 20 30 20, gapy 20", "[grow]", "[][][][grow]"));
 
 	
 		
 		musicVolumePanel = new JPanel();
 		musicVolumePanel.setOpaque(false);
 		musicVolumePanel.setLayout(new MigLayout("insets 0", "[:40%:40%,grow][][grow]", "[grow]"));
-		settingPanel.add(musicVolumePanel, "cell 0 1,grow");
+		settingPanel.add(musicVolumePanel, "cell 0 0,grow");
 
 		musicVolumeLabel = new CustomText("Music Volume");
 
@@ -155,7 +125,7 @@ public class SettingsPanel extends JPanel {
 		SFXVolumePanel = new JPanel();
 		SFXVolumePanel.setOpaque(false);
 		SFXVolumePanel.setLayout(new MigLayout("insets 0", "[:40%:40%,grow][][grow]", "[grow]"));
-		settingPanel.add(SFXVolumePanel, "cell 0 2,grow");
+		settingPanel.add(SFXVolumePanel, "cell 0 1,grow");
 
 		SFXvolumeLabel = new CustomText("SFX Volume");
 		SFXvolumeLabel.setForeground(new Color(192, 120, 0));
@@ -196,7 +166,7 @@ public class SettingsPanel extends JPanel {
 		
 		trackSeletionPanel = new JPanel();
 		trackSeletionPanel.setOpaque(false);
-		settingPanel.add(trackSeletionPanel, "cell 0 3,grow");
+		settingPanel.add(trackSeletionPanel, "cell 0 2,grow");
 		trackSeletionPanel.setLayout(new MigLayout("insets 0", "[:40%:40%,grow][:60%:60%,grow]", "[grow]"));
 		
 		trackSelectionLabel = new CustomText("Music");

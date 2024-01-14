@@ -169,8 +169,8 @@ public class PokemonMove {
     
     public int dmgCalc(Pokemon attacker, Pokemon target) {
     	dmg = power+attacker.getAtk()-target.getDef();
-    	if (dmg <= 0 ) {
-    		return 1;
+    	if (dmg <= 0) {
+    		dmg = 1;
     	}
     	return dmg;
     }
@@ -180,7 +180,8 @@ public class PokemonMove {
     	ApplicationData.animate.addTextAnimation(attacker.getName() + " can't use " + this.getName()+".");
 		ApplicationData.animate.addTextAnimation(attacker.getName() + " used Struggle!");
 		ignoreEffectiveness = true;
-		attack(attacker, target, dmgCalc(attacker, target));
+		attack(attacker, target);
+		
 		attack(target, attacker, attacker.getMaxHp()/4);
 	}
 	
@@ -200,18 +201,22 @@ public class PokemonMove {
 	
 
 	
-	public void attack(Pokemon attacker, Pokemon target, int dmg) {
+	public void attack(Pokemon attacker, Pokemon target) {
 		if (roll(acc)) {
 			//System.out.println(x);
 			ApplicationData.eventQueue.add(()->ApplicationData.sfx.playSFX(2));
 			//System.out.println(baseAtk + " " + attacker.getBaseAtk() + " " + target.getBaseDef() + " " + (baseAtk+attacker.getBaseAtk()-target.getBaseDef()));
 			float effectiveness;
+			dmgCalc(attacker,target);
 			if (ignoreEffectiveness == false) {
 				effectiveness = ApplicationData.typeChart[getType()][target.getType()];
+				this.dmg = (int) (dmg * effectiveness);
 			} else {
 				effectiveness = 1;
+				
 			}
-			this.dmg = (int) (dmg * effectiveness);
+			
+			
 			target.setCurrentHp(target.getCurrentHp() - this.dmg);	
 			ApplicationData.eventQueue.add(()->target.getSpritePanel().damageTaken());
 			ApplicationData.animate.addHpAnimation(target);
@@ -232,27 +237,17 @@ public class PokemonMove {
 		
 	}
 	
-	public void attack(Pokemon attacker, Pokemon target) {
+	
+	public void attack(Pokemon attacker, Pokemon target, int dmg) {
 		if (roll(acc)) {
 			//System.out.println(x);
 			ApplicationData.eventQueue.add(()->ApplicationData.sfx.playSFX(2));
 			//System.out.println(baseAtk + " " + attacker.getBaseAtk() + " " + target.getBaseDef() + " " + (baseAtk+attacker.getBaseAtk()-target.getBaseDef()));
-			float effectiveness = ApplicationData.typeChart[getType()][target.getType()];
-			dmg = power + attacker.getAtk() - target.getDef();
-			dmg = (int) (dmg * effectiveness);
-			if (dmg <= 0 ) {
-	    		dmg = 1;
-	    	}
-			target.setCurrentHp(target.getCurrentHp() - dmg);
+			
+			
+			target.setCurrentHp(target.getCurrentHp() - dmg);	
 			ApplicationData.eventQueue.add(()->target.getSpritePanel().damageTaken());
 			ApplicationData.animate.addHpAnimation(target);
-			if (effectiveness == 0) {
-				ApplicationData.animate.addTextAnimation("The move had no effect!");
-			} else if (effectiveness == 0.5f) {
-				ApplicationData.animate.addTextAnimation("It was not very effective...");
-			} else if (effectiveness == 2) {
-				ApplicationData.animate.addTextAnimation("It was super effective!");
-			}
 			if (target.getCurrentHp() <= 0) {
 				return;
 			}
