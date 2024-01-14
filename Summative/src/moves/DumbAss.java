@@ -13,7 +13,7 @@ public class DumbAss extends PokemonMove {
 		setName("Dumbass");
 		setType(PokemonTypes.NORMAL);
 		setPower(50);
-		setMaxCharges(5);
+		setMaxCharges(10);
 		setAcc(100);
 		// TODO Auto-generated constructor stub
 	}
@@ -26,6 +26,9 @@ public class DumbAss extends PokemonMove {
 		}
 		super.useMove(attacker, target);
 		attack(attacker,target, dmgCalc(attacker, target));
+		if (target.getCurrentHp() <= 0) {
+			return;
+		}
 		
 			
 

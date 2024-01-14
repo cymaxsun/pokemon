@@ -20,9 +20,11 @@ public class PokemonMove {
 	Image buttonPressed;
 	int power;
 	int dmg;
+	
 	int charges;
 	int maxCharges;
 	int acc;
+	boolean ignoreEffectiveness = false;
 	private Random random;
 	
 	public PokemonMove() {
@@ -124,6 +126,21 @@ public class PokemonMove {
         this.acc = acc;
     }
 
+    public int getDmg() {
+		return dmg;
+	}
+
+
+	public void setDmg(int dmg) {
+		
+		if (dmg <= 0) {
+			this.dmg = 1;
+		} else {
+			this.dmg = dmg;
+		}
+	}
+
+    
     public void useMove(Pokemon attacker, Pokemon target) {
     	System.out.println("\nMove: " + this.name);
     	System.out.println("Attacker: " + attacker.getName());
@@ -162,17 +179,9 @@ public class PokemonMove {
 	public void useStruggle(Pokemon attacker, Pokemon target) {
     	ApplicationData.animate.addTextAnimation(attacker.getName() + " can't use " + this.getName()+".");
 		ApplicationData.animate.addTextAnimation(attacker.getName() + " used Struggle!");
-		attack(attacker, target, power);
+		ignoreEffectiveness = true;
+		attack(attacker, target, dmgCalc(attacker, target));
 		attack(target, attacker, attacker.getMaxHp()/4);
-	}
-	public void playAtkSFX() {
-		ApplicationData.sfx.playFile(2);
-		ApplicationData.eventQueue.pop().run();
-	}
-	
-	public void playHealSFX() {
-		ApplicationData.sfx.playFile(7);
-		ApplicationData.eventQueue.pop().run();
 	}
 	
 	public void playSFX() {
@@ -192,17 +201,63 @@ public class PokemonMove {
 
 	
 	public void attack(Pokemon attacker, Pokemon target, int dmg) {
-		int x = random.nextInt(100);
-		if (x < acc) {
+		if (roll(acc)) {
 			//System.out.println(x);
-			ApplicationData.eventQueue.add(()->playAtkSFX());
+			ApplicationData.eventQueue.add(()->ApplicationData.sfx.playSFX(2));
 			//System.out.println(baseAtk + " " + attacker.getBaseAtk() + " " + target.getBaseDef() + " " + (baseAtk+attacker.getBaseAtk()-target.getBaseDef()));
-			target.setCurrentHp(target.getCurrentHp() - dmg);
+			float effectiveness;
+			if (ignoreEffectiveness == false) {
+				effectiveness = ApplicationData.typeChart[getType()][target.getType()];
+			} else {
+				effectiveness = 1;
+			}
+			this.dmg = (int) (dmg * effectiveness);
+			target.setCurrentHp(target.getCurrentHp() - this.dmg);	
 			ApplicationData.eventQueue.add(()->target.getSpritePanel().damageTaken());
 			ApplicationData.animate.addHpAnimation(target);
+			if (effectiveness == 0) {
+				ApplicationData.animate.addTextAnimation("The move had no effect!");
+			} else if (effectiveness == 0.5f) {
+				ApplicationData.animate.addTextAnimation("It was not very effective...");
+			} else if (effectiveness == 2) {
+				ApplicationData.animate.addTextAnimation("It was super effective!");
+			}
 			if (target.getCurrentHp() <= 0) {
 				return;
 			}
+		} else {
+			ApplicationData.animate.addTextAnimation(getAllied(attacker) + attacker.getName() + "'s attack missed!");
+		}
+
+		
+	}
+	
+	public void attack(Pokemon attacker, Pokemon target) {
+		if (roll(acc)) {
+			//System.out.println(x);
+			ApplicationData.eventQueue.add(()->ApplicationData.sfx.playSFX(2));
+			//System.out.println(baseAtk + " " + attacker.getBaseAtk() + " " + target.getBaseDef() + " " + (baseAtk+attacker.getBaseAtk()-target.getBaseDef()));
+			float effectiveness = ApplicationData.typeChart[getType()][target.getType()];
+			dmg = power + attacker.getAtk() - target.getDef();
+			dmg = (int) (dmg * effectiveness);
+			if (dmg <= 0 ) {
+	    		dmg = 1;
+	    	}
+			target.setCurrentHp(target.getCurrentHp() - dmg);
+			ApplicationData.eventQueue.add(()->target.getSpritePanel().damageTaken());
+			ApplicationData.animate.addHpAnimation(target);
+			if (effectiveness == 0) {
+				ApplicationData.animate.addTextAnimation("The move had no effect!");
+			} else if (effectiveness == 0.5f) {
+				ApplicationData.animate.addTextAnimation("It was not very effective...");
+			} else if (effectiveness == 2) {
+				ApplicationData.animate.addTextAnimation("It was super effective!");
+			}
+			if (target.getCurrentHp() <= 0) {
+				return;
+			}
+		} else {
+			ApplicationData.animate.addTextAnimation(getAllied(attacker) + attacker.getName() + "'s attack missed!");
 		}
 
 		
@@ -215,7 +270,7 @@ public class PokemonMove {
 		} else {
 			attacker.setCurrentHp(attacker.getCurrentHp()+ healAmount);
 		}	
-		ApplicationData.eventQueue.add(()->playHealSFX());	
+		ApplicationData.eventQueue.add(()->ApplicationData.sfx.playSFX(7));	
 		ApplicationData.animate.addHpAnimation(attacker);
 		ApplicationData.animate.addTextAnimation(getAllied(attacker) + attacker.getName() + " restored its HP!");
 		
@@ -226,6 +281,11 @@ public class PokemonMove {
 		 setButton(new ImageIcon("res/buttons/"+Pokemon.getTypeName(type) + ".png").getImage());
          buttonPressed = new ImageIcon("res/buttons/"+Pokemon.getTypeName(type) + "Pressed.png").getImage();
 	    
+	}
+	
+	public boolean roll(int acc) {
+		int x = random.nextInt(100);
+		return (x < acc);
 	}
 
 }

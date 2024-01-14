@@ -30,6 +30,7 @@ import javax.swing.border.MatteBorder;
 import net.miginfocom.swing.MigLayout;
 import pokemon.Brian;
 import pokemon.Ethan;
+import pokemon.Gengar;
 import pokemon.Imogen;
 import pokemon.Pokemon;
 
@@ -42,7 +43,7 @@ public class PokemonSelectPanel extends JPanel {
 	private boolean transitionComplete = false;
 	JPanel viewport;
 	public PokemonPreviewPanel[][] pokemon;
-	Pokemon[][] pokemonList = {{new Brian(), new Ethan(), new Imogen()},{ new Imogen(),new Brian(), new Ethan()},{ new Ethan(),new Imogen(), new Brian()}};
+	Pokemon[][] pokemonList = {{new Brian(), new Ethan(), new Imogen()},{ new Imogen(),new Brian(), new Gengar()},{ new Ethan(),new Imogen(), new Brian()}};
 	private JPanel previewInfoPanel;
 	PokemonPreviewPanel selectedPokemon;
 	private JPanel pokemonStats;
@@ -100,8 +101,10 @@ public class PokemonSelectPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				ApplicationData.playerPokemon = selectedPokemon.getPokemon();
 				timer.start();
+				ApplicationData.soundtrack.clipEnded = false;
 				ApplicationData.soundtrack.stop();
 		  	 	ApplicationData.soundtrack.playFile(0);
+		  	 	ApplicationData.soundtrack.clip.setLoopPoints(133589, -1);
 		  	 	ApplicationData.soundtrack.loop();
 		  	 	btnNewButton.setEnabled(false);
 			}

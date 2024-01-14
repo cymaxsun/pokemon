@@ -11,7 +11,7 @@ public class PizzaToss extends PokemonMove{
 		setPower(70);
 		setMaxCharges(10);
 		setAcc(100);
-		setSFX(getClass().getResource("/sound/pizzaToss.wav"));
+		setSFX(getClass().getResource("/sound/Pizza Toss.wav"));
 	}
 
 	public void useMove(Pokemon attacker, Pokemon target) {
@@ -23,7 +23,9 @@ public class PizzaToss extends PokemonMove{
 		}
 		super.useMove(attacker, target);
 		attack(attacker,target, dmgCalc(attacker, target));
-		
+		if (target.getCurrentHp() <= 0) {
+			return;
+		}
 		
 		
 		 

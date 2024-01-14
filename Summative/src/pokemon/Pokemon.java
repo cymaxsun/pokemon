@@ -77,7 +77,7 @@ public class Pokemon {
 
 	public void setType(int type) {
 		this.type = type;
-
+		this.typeName = getTypeName(type);
 	}
 
 	public PokemonMove getMove1() {
@@ -133,7 +133,7 @@ public class Pokemon {
 	}
 
 	public void setDef(int def) {
-		if (def < 0 ) {
+		if (def < 0) {
 			this.currentDef = 0;
 			return;
 		}
@@ -189,131 +189,131 @@ public class Pokemon {
 	}
 
 	public static Color getTypeColor(int type) {
-		Color color;
-		switch (type) {
-		case 1: // Normal
-			color = Color.LIGHT_GRAY;
-			break;
-		case 2: // Fire
-			color = Color.RED;
-			break;
-		case 3: // Water
-			color = Color.BLUE;
-			break;
-		case 4: // Grass
-			color = Color.GREEN;
-			break;
-		case 5: // Flying
-			color = Color.CYAN;
-			break;
-		case 6: // Fighting
-			color = Color.ORANGE;
-			break;
-		case 7: // Poison
-			color = new Color(138, 43, 226); // Purple/Violet
-			break;
-		case 8: // Electric
-			color = Color.YELLOW;
-			break;
-		case 9: // Ground
-			color = new Color(205, 133, 63); // Brown
-			break;
-		case 10: // Rock
-			color = new Color(128, 128, 128); // Gray
-			break;
-		case 11: // Psychic
-			color = new Color(255, 20, 147); // Pink
-			break;
-		case 12: // Ice
-			color = new Color(173, 216, 230); // Light Blue
-			break;
-		case 13: // Bug
-			color = new Color(107, 142, 35); // Olive Green
-			break;
-		case 14: // Ghost
-			color = new Color(128, 0, 128); // Dark Purple
-			break;
-		case 15: // Steel
-			color = new Color(192, 192, 192); // Silver
-			break;
-		case 16: // Dragon
-			color = new Color(255, 20, 147); // Another shade of Pink
-			break;
-		case 17: // Dark
-			color = Color.DARK_GRAY;
-			break;
-		case 18: // Fairy
-			color = new Color(255, 182, 193); // Light Pink
-			break;
-		default:
-			color = Color.WHITE; // Default color
-			break;
-		}
-		return color;
-	}
+        Color color;
+        switch (type) {
+            case 0: // Normal
+                color = Color.LIGHT_GRAY;
+                break;
+            case 1: // Fire
+                color = Color.RED;
+                break;
+            case 2: // Water
+                color = Color.BLUE;
+                break;
+            case 3: // Grass
+                color = Color.GREEN;
+                break;
+            case 4: // Flying
+                color = Color.CYAN;
+                break;
+            case 5: // Fighting
+                color = Color.ORANGE;
+                break;
+            case 6: // Poison
+                color = new Color(138, 43, 226); // Purple/Violet
+                break;
+            case 7: // Electric
+                color = Color.YELLOW;
+                break;
+            case 8: // Ground
+                color = new Color(205, 133, 63); // Brown
+                break;
+            case 9: // Rock
+                color = new Color(128, 128, 128); // Gray
+                break;
+            case 10: // Psychic
+                color = new Color(255, 20, 147); // Pink
+                break;
+            case 11: // Ice
+                color = new Color(173, 216, 230); // Light Blue
+                break;
+            case 12: // Bug
+                color = new Color(107, 142, 35); // Olive Green
+                break;
+            case 13: // Ghost
+                color = new Color(128, 0, 128); // Dark Purple
+                break;
+            case 14: // Steel
+                color = new Color(192, 192, 192); // Silver
+                break;
+            case 15: // Dragon
+                color = new Color(255, 20, 147); // Another shade of Pink
+                break;
+            case 16: // Dark
+                color = Color.DARK_GRAY;
+                break;
+            case 17: // Fairy
+                color = new Color(255, 182, 193); // Light Pink
+                break;
+            default:
+                color = Color.WHITE; // Default color
+                break;
+        }
+        return color;
+    }
 
 	public static String getTypeName(int type) {
-		String typeName;
-		switch (type) {
-		case 1:
-			typeName = "NORMAL";
-			break;
-		case 2:
-			typeName = "FIRE";
-			break;
-		case 3:
-			typeName = "WATER";
-			break;
-		case 4:
-			typeName = "GRASS";
-			break;
-		case 5:
-			typeName = "FLYING";
-			break;
-		case 6:
-			typeName = "FIGHTING";
-			break;
-		case 7:
-			typeName = "POISON";
-			break;
-		case 8:
-			typeName = "ELECTRIC";
-			break;
-		case 9:
-			typeName = "GROUND";
-			break;
-		case 10:
-			typeName = "ROCK";
-			break;
-		case 11:
-			typeName = "PSYCHIC";
-			break;
-		case 12:
-			typeName = "ICE";
-			break;
-		case 13:
-			typeName = "BUG";
-			break;
-		case 14:
-			typeName = "GHOST";
-			break;
-		case 15:
-			typeName = "STEEL";
-			break;
-		case 16:
-			typeName = "DRAGON";
-			break;
-		case 17:
-			typeName = "DARK";
-			break;
-		case 18:
-			typeName = "FAIRY";
-			break;
-		default:
-			typeName = "UNKNOWN";
-			break;
-		}
-		return typeName;
+	    String typeName;
+	    switch (type) {
+	        case 0:
+	            typeName = "NORMAL";
+	            break;
+	        case 1:
+	            typeName = "FIRE";
+	            break;
+	        case 2:
+	            typeName = "WATER";
+	            break;
+	        case 3:
+	            typeName = "GRASS";
+	            break;
+	        case 4:
+	            typeName = "FLYING";
+	            break;
+	        case 5:
+	            typeName = "FIGHTING";
+	            break;
+	        case 6:
+	            typeName = "POISON";
+	            break;
+	        case 7:
+	            typeName = "ELECTRIC";
+	            break;
+	        case 8:
+	            typeName = "GROUND";
+	            break;
+	        case 9:
+	            typeName = "ROCK";
+	            break;
+	        case 10:
+	            typeName = "PSYCHIC";
+	            break;
+	        case 11:
+	            typeName = "ICE";
+	            break;
+	        case 12:
+	            typeName = "BUG";
+	            break;
+	        case 13:
+	            typeName = "GHOST";
+	            break;
+	        case 14:
+	            typeName = "STEEL";
+	            break;
+	        case 15:
+	            typeName = "DRAGON";
+	            break;
+	        case 16:
+	            typeName = "DARK";
+	            break;
+	        case 17:
+	            typeName = "FAIRY";
+	            break;
+	        default:
+	            typeName = "UNKNOWN";
+	            break;
+	    }
+	    return typeName;
 	}
 
 	public String getTypeName() {
@@ -323,7 +323,7 @@ public class Pokemon {
 	public void setLowHP(boolean lowHP) {
 		this.lowHP = lowHP;
 	}
-	
+
 	public void lowHPSFX() {
 		if (lowHP) {
 			ApplicationData.sfx.playFile(6);
@@ -332,25 +332,44 @@ public class Pokemon {
 			ApplicationData.sfx.stop();
 		}
 	}
-	
+
 	public int getAtkStage() {
 		return atkStage;
 	}
 
 	public void setAtkStage(int atkStage) {
-		
+
 		if (atkStage <= 6 && atkStage >= -6) {
-			ApplicationData.animate.addTextAnimation(this.getName() + "'s attack sharply rose!");
+			int change = this.atkStage - atkStage;
+			if (this.atkStage < atkStage) {
+				ApplicationData.eventQueue.add(()->ApplicationData.sfx.playSFX(8));
+				if (change > 1) {
+					
+					ApplicationData.animate.addTextAnimation(this.getName() + "'s attack sharply rose!");
+
+				} else {
+					ApplicationData.animate.addTextAnimation(this.getName() + "'s attack rose!");
+
+				}
+			} else {
+				ApplicationData.eventQueue.add(()->ApplicationData.sfx.playSFX(3));
+				if (change > 1) {
+					ApplicationData.animate.addTextAnimation(this.getName() + "'s attack sharply fell!");
+				} else {
+					ApplicationData.animate.addTextAnimation(this.getName() + "'s attack fell!");
+				}
+				
+			}
 			this.atkStage = atkStage;
-		} else if (atkStage > 6){
+		} else if (atkStage > 6) {
 			ApplicationData.animate.addTextAnimation(this.getName() + "'s attack wont go any higher!");
 			this.atkStage = 6;
-		} else{
+		} else {
 			ApplicationData.animate.addTextAnimation(this.getName() + "'s attack wont go any lower!");
 			this.atkStage = -6;
 		}
-		setAtk(baseAtk + (baseAtk*atkStage/2));
-		
+		setAtk(baseAtk + (baseAtk * atkStage / 2));
+
 	}
 
 	public int getDefStage() {
@@ -359,19 +378,38 @@ public class Pokemon {
 
 	public void setDefStage(int defStage) {
 		if (defStage <= 6 && defStage >= -6) {
-			ApplicationData.animate.addTextAnimation(this.getName() + "'s defense sharply rose!");
-			
+			int change = this.defStage - defStage;
+			System.out.println(this.defStage + " - " + defStage + " = " + change);
+			if (this.defStage < defStage) {
+				ApplicationData.eventQueue.add(()->ApplicationData.sfx.playSFX(8));
+				if (change > 1) {
+					ApplicationData.animate.addTextAnimation(this.getName() + "'s defense sharply rose!");
+
+				} else {
+					ApplicationData.animate.addTextAnimation(this.getName() + "'s defense rose!");
+
+				}
+			} else {
+				ApplicationData.eventQueue.add(()->ApplicationData.sfx.playSFX(3));
+				if (change > 1) {
+					ApplicationData.animate.addTextAnimation(this.getName() + "'s defense sharply fell!");
+				} else {
+					ApplicationData.animate.addTextAnimation(this.getName() + "'s defense fell!");
+				}
+				
+			}
+
 			this.defStage = defStage;
-		} else if (defStage > 6){
+		} else if (defStage > 6) {
 			ApplicationData.animate.addTextAnimation(this.getName() + "'s defense wont go any higher!");
 			this.defStage = 6;
-		} else{
+		} else {
 			ApplicationData.animate.addTextAnimation(this.getName() + "'s defense wont go any lower!");
 			this.defStage = -6;
 		}
-		setDef(baseDef + (baseDef*defStage/2));
+		setDef(baseDef + (baseDef * defStage / 2));
 	}
-	
+
 	public int getAtk() {
 		return currentAtk;
 	}
@@ -382,4 +420,6 @@ public class Pokemon {
 		}
 		this.currentAtk = currentAtk;
 	}
+	
+
 }

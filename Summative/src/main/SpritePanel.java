@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,15 +15,14 @@ import javax.swing.Timer;
 
 import pokemon.Pokemon;
 
-public class SpritePanel extends JPanel{
+public class SpritePanel extends JPanel {
 
 	Pokemon p;
-	public Image image; 
+	public Image image;
 	public Image sprite;
-	Graphics2D g2;
 	public int tick = 0;
 	public Timer damageTaken;
-	
+
 	public SpritePanel(Pokemon p) {
 		this.p = p;
 		try {
@@ -33,26 +33,28 @@ public class SpritePanel extends JPanel{
 		}
 		setOpaque(false);
 	}
-	
+
 	public void setImage(Image image) {
 		this.image = image;
 		sprite = image.getScaledInstance(150, 155, Image.SCALE_SMOOTH);
 	}
 
 	@Override
-	public void paintComponent(Graphics g){
+	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		this.g2 = g2;
-		super.paintComponent(g2);
-		g2.drawImage(sprite, this.getWidth()/2-sprite.getWidth(null)/2, this.getHeight()*3/5-sprite.getHeight(null)/2 -5, null);
-		if (tick == 1) {
-			g2.setColor(new Color(255,255,255,75));
-			g2.fillRect(this.getWidth()/2-sprite.getWidth(null)/2, this.getHeight()*3/5-sprite.getHeight(null)/2-10, sprite.getWidth(null), sprite.getHeight(null));
+	
+		if (tick == 0) {
+			
+			g2.drawImage(sprite, this.getWidth() / 2 - sprite.getWidth(null) / 2,
+					this.getHeight() * 3 / 5 - sprite.getHeight(null) / 2 - 5, null);
+		} else {
+			AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f);
+			g2.setComposite(ac);
+			g2.drawImage(sprite, this.getWidth() / 2 - sprite.getWidth(null) / 2,
+					this.getHeight() * 3 / 5 - sprite.getHeight(null) / 2 - 5, null);
 		}
-		g2.dispose();
 	}
-	
-	
+
 	public void damageTaken() {
 		damageTaken = new Timer(25, new ActionListener() {
 

@@ -14,7 +14,7 @@ public class Harden extends PokemonMove{
 		setPower(0);
 		setMaxCharges(30);
 		setAcc(100);
-		setSFX(getClass().getResource("/sound/harden.wav"));
+		setSFX(getClass().getResource("/sound/Harden.wav"));
 	}
 	
 	
@@ -25,6 +25,7 @@ public class Harden extends PokemonMove{
 		}
 		
 		super.useMove(attacker, target);
+		
 		attacker.setDefStage(attacker.getDefStage()+1);
 	}
 	

@@ -14,7 +14,7 @@ public class SwordsDance extends PokemonMove{
 		setPower(0);
 		setMaxCharges(10);
 		setAcc(100);
-		setSFX(getClass().getResource("/sound/swordsDance.wav"));
+		setSFX(getClass().getResource("/sound/Swords Dance.wav"));
 		// TODO Auto-generated constructor stub
 	}
 
@@ -30,6 +30,7 @@ public class SwordsDance extends PokemonMove{
 
 		super.useMove(attacker, target);
 		attacker.setAtkStage(attacker.getAtkStage()+2);
+		
 
 	}
 	

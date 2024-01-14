@@ -15,7 +15,7 @@ public class Tackle extends PokemonMove {
 		setPower(70);
 		setMaxCharges(10);
 		setAcc(100);
-		setSFX(getClass().getResource("/sound/tackle.wav"));
+		setSFX(getClass().getResource("/sound/Tackle.wav"));
 	}
 
 	public void useMove(Pokemon attacker, Pokemon target) {
@@ -29,7 +29,9 @@ public class Tackle extends PokemonMove {
 		
 		super.useMove(attacker, target);
 		attack(attacker,target, dmgCalc(attacker, target));
-		
+		if (target.getCurrentHp() <= 0) {
+			return;
+		}
 		
 	}
 

@@ -10,7 +10,7 @@ public class Lick extends PokemonMove {
 		super();
 		// TODO Auto-generated constructor stub
 		setName("Lick");
-		setType(PokemonTypes.DARK);
+		setType(PokemonTypes.GHOST);
 		setPower(50);
 		setMaxCharges(10);
 		setAcc(100);
@@ -27,6 +27,9 @@ public class Lick extends PokemonMove {
 
 		super.useMove(attacker, target);
 		attack(attacker,target, dmgCalc(attacker, target));
+		if (target.getCurrentHp() <= 0) {
+			return;
+		}
 	}
 
 }

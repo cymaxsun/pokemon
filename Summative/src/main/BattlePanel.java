@@ -268,7 +268,6 @@ public class BattlePanel extends JPanel {
 		} else {
 			ApplicationData.eventQueue.add(() -> enemyMove());
 		}
-		// playerPokemon.updateStatuses();
 		ApplicationData.eventQueue.pop().run();
 	}
 

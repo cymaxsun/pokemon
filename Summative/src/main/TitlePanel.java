@@ -42,14 +42,8 @@ public class TitlePanel extends JPanel {
 	 */
 	public TitlePanel() {
 		setPreferredSize(new Dimension(ApplicationData.frameWidth, ApplicationData.frameHeight));
-		int track;
-		if (random.nextBoolean()) {
-			track = 3;
-		} else {
-			track = 8;
-		}
-		ApplicationData.soundtrack.playFile(track);
-		ApplicationData.soundtrack.loop();
+		ApplicationData.track = random.nextInt(ApplicationData.numOfTracks);
+		ApplicationData.soundtrack.playTrack(ApplicationData.track);
 		setBackground(Color.WHITE);
 		setLayout(new MigLayout("", "[grow]", "[grow]"));
 		try {

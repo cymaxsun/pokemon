@@ -16,6 +16,8 @@ import pokemon.Pokemon;
 public class PokemonPreviewPanel extends JPanel{
 	
 	Image image; 
+
+
 	Pokemon p;
 	PokemonSelectPanel psp;
 	boolean pressed;
@@ -118,4 +120,12 @@ public class PokemonPreviewPanel extends JPanel{
 		this.enabled = enabled;
 	}
 
+	
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
 }

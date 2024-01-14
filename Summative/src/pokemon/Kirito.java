@@ -1,9 +1,5 @@
 package pokemon;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import moves.DumbAss;
 import moves.Heal;
 import moves.Lick;
