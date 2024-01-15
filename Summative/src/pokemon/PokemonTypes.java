@@ -64,7 +64,7 @@ public interface PokemonTypes {
 	            default:
 	                color =Color.WHITE; // Default color
 	        }
-	        return color;
+	        return color;  
 	    }
 
 	public static String getTypeName(int type) {
