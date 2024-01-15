@@ -13,19 +13,18 @@ public class Eruption extends PokemonMove {
 		setPower(150);
 		setMaxCharges(5);
 		setAcc(100);
-		setSFX(getClass().getResource("/sound/Lick.wav"));
+		setSFX(getClass().getResource("/sound/Eruption.wav"));
 	}
 
 	@Override
 	public void useMove(Pokemon attacker, Pokemon target) {
 		// TODO Auto-generated method stub
 
-		if (charges <= 0) {
-			useStruggle(attacker, target);
+		super.useMove(attacker, target);
+		if (charges < 0) {
+			setCharges(0);
 			return;
 		}
-
-		super.useMove(attacker, target);
 		attack(attacker,target);
 		if (target.getCurrentHp() <= 0) {
 			return;

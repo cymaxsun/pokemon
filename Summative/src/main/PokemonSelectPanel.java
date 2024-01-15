@@ -33,6 +33,7 @@ import pokemon.Ethan;
 import pokemon.Gengar;
 import pokemon.Imogen;
 import pokemon.Pokemon;
+import pokemon.PokemonTypes;
 
 public class PokemonSelectPanel extends JPanel {
 
@@ -43,7 +44,7 @@ public class PokemonSelectPanel extends JPanel {
 	private boolean transitionComplete = false;
 	JPanel viewport;
 	public PokemonPreviewPanel[][] pokemon;
-	Pokemon[][] pokemonList = {{new Brian(), new Ethan(), new Imogen()},{ new Imogen(),new Brian(), new Gengar()},{ new Ethan(),new Imogen(), new Brian()}};
+	private int[] pokemonList = new int[ApplicationData.numOfPokemon];
 	private JPanel previewInfoPanel;
 	PokemonPreviewPanel selectedPokemon;
 	private JPanel pokemonStats;
@@ -61,6 +62,9 @@ public class PokemonSelectPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public PokemonSelectPanel() {
+		for (int i =0 ; i <ApplicationData.numOfPokemon ; i++) {
+			pokemonList[i] = i;
+		}
 		setBackground(backgroundColor);
 		setBorder(new MatteBorder(0, 7, 7, 7	, Color.gray));
 		setLayout(new MigLayout("insets 100 100 50 100", "[50%,grow]100[30%,grow]", "[grow]"));
@@ -73,7 +77,8 @@ public class PokemonSelectPanel extends JPanel {
 		for (int row = 0; row < 3; row++) {
 			for (int col = 0; col < 3; col++) {
 				pokemon[row][col] = new PokemonPreviewPanel(this);
-				pokemon[row][col].setPokemon(pokemonList[row][col]);
+
+				pokemon[row][col].setPokemon(Pokemon.createPokemon(pokemonList[(row*3 + col)]));
 				pokemonListDisplay.add(pokemon[row][col],"cell " 	+ col + " " + row + " , grow");
 			}
 			
@@ -126,7 +131,7 @@ public class PokemonSelectPanel extends JPanel {
 		txtrAtk.setEditable(false);
 		panel.add(txtrAtk, "cell 1 0,grow");
 		
-		timer = new Timer(35, new ActionListener() {
+		timer = new Timer(30, new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
                  if (!transitionComplete) {
@@ -251,7 +256,7 @@ public class PokemonSelectPanel extends JPanel {
 	
 	public void updateStats() {
 		
-		txtrAtk.setText( selectedPokemon.getPokemon().getName() +"\nATK:  " + selectedPokemon.getPokemon().getBaseAtk() + "\nDEF:  "+ selectedPokemon.getPokemon().getBaseDef()+ "\nHP:  "+ selectedPokemon.getPokemon().getMaxHp() + "\nTYPE:  "+ Pokemon.getTypeName(selectedPokemon.getPokemon().getType()));
+		txtrAtk.setText( selectedPokemon.getPokemon().getName() +"\nATK:  " + selectedPokemon.getPokemon().getBaseAtk() + "\nDEF:  "+ selectedPokemon.getPokemon().getBaseDef()+ "\nHP:  "+ selectedPokemon.getPokemon().getMaxHp() + "\nTYPE:  "+ PokemonTypes.getTypeName(selectedPokemon.getPokemon().getType()));
 		
 		
 	}

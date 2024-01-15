@@ -41,6 +41,7 @@ public class Sound {
 		tracks[3] = getClass().getResource("/sound/Pokemon Gym.wav");
 		tracks[4] = getClass().getResource("/sound/Pokemon Theme.wav");
 		tracks[5] = getClass().getResource("/sound/Driftveil City.wav");
+		tracks[6] = getClass().getResource("/sound/Littleroot Town.wav");
 
 	}
 	
@@ -58,6 +59,8 @@ public class Sound {
                 return "Pokemon Theme (Anime)";
             case 5:
                 return "Driftveil City";
+            case 6:
+                return "Littleroot Town";
             default:
                 return "UNKNOWN";
         }

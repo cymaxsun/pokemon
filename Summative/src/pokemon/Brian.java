@@ -1,24 +1,19 @@
 package pokemon;
-import java.awt.Image;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-
+import moves.LeechSeed;
 import moves.Lick;
-import moves.Tackle;
-import moves.Heal;
 import moves.PizzaToss;
+import moves.Tackle;
 
-public class Brian extends Pokemon{
+	public class Brian extends Pokemon{
+		
+		
+		
+		
+		public Brian( ) {
+			super("Brian", PokemonTypes.GRASS, 69, 400, 30, 30, new Tackle(), new PizzaToss(), new Lick(),new LeechSeed());
+		}
 	
+		
+		
 	
-	
-	
-	public Brian( ) {
-		super("Brian", PokemonTypes.DARK, 69, 400, 30, 30, new Tackle(), new PizzaToss(), new Lick(),new Heal());
 	}
-	
-	
-
-}

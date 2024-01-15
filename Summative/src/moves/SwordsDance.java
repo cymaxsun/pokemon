@@ -22,13 +22,11 @@ public class SwordsDance extends PokemonMove{
 		// TODO Auto-generated method stub
 
 
-		if (charges <= 0) {
-			useStruggle(attacker, target);
+		super.useMove(attacker, target);
+		if (charges < 0) {
+			setCharges(0);
 			return;
 		}
-		
-
-		super.useMove(attacker, target);
 		attacker.setAtkStage(attacker.getAtkStage()+2);
 		
 

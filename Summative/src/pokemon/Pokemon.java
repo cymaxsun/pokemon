@@ -14,7 +14,7 @@ import main.SpritePanel;
 import main.StatusPanel;
 import moves.PokemonMove;
 
-public class Pokemon {
+public class Pokemon{
 
 	private String name;
 	private int type;
@@ -48,7 +48,7 @@ public class Pokemon {
 		this.baseDef = baseDef;
 		this.currentDef = baseDef;
 		this.type = type;
-		this.typeName = getTypeName(type);
+		this.typeName = PokemonTypes.getTypeName(type);
 		this.move1 = move1;
 		this.move2 = move2;
 		this.move3 = move3;
@@ -62,6 +62,10 @@ public class Pokemon {
 	}
 
 	// Getter and setter methods for each field
+
+	public Pokemon() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public String getName() {
 		return name;
@@ -77,7 +81,7 @@ public class Pokemon {
 
 	public void setType(int type) {
 		this.type = type;
-		this.typeName = getTypeName(type);
+		this.typeName = PokemonTypes.getTypeName(type);
 	}
 
 	public PokemonMove getMove1() {
@@ -188,133 +192,8 @@ public class Pokemon {
 		this.spritePanel = spritePanel;
 	}
 
-	public static Color getTypeColor(int type) {
-        Color color;
-        switch (type) {
-            case 0: // Normal
-                color = Color.LIGHT_GRAY;
-                break;
-            case 1: // Fire
-                color = Color.RED;
-                break;
-            case 2: // Water
-                color = Color.BLUE;
-                break;
-            case 3: // Grass
-                color = Color.GREEN;
-                break;
-            case 4: // Flying
-                color = Color.CYAN;
-                break;
-            case 5: // Fighting
-                color = Color.ORANGE;
-                break;
-            case 6: // Poison
-                color = new Color(138, 43, 226); // Purple/Violet
-                break;
-            case 7: // Electric
-                color = Color.YELLOW;
-                break;
-            case 8: // Ground
-                color = new Color(205, 133, 63); // Brown
-                break;
-            case 9: // Rock
-                color = new Color(128, 128, 128); // Gray
-                break;
-            case 10: // Psychic
-                color = new Color(255, 20, 147); // Pink
-                break;
-            case 11: // Ice
-                color = new Color(173, 216, 230); // Light Blue
-                break;
-            case 12: // Bug
-                color = new Color(107, 142, 35); // Olive Green
-                break;
-            case 13: // Ghost
-                color = new Color(128, 0, 128); // Dark Purple
-                break;
-            case 14: // Steel
-                color = new Color(192, 192, 192); // Silver
-                break;
-            case 15: // Dragon
-                color = new Color(255, 20, 147); // Another shade of Pink
-                break;
-            case 16: // Dark
-                color = Color.DARK_GRAY;
-                break;
-            case 17: // Fairy
-                color = new Color(255, 182, 193); // Light Pink
-                break;
-            default:
-                color = Color.WHITE; // Default color
-                break;
-        }
-        return color;
-    }
 
-	public static String getTypeName(int type) {
-	    String typeName;
-	    switch (type) {
-	        case 0:
-	            typeName = "NORMAL";
-	            break;
-	        case 1:
-	            typeName = "FIRE";
-	            break;
-	        case 2:
-	            typeName = "WATER";
-	            break;
-	        case 3:
-	            typeName = "GRASS";
-	            break;
-	        case 4:
-	            typeName = "FLYING";
-	            break;
-	        case 5:
-	            typeName = "FIGHTING";
-	            break;
-	        case 6:
-	            typeName = "POISON";
-	            break;
-	        case 7:
-	            typeName = "ELECTRIC";
-	            break;
-	        case 8:
-	            typeName = "GROUND";
-	            break;
-	        case 9:
-	            typeName = "ROCK";
-	            break;
-	        case 10:
-	            typeName = "PSYCHIC";
-	            break;
-	        case 11:
-	            typeName = "ICE";
-	            break;
-	        case 12:
-	            typeName = "BUG";
-	            break;
-	        case 13:
-	            typeName = "GHOST";
-	            break;
-	        case 14:
-	            typeName = "STEEL";
-	            break;
-	        case 15:
-	            typeName = "DRAGON";
-	            break;
-	        case 16:
-	            typeName = "DARK";
-	            break;
-	        case 17:
-	            typeName = "FAIRY";
-	            break;
-	        default:
-	            typeName = "UNKNOWN";
-	            break;
-	    }
-	    return typeName;
-	}
+	
 
 	public String getTypeName() {
 		return typeName;
@@ -419,6 +298,29 @@ public class Pokemon {
 			this.currentAtk = 0;
 		}
 		this.currentAtk = currentAtk;
+	}
+
+	public static Pokemon createPokemon(int i) {
+		Pokemon p;
+		switch (i){
+		case 0:
+			p = new Brian();
+			break;
+		case 1:
+			p = new Ethan();
+			break;
+		case 2:
+			p = new Imogen();
+			break;
+		case 3:
+			p = new Gengar();
+			break;
+		default:
+
+			p = createPokemon(ApplicationData.random.nextInt(ApplicationData.numOfPokemon));
+			break;	
+		}
+		return p;
 	}
 	
 

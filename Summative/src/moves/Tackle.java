@@ -22,12 +22,11 @@ public class Tackle extends PokemonMove {
 		
 
 
-		if (charges <= 0) {
-			useStruggle(attacker, target);
+		super.useMove(attacker, target);
+		if (charges < 0) {
+			setCharges(0);
 			return;
 		}
-		
-		super.useMove(attacker, target);
 		attack(attacker,target);
 		if (target.getCurrentHp() <= 0) {
 			return;

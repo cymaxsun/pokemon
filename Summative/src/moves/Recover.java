@@ -19,12 +19,11 @@ public class Recover extends PokemonMove{
 	public void useMove(Pokemon attacker, Pokemon target) {
 		// TODO Auto-generated method stub
 
-		if (charges <= 0) {
-			useStruggle(attacker, target);
+		super.useMove(attacker, target);
+		if (charges < 0) {
+			setCharges(0);
 			return;
 		}
-		
-		super.useMove(attacker, target);
 		heal(attacker, attacker.getMaxHp()/2);
 	}
 	

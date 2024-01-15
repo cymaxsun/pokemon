@@ -16,17 +16,16 @@ public class ShadowBall extends PokemonMove{
 	
 	
 	public void useMove(Pokemon attacker, Pokemon target) {
-		if (charges <= 0) {
-			useStruggle(attacker, target);
+		super.useMove(attacker, target);
+		if (charges < 0) {
+			setCharges(0);
 			return;
 		}
-		
-		super.useMove(attacker, target);
 		attack(attacker,target);
 		if (target.getCurrentHp() <= 0) {
 			return;
 		}
-		if (roll(100)) {
+		if (roll(30)) {
 			target.setDefStage(target.getDefStage()-1);
 			
 		}
