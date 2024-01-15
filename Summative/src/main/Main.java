@@ -37,8 +37,9 @@ public class Main {
 			System.out.println("Invalid enemyPokemon index!");
 			return; // or break, depending on your context
 		}
+		ApplicationData.enemyPokemon = new Ethan();	
 		System.out.println(ApplicationData.enemyPokemon.getName() + enemyPokemon);
-		
+		ApplicationData.enemyPokemon.initForBattle();
 		ApplicationData.enemyPokemon.setAllied(false);
 		ApplicationData.soundtrack.setVolume(ApplicationData.soundtrackVolume);
 		ApplicationData.sfx.setVolume(ApplicationData.SFXVolume);
@@ -48,6 +49,7 @@ public class Main {
 
 		ApplicationData.charSelect = new PokemonSelectPanel();
 		ApplicationData.settings = new SettingsPanel();
+		ApplicationData.endPanel = new EndPanel();
 
 		ApplicationData.window = new JFrame();
 		ApplicationData.window.setResizable(false);

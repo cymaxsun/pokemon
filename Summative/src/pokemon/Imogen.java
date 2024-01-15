@@ -8,7 +8,15 @@ import moves.Recover;
 public class Imogen extends Pokemon {
 
 	public Imogen() {
-		super("Imogen", PokemonTypes.FIRE, 69, 800, 100, 100, new Fissure(), new BulkUp(), new Recover(), new Eruption ());
+		super("Imogen", PokemonTypes.FIRE, 100, 341, 336, 316);
 	}
-
+	
+	@Override
+	public void initForBattle() {
+		super.initForBattle();
+		setMove1(new Fissure());
+		setMove2(new BulkUp());
+		setMove3(new Eruption());
+		setMove4(new Recover());
+	}
 }

@@ -32,7 +32,7 @@ public class LeechSeed extends PokemonMove{
 	
 	@Override
 	public int dmgCalc(Pokemon attacker, Pokemon target) {
-		dmg = target.getMaxHp()/8;
+		dmg = target.getMaxHp()/6;
 		return dmg;
 		
 	}

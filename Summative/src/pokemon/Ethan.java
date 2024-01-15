@@ -7,8 +7,19 @@ import moves.SwordsDance;
 
 public class Ethan extends Pokemon{
 
-	public Ethan() {
-		super("Elthan", PokemonTypes.NORMAL, 69, 250, 25, 25, new SwordsDance(), new Harden(), new DumbAss(),new Recover());
-	}
 
+
+	public Ethan( ) {
+		super("Elthan", PokemonTypes.NORMAL, 100, 461, 256, 166);
+	}
+	
+	
+	@Override
+	public void initForBattle() {
+		super.initForBattle();
+		setMove1(new SwordsDance());
+		setMove2(new Harden());
+		setMove3(new DumbAss());
+		setMove4(new Recover());
+	}
 }

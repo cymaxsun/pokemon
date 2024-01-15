@@ -11,8 +11,9 @@ public class Fissure extends PokemonMove {
 		setType(PokemonTypes.GROUND);
 		setPower(0);
 		setMaxCharges(5);
-		setAcc(50);
+		setAcc(30);
 		setSFX(getClass().getResource("/sound/Fissure.wav"));
+		ignoreEffectiveness = true;
 	}
 
 	public void useMove(Pokemon attacker, Pokemon target) {

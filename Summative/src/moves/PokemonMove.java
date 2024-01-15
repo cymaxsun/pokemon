@@ -29,7 +29,7 @@ public class PokemonMove {
 	boolean ignoreEffectiveness = false;
 
 	public PokemonMove() {
-		power = 50;
+
 	}
 
 	public String getName() {
@@ -147,6 +147,8 @@ public class PokemonMove {
 			ApplicationData.animate.addTextAnimation(attacker.getName() + " can't use " + this.getName() + ".");
 			ApplicationData.animate.addTextAnimation(attacker.getName() + " used Struggle!");
 			ignoreEffectiveness = true;
+			acc = 100;
+			power = 50;
 			attack(attacker, target);
 			attack(target, attacker, attacker.getMaxHp() / 4);
 		} else {
@@ -175,7 +177,7 @@ public class PokemonMove {
 	}
 
 	public int dmgCalc(Pokemon attacker, Pokemon target) {
-		dmg = power + attacker.getAtk() - target.getDef();
+		dmg = (int) ((( (2*attacker.getLvl()/5.0)+2)*power*attacker.getAtk()/target.getDef())/50+2);
 		if (dmg <= 0) {
 			dmg = 1;
 		}
@@ -211,7 +213,7 @@ public class PokemonMove {
 			float effectiveness;
 			dmgCalc(attacker, target);
 			if (ignoreEffectiveness == false) {
-				effectiveness = PokemonTypes.typeChart[target.getType()][getType()];
+				effectiveness = PokemonTypes.typeChart[getType()][target.getType()];
 				this.dmg = (int) (dmg * effectiveness);
 			} else {
 				effectiveness = 1;

@@ -11,7 +11,7 @@ public class Tackle extends PokemonMove {
 	public Tackle() {
 		super();
 		setName("Tackle");
-		setType(PokemonTypes.DARK);
+		setType(PokemonTypes.NORMAL);
 		setPower(70);
 		setMaxCharges(10);
 		setAcc(100);

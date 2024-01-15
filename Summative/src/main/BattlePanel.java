@@ -26,16 +26,16 @@ import pokemon.Pokemon;
 
 public class BattlePanel extends JPanel {
 
-	private Image panelBkg = new ImageIcon("res/backgrounds/btnbkg.png").getImage();
-	private Image fightBackground = new ImageIcon("res/backgrounds/bkg.png").getImage();
-	private Image fight = new ImageIcon("res/buttons/fight.png").getImage();
-	private Image fightPressed = new ImageIcon("res/buttons/fightPressed.png").getImage();
-	private Image bag = new ImageIcon("res/buttons/bag.png").getImage();
-	private Image bagPressed = new ImageIcon("res/buttons/bagPressed.png").getImage();
-	private Image pokemon = new ImageIcon("res/buttons/pokemon.png").getImage();
-	private Image pokemonPressed = new ImageIcon("res/buttons/pokemonPressed.png").getImage();
-	private Image run = new ImageIcon("res/buttons/run.png").getImage();
-	private Image runPressed = new ImageIcon("res/buttons/runPressed.png").getImage();
+	private Image panelBkg = new ImageIcon(getClass().getResource("/backgrounds/btnbkg.png")).getImage();
+	private Image fightBackground = new ImageIcon(getClass().getResource("/backgrounds/bkg.png")).getImage();
+	private Image fight = new ImageIcon(getClass().getResource("/buttons/fight.png")).getImage();
+	private Image fightPressed = new ImageIcon(getClass().getResource("/buttons/fightPressed.png")).getImage();
+	private Image bag = new ImageIcon(getClass().getResource("/buttons/bag.png")).getImage();
+	private Image bagPressed = new ImageIcon(getClass().getResource("/buttons/bagPressed.png")).getImage();
+	private Image pokemon = new ImageIcon(getClass().getResource("/buttons/pokemon.png")).getImage();
+	private Image pokemonPressed = new ImageIcon(getClass().getResource("/buttons/pokemonPressed.png")).getImage();
+	private Image run = new ImageIcon(getClass().getResource("/buttons/run.png")).getImage();
+	private Image runPressed = new ImageIcon(getClass().getResource("/buttons/runPressed.png")).getImage();
 	public JTextArea textBox;
 	public JButton move1, move2, move3, move4;
 	public CustomButton fightButton, bagButton, pokemonButton, runButton;
@@ -295,6 +295,7 @@ public class BattlePanel extends JPanel {
 		
 		topPanel.repaint();
 		topPanel.revalidate();
+		ApplicationData.eventQueue.add(()->ApplicationData.switchPanel(ApplicationData.battlePanel, ApplicationData.endPanel));
 	}
 
 	private void moveSelection() {
@@ -348,4 +349,6 @@ public class BattlePanel extends JPanel {
 		g.setColor(new Color(0,0,0, fadeSat));
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 	}
+	
+
 }

@@ -22,6 +22,7 @@ public class ApplicationData {
 	static TitlePanel titlePanel;
 	static SettingsPanel settings;
 	static PokemonSelectPanel charSelect;
+	static EndPanel endPanel;
 	
 	//event queue for animations
 	public static LinkedList<Runnable> eventQueue = new LinkedList<Runnable>();
@@ -71,14 +72,21 @@ public class ApplicationData {
 	
 	
 	public static void switchPanel(JPanel start, JPanel end) {
-		ApplicationData.sfx.playFile(1);
+		sfx.playFile(1);
     	start.setVisible(false);
-       	ApplicationData.window.add(end);
+       	window.add(end);
        	end.setVisible(true);
     	end.requestFocusInWindow();
-    	ApplicationData.window.remove(start);
+    	window.remove(start);
 	}
 	
+	public static void resetGame() {
+		enemyPokemon = Pokemon.createPokemon(ApplicationData.random.nextInt(ApplicationData.numOfPokemon));
+		enemyPokemon.initForBattle();
+		enemyPokemon.setAllied(false);
+		charSelect.resetPanel();
+		gameOver = false;
+	}
     // Type effectiveness values: 0.5 = not very effective, 1 = normal effectiveness, 2 = super effective
 
 }

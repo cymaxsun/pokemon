@@ -22,50 +22,68 @@ public interface PokemonTypes {
 	public static final int STEEL = 16;
 	public static final int FAIRY = 17;
 
-	 public static Color getTypeColor(int type) {
-		 Color color;
-	        switch (type) {
-	            case NORMAL:
-	                color =Color.LIGHT_GRAY;
-	            case FIRE:
-	                color =Color.RED;
-	            case WATER:
-	                color =Color.BLUE;
-	            case ELECTRIC:
-	                color =Color.YELLOW;
-	            case GRASS:
-	                color =Color.GREEN;
-	            case ICE:
-	                color =new Color(173, 216, 230); // Light Blue
-	            case FIGHTING:
-	                color =Color.ORANGE;
-	            case POISON:
-	                color =new Color(138, 43, 226); // Purple/Violet
-	            case GROUND:
-	                color =new Color(205, 133, 63); // Brown
-	            case FLYING:
-	                color =Color.CYAN;
-	            case PSYCHIC:
-	                color =new Color(255, 20, 147); // Pink
-	            case BUG:
-	                color =new Color(107, 142, 35); // Olive Green
-	            case ROCK:
-	                color =new Color(128, 128, 128); // Gray
-	            case GHOST:
-	                color =new Color(128, 0, 128); // Dark Purple
-	            case DRAGON:
-	                color =new Color(255, 20, 147); // Another shade of Pink
-	            case DARK:
-	                color =Color.DARK_GRAY;
-	            case STEEL:
-	                color =new Color(192, 192, 192); // Silver
-	            case FAIRY:
-	                color =new Color(255, 182, 193); // Light Pink
-	            default:
-	                color =Color.WHITE; // Default color
-	        }
-	        return color;  
-	    }
+	public static Color getTypeColor(int type) {
+		Color color;
+		switch (type) {
+		case NORMAL:
+			color = Color.LIGHT_GRAY;
+			break;
+		case FIRE:
+			color = Color.RED;
+			break;
+		case WATER:
+			color = Color.BLUE;
+			break;
+		case ELECTRIC:
+			color = Color.YELLOW;
+			break;
+		case GRASS:
+			color = Color.GREEN;
+			break;
+		case ICE:
+			color = new Color(173, 216, 230); // Light Blue
+			break;
+		case FIGHTING:
+			color = Color.ORANGE;
+			break;
+		case POISON:
+			color = new Color(138, 43, 226); // Purple/Violet
+			break;
+		case GROUND:
+			color = new Color(205, 133, 63); // Brown
+			break;
+		case FLYING:
+			color = Color.CYAN;
+			break;
+		case PSYCHIC:
+			color = new Color(255, 20, 147); // Pink
+			break;
+		case BUG:
+			color = new Color(107, 142, 35); // Olive Green
+			break;
+		case ROCK:
+			color = new Color(128, 128, 128); // Gray
+			break;
+		case GHOST:
+			color = new Color(128, 0, 128); // Dark Purple
+			break;
+		case DRAGON:
+			color = new Color(255, 20, 147); // Another shade of Pink
+			break;
+		case DARK:
+			color = Color.DARK_GRAY;
+			break;
+		case STEEL:
+			color = new Color(192, 192, 192); // Silver
+			break;
+		case FAIRY:
+			color = new Color(255, 182, 193); // Light Pink
+			break;
+		default:
+			color = Color.WHITE; // Default color
+		}
+		return color;
+	}
 
 	public static String getTypeName(int type) {
 		String[] typeNames = { "NORMAL", "FIRE", "WATER", "ELECTRIC", "GRASS", "ICE", "FIGHTING", "POISON", "GROUND",
@@ -74,29 +92,29 @@ public interface PokemonTypes {
 		if (type >= 0 && type < typeNames.length) {
 			return typeNames[type];
 		} else {
-			return "UNKNOWN";	
+			return "UNKNOWN";
 		}
 	}
 
-	public static final float[][] typeChart = {
-			// NORMAL FIRE WATER GRASS FLYING FIGHTING POISON ELECTRIC GROUND ROCK PSYCHIC
-			// ICE BUG GHOST STEEL DRAGON DARK FAIRY
-			/* NORMAL */ { 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5f, 1, 1, 1, 0, 0.5f, 1, 1, 1 },
-			/* FIRE */ { 1, 0.5f, 0.5f, 2, 1, 1, 1, 1, 1, 2, 1, 0.5f, 2, 1, 0.5f, 1, 1, 1 },
-			/* WATER */ { 1, 2, 0.5f, 0.5f, 1, 1, 1, 1, 0.5f, 2, 1, 1, 0.5f, 1, 1, 1, 1, 1 },
-			/* GRASS */ { 1, 0.5f, 2, 0.5f, 1, 1, 0.5f, 1, 2, 0.5f, 1, 0.5f, 2, 1, 0.5f, 1, 1, 1 },
-			/* FLYING */ { 1, 1, 1, 2, 1, 0.5f, 1, 2, 1, 2, 1, 1, 1, 1, 0.5f, 1, 1, 1 },
-			/* FIGHTING */ { 2, 1, 1, 1, 2, 1, 0, 1, 1, 0.5f, 2, 2, 0.5f, 0, 2, 1, 0.5f, 0.5f },
-			/* POISON */ { 1, 1, 1, 2, 1, 1, 0.5f, 1, 0.5f, 0.5f, 1, 0.5f, 2, 0.5f, 0, 1, 1, 2 },
-			/* ELECTRIC */ { 1, 1, 2, 0.5f, 0, 1, 1, 0.5f, 2, 1, 1, 1, 1, 1, 0.5f, 1, 1, 1 },
-			/* GROUND */ { 1, 1, 1, 2, 1, 1, 2, 0, 1, 2, 1, 2, 0.5f, 1, 2, 1, 1, 1 },
-			/* ROCK */ { 1, 2, 1, 1, 2, 0.5f, 1, 1, 0.5f, 1, 1, 2, 1, 1, 0.5f, 1, 1, 1 },
-			/* PSYCHIC */ { 1, 1, 1, 1, 1, 0.5f, 2, 1, 1, 1, 0, 1, 1, 2, 0.5f, 1, 0, 1 },
-			/* ICE */ { 1, 2, 0.5f, 1, 2, 1, 1, 1, 2, 2, 1, 0.5f, 1, 1, 0.5f, 1, 1, 1 },
-			/* BUG */ { 1, 0.5f, 1, 0.5f, 2, 0.5f, 0.5f, 1, 0.5f, 2, 1, 1, 1, 0.5f, 0.5f, 1, 2, 0.5f },
-			/* GHOST */ { 0, 1, 1, 1, 1, 0, 0.5f, 1, 1, 1, 1, 1, 1, 2, 0.5f, 1, 2, 1 },
-			/* STEEL */ { 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 2, 0, 1, 2, 2, 1, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f },
-			/* DRAGON */ { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5f, 2, 1, 0 },
-			/* DARK */ { 1, 1, 1, 1, 1, 0.5f, 1, 1, 1, 1, 0, 1, 1, 2, 0.5f, 1, 0.5f, 2 },
-			/* FAIRY */ { 1, 0.5f, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0.5f, 1, 1 } };
+	static final float[][] typeChart = {
+	        //              Normal   Fire   Water  Electric Grass Ice   Fighting  Poison  Ground  Flying  Psychic Bug  Rock Ghost  Dragon Dark  Steel  Fairy
+	        /* Normal */    { 1.0f,   1.0f,   1.0f,   1.0f,     1.0f,  1.0f,  2.0f,      1.0f,    1.0f,    1.0f,    1.0f,    1.0f, 0.5f, 0.0f,   1.0f,   1.0f,  0.5f,   1.0f },
+	        /* Fire */      { 1.0f,   0.5f,   0.5f,   1.0f,     2.0f,  2.0f,  1.0f,      1.0f,    1.0f,    1.0f,    1.0f,    2.0f, 0.5f, 1.0f,   0.5f,   1.0f,  2.0f,   1.0f },
+	        /* Water */     { 1.0f,   2.0f,   0.5f,   1.0f,     0.5f,  1.0f,  1.0f,      1.0f,    2.0f,    1.0f,    1.0f,    1.0f, 2.0f, 1.0f,   0.5f,   1.0f,  1.0f,   1.0f },
+	        /* Electric */  { 1.0f,   1.0f,   2.0f,   0.5f,     0.5f,  1.0f,  1.0f,      1.0f,    0.0f,    2.0f,    1.0f,    1.0f, 1.0f, 1.0f,   0.5f,   1.0f,  1.0f,   1.0f },
+	        /* Grass */     { 1.0f,   0.5f,   2.0f,   1.0f,     0.5f,  1.0f,  1.0f,      0.5f,    2.0f,    0.5f,    1.0f,    0.5f, 2.0f, 1.0f,   0.5f,   1.0f,  0.5f,   1.0f },
+	        /* Ice */       { 1.0f,   0.5f,   0.5f,   1.0f,     2.0f,  0.5f,  1.0f,      1.0f,    2.0f,    2.0f,    1.0f,    1.0f, 1.0f, 1.0f,   2.0f,   1.0f,  0.5f,   1.0f },
+	        /* Fighting */  { 2.0f,   1.0f,   1.0f,   1.0f,     1.0f,  2.0f,  1.0f,      0.5f,    1.0f,    0.5f,    0.5f,    0.5f, 2.0f, 0.0f,   1.0f,   2.0f,  2.0f,   0.5f },
+	        /* Poison */    { 1.0f,   1.0f,   1.0f,   1.0f,     2.0f,  1.0f,  1.0f,      0.5f,    0.5f,    1.0f,    1.0f,    1.0f, 0.5f, 0.5f,   1.0f,   1.0f,  0.0f,   2.0f },
+	        /* Ground */    { 1.0f,   2.0f,   1.0f,   2.0f,     0.5f,  1.0f,  1.0f,      2.0f,    1.0f,    0.0f,    1.0f,    0.5f, 2.0f, 1.0f,   1.0f,   1.0f,  2.0f,   1.0f },
+	        /* Flying */    { 1.0f,   1.0f,   1.0f,   0.5f,     2.0f,  1.0f,  2.0f,      1.0f,    1.0f,    1.0f,    1.0f,    2.0f, 0.5f, 1.0f,   1.0f,   1.0f,  0.5f,   1.0f },
+	        /* Psychic */   { 1.0f,   1.0f,   1.0f,   1.0f,     1.0f,  1.0f,  2.0f,      2.0f,    1.0f,    1.0f,    0.5f,    1.0f, 1.0f, 1.0f,   1.0f,   0.0f,  0.5f,   1.0f },
+	        /* Bug */       { 1.0f,   0.5f,   1.0f,   1.0f,     2.0f,  1.0f,  0.5f,      0.5f,    1.0f,    0.5f,    2.0f,    1.0f, 1.0f, 0.5f,   1.0f,   2.0f,  0.5f,   0.5f },
+	        /* Rock */      { 1.0f,   2.0f,   1.0f,   1.0f,     1.0f,  2.0f,  0.5f,      1.0f,    0.5f,    2.0f,    1.0f,    2.0f, 1.0f, 1.0f,   1.0f,   1.0f,  0.5f,   1.0f },
+	        /* Ghost */     { 0.0f,   1.0f,   1.0f,   1.0f,     1.0f,  1.0f,  0.0f,      1.0f,    1.0f,    1.0f,    2.0f,    1.0f, 1.0f, 2.0f,   1.0f,   0.5f,  1.0f,   1.0f },
+	        /* Dragon */    { 1.0f,   1.0f,   1.0f,   1.0f,     1.0f,  1.0f,  1.0f,      1.0f,    1.0f,    1.0f,    1.0f,    1.0f, 1.0f, 1.0f,   2.0f,   1.0f,  0.5f,   0.0f },
+	        /* Dark */      { 1.0f,   1.0f,   1.0f,   1.0f,     1.0f,  1.0f,  0.5f,      1.0f,    1.0f,    1.0f,    2.0f,    1.0f, 1.0f, 2.0f,   1.0f,   0.5f,  1.0f,   0.5f },
+	        /* Steel */     { 1.0f,   0.5f,   0.5f,   0.5f,     1.0f,  2.0f,  0.0f,      0.0f,    2.0f,    1.0f,    1.0f,    0.5f, 2.0f, 1.0f,   1.0f,   1.0f,  0.5f,   2.0f },
+	        /* Fairy */     { 1.0f,   0.5f,   1.0f,   1.0f,     1.0f,  1.0f,  2.0f,      0.5f,    1.0f,    1.0f,    1.0f,    1.0f, 1.0f, 1.0f,   2.0f,   2.0f,  0.5f,   1.0f },
+	    };
 }

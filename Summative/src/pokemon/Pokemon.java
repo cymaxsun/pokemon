@@ -4,10 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import javax.imageio.ImageIO;
 
 import main.ApplicationData;
 import main.SpritePanel;
@@ -36,6 +39,7 @@ public class Pokemon{
 	boolean lowHP;
 	private StatusPanel statusPanel;
 	private SpritePanel spritePanel;
+	public Image image;
 
 	public Pokemon(String name, int type, int lvl, int maxHp, int baseAtk, int baseDef, PokemonMove move1,
 			PokemonMove move2, PokemonMove move3, PokemonMove move4) {
@@ -55,16 +59,49 @@ public class Pokemon{
 		this.move4 = move4;
 		this.setAllied(true);
 		setStatusPanel(new StatusPanel(this));
-		setSpritePanel(new SpritePanel(this));
 		lowHP = false;
 		atkStage = 0;
 		defStage = 0;
+		try {
+			image = ImageIO.read(getClass().getResourceAsStream("/pokemon/" + getName().toLowerCase() + ".png"));
+			
+			setSpritePanel(new SpritePanel(image));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	// Getter and setter methods for each field
 
 	public Pokemon() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public Pokemon(String name, int type, int lvl, int maxHp, int baseAtk, int baseDef) {
+		this.name = name;
+		this.lvl = lvl;
+		this.maxHp = maxHp;
+		this.currentHp = maxHp;
+		this.baseAtk = baseAtk;
+		this.currentAtk = baseAtk;
+		this.baseDef = baseDef;
+		this.currentDef = baseDef;
+		this.type = type;
+		this.typeName = PokemonTypes.getTypeName(type);
+		this.setAllied(true);
+		
+		
+		lowHP = false;
+		atkStage = 0;
+		defStage = 0;
+		try {
+			image = ImageIO.read(getClass().getResourceAsStream("/pokemon/" + getName().toLowerCase() + ".png"));
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public String getName() {
@@ -323,5 +360,10 @@ public class Pokemon{
 		return p;
 	}
 	
+	
+	public void initForBattle() {
+		setSpritePanel(new SpritePanel(image));
+		setStatusPanel(new StatusPanel(this));
+	}
 
 }

@@ -109,7 +109,10 @@ public class PokemonPreviewPanel extends JPanel{
 
 	public void setPokemon(Pokemon p) {
 		this.p = p;
-		image = p.getSpritePanel().image;
+		if (p != null) {
+			image = p.image;
+		}
+		
 	}
 	
 	public boolean isBorderEnabled() {

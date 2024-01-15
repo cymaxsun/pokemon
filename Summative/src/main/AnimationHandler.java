@@ -102,6 +102,7 @@ public class AnimationHandler {
 					sat +=5;
 				} else {
 					((Timer) e.getSource()).stop();
+					ApplicationData.eventQueue.pop().run();
 				}
 				bf.fadeSat = sat;
 				bf.repaint();

@@ -17,20 +17,14 @@ import pokemon.Pokemon;
 
 public class SpritePanel extends JPanel {
 
-	Pokemon p;
+
 	public Image image;
 	public Image sprite;
 	public int tick = 0;
 	public Timer damageTaken;
 
-	public SpritePanel(Pokemon p) {
-		this.p = p;
-		try {
-			setImage(ImageIO.read(getClass().getResourceAsStream("/pokemon/" + p.getName().toLowerCase() + ".png")));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public SpritePanel(Image image) {
+		setImage(image);
 		setOpaque(false);
 	}
 
