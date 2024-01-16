@@ -218,7 +218,7 @@ public class PokemonMove {
 			}
 
 			target.setCurrentHp(target.getCurrentHp() - this.dmg);
-			System.out.println(this.dmg);
+
 			ApplicationData.eventQueue.add(() -> target.getSpritePanel().damageTaken());
 			ApplicationData.animate.addHpAnimation(target);
 			if (effectiveness == 0) {

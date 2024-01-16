@@ -1,6 +1,6 @@
 package pokemon;
 
-import moves.DumbAss;
+import moves.Attack;
 import moves.Harden;
 import moves.Recover;
 import moves.SwordsDance;
@@ -19,7 +19,7 @@ public class Ethan extends Pokemon{
 		super.initForBattle();
 		setMove1(new SwordsDance());
 		setMove2(new Harden());
-		setMove3(new DumbAss());
+		setMove3(new Attack());
 		setMove4(new Recover());
 	}
 }

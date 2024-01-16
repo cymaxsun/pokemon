@@ -8,11 +8,10 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import pokemon.Ethan;
+import pokemon.Brian;
 import pokemon.Pokemon;
 
 public class ApplicationData {
@@ -90,6 +89,7 @@ public class ApplicationData {
 	
 	public static void initGame() {
 		enemyPokemon = Pokemon.createPokemon(ApplicationData.random.nextInt(ApplicationData.numOfPokemon));
+		enemyPokemon = new Brian();
 		enemyPokemon.initForBattle();
 		enemyPokemon.setAllied(false);
 		track = random.nextInt(numOfTracks);

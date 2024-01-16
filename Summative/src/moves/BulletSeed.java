@@ -43,7 +43,7 @@ public class BulletSeed extends PokemonMove {
 			ApplicationData.eventQueue.add(() -> playSFX());
 		}
 		attack(attacker, target);
-		ApplicationData.animate.addTextAnimation("Hit " + hits + " times!");
+		
 	}
 	
 	@Override
@@ -53,4 +53,8 @@ public class BulletSeed extends PokemonMove {
 		
 	}
 	
+	@Override
+	public void moveHit(Pokemon attacker) {
+		ApplicationData.animate.addTextAnimation("Hit " + hits + " times!");
+	}
 }

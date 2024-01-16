@@ -6,11 +6,11 @@ import main.ApplicationData;
 import pokemon.Pokemon;
 import pokemon.PokemonTypes;
 
-public class DumbAss extends PokemonMove {
+public class Attack extends PokemonMove {
 
-	public DumbAss() {
+	public Attack() {
 		super();
-		setName("Dumbass");
+		setName("Attack");
 		setType(PokemonTypes.NORMAL);
 		setPower(70);
 		setMaxCharges(10);

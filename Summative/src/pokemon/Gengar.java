@@ -1,6 +1,6 @@
 package pokemon;
 
-import moves.DumbAss;
+import moves.Attack;
 import moves.Harden;
 import moves.Lick;
 import moves.Recover;

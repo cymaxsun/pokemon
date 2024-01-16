@@ -34,6 +34,7 @@ public class Eruption extends PokemonMove {
 	@Override
 	public int dmgCalc(Pokemon attacker, Pokemon target) {
 		power = 150	* attacker.getCurrentHp()/attacker.getMaxHp();
+		System.out.println(power);
 		super.dmgCalc(attacker, target);	
 		return dmg;
 		
