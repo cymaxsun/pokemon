@@ -24,6 +24,7 @@ public class Harden extends PokemonMove{
 			setCharges(0);
 			return;
 		}
+		ApplicationData.eventQueue.add(() -> playSFX());
 		attacker.setDefStage(attacker.getDefStage()+1);
 	}
 	

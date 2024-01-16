@@ -34,6 +34,7 @@ public class Sound {
 		clips[6] = getClass().getResource("/sound/lowHP.wav");
 		clips[7] = getClass().getResource("/sound/heal.wav");
 		clips[8] = getClass().getResource("/sound/Stat Rise Up.wav");
+		clips[9] = getClass().getResource("/sound/The End.wav");
 		
 		tracks[0] = getClass().getResource("/sound/Opening.wav");
 		tracks[1] = getClass().getResource("/sound/Pokemon Center.wav");
@@ -108,20 +109,18 @@ public class Sound {
 
 				@Override
 				public void update(LineEvent e) {
-					System.out.println(e.getType().toString() + " and " + clipEnded);
+					
 					if (e.getType() == LineEvent.Type.STOP) {
 						if (!clipEnded) {
 							ApplicationData.sfx.playFile(1);
 							
 						} else {
-							System.out.println("track: " + getTrackName(ApplicationData.track) + " ended");
 							if (ApplicationData.track < tracks.length-1) {
 								ApplicationData.track++;
 							} else if  (ApplicationData.track >= tracks.length-1	){
 								ApplicationData.track = 0;
 								
 							} 
-							System.out.println("track: " + getTrackName(ApplicationData.track) + " started");
 							
 							playTrack(ApplicationData.track);
 							if (ApplicationData.settings.getParent() != null) {

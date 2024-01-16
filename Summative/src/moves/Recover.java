@@ -1,5 +1,6 @@
 package moves;
 
+import main.ApplicationData;
 import pokemon.Pokemon;
 import pokemon.PokemonTypes;
 
@@ -24,6 +25,7 @@ public class Recover extends PokemonMove{
 			setCharges(0);
 			return;
 		}
+		ApplicationData.eventQueue.add(() -> playSFX());
 		heal(attacker, attacker.getMaxHp()/2);
 	}
 	

@@ -47,7 +47,6 @@ public class SettingsPanel extends JPanel {
 	private JSpinner trackSelector;
 	private CustomText trackSelectionLabel;
 	public CustomText trackEditor;
-	private CustomText currentTrack;
 	
 
 	public SettingsPanel() {
@@ -194,45 +193,10 @@ public class SettingsPanel extends JPanel {
 			}
 		});
 		
-		trackSelector.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("mouse press");
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
 		
 		trackEditor = new CustomText(Sound.getTrackName(ApplicationData.track));
 		trackEditor.setFont(ApplicationData.font.deriveFont(45f));
 		trackSelector.setEditor(trackEditor);
-		//trackSelector.setOpaque(false);
-		//trackSelector.setBorder(null);
 		trackSeletionPanel.add(trackSelector, "cell 1 0,growx,aligny center");
 
 		addKeyListener(new KeyAdapter() {
@@ -240,6 +204,7 @@ public class SettingsPanel extends JPanel {
 			public void keyPressed(KeyEvent e) {
 				char c = e.getKeyChar();
 				if (c == KeyEvent.VK_ESCAPE) {
+					ApplicationData.sfx.playFile(1);
 					ApplicationData.switchPanel(ApplicationData.settings, ApplicationData.titlePanel);
 
 				}

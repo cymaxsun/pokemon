@@ -14,17 +14,19 @@ public class Roost extends PokemonMove{
 		setPower(0);
 		setMaxCharges(10);
 		setAcc(100);
+		setSFX(getClass().getResource("/sound/Roost.wav"));
 	}
 
 	public void useMove(Pokemon attacker, Pokemon target) {
 		// TODO Auto-generated method stub
-
+		super.useMove(attacker, target);
 		if (charges <= 0) {
-			useStruggle(attacker, target);
+			setCharges(0);
 			return;
 		}
 		
-		super.useMove(attacker, target);
+		
+		ApplicationData.eventQueue.add(() -> playSFX());
 		heal(attacker, attacker.getMaxHp()/2);
 	}
 	

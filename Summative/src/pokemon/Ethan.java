@@ -10,7 +10,7 @@ public class Ethan extends Pokemon{
 
 
 	public Ethan( ) {
-		super("Elthan", PokemonTypes.NORMAL, 100, 461, 256, 166);
+		super("Elthan", PokemonTypes.NORMAL, 100, 524, 350, 251);
 	}
 	
 	

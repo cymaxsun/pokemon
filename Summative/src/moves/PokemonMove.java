@@ -149,6 +149,7 @@ public class PokemonMove {
 			ignoreEffectiveness = true;
 			acc = 100;
 			power = 50;
+			sfx = null;
 			attack(attacker, target);
 			attack(target, attacker, attacker.getMaxHp() / 4);
 		} else {
@@ -161,7 +162,6 @@ public class PokemonMove {
 			System.out.println("Dmg: " + dmgCalc(attacker, target));
 			ApplicationData.animate.addTextAnimation(getAllied(attacker) + attacker.getName() + " used " + name + "!");
 
-			ApplicationData.eventQueue.add(() -> playSFX());
 		}
 		this.charges -= 1;
 	}
@@ -205,11 +205,8 @@ public class PokemonMove {
 	public void attack(Pokemon attacker, Pokemon target) {
 
 		if (roll(acc)) {
-			// System.out.println(x);
+			ApplicationData.eventQueue.add(() -> playSFX());
 			ApplicationData.eventQueue.add(() -> ApplicationData.sfx.playSFX(2));
-			// System.out.println(baseAtk + " " + attacker.getBaseAtk() + " " +
-			// target.getBaseDef() + " " +
-			// (baseAtk+attacker.getBaseAtk()-target.getBaseDef()));
 			float effectiveness;
 			dmgCalc(attacker, target);
 			if (ignoreEffectiveness == false) {
@@ -221,6 +218,7 @@ public class PokemonMove {
 			}
 
 			target.setCurrentHp(target.getCurrentHp() - this.dmg);
+			System.out.println(this.dmg);
 			ApplicationData.eventQueue.add(() -> target.getSpritePanel().damageTaken());
 			ApplicationData.animate.addHpAnimation(target);
 			if (effectiveness == 0) {
@@ -243,11 +241,8 @@ public class PokemonMove {
 
 	public void attack(Pokemon attacker, Pokemon target, int dmg) {
 		if (roll(acc)) {
-			// System.out.println(x);
+
 			ApplicationData.eventQueue.add(() -> ApplicationData.sfx.playSFX(2));
-			// System.out.println(baseAtk + " " + attacker.getBaseAtk() + " " +
-			// target.getBaseDef() + " " +
-			// (baseAtk+attacker.getBaseAtk()-target.getBaseDef()));
 
 			target.setCurrentHp(target.getCurrentHp() - dmg);
 			ApplicationData.eventQueue.add(() -> target.getSpritePanel().damageTaken());
@@ -276,8 +271,8 @@ public class PokemonMove {
 
 	public void getButtonImages(int type) {
 
-		setButton(new ImageIcon("res/buttons/" + PokemonTypes.getTypeName(type) + ".png").getImage());
-		buttonPressed = new ImageIcon("res/buttons/" + PokemonTypes.getTypeName(type) + "Pressed.png").getImage();
+		setButton(new ImageIcon(getClass().getResource("/buttons/" + PokemonTypes.getTypeName(type) + ".png")).getImage());
+		setButtonPressed(new ImageIcon(getClass().getResource("/buttons/" + PokemonTypes.getTypeName(type) + "Pressed.png")).getImage());
 
 	}
 

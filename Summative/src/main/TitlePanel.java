@@ -23,14 +23,13 @@ import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 
-public class TitlePanel extends JPanel {
+public class TitlePanel extends ImagePanel {
 
 	Image titleImage;
 	Image bgImage;
 	Image settingsImage;
 	final String subtitle = "JAVA EDITION";
 	final String pressStart = "PRESS ENTER";
-	final Random random = new Random();;
 	final int settingX = ApplicationData.frameWidth-90;
 	final int settingY = ApplicationData.frameHeight-90;
 	final int settingSize = 80;
@@ -41,27 +40,29 @@ public class TitlePanel extends JPanel {
 	 * Create the panel.
 	 */
 	public TitlePanel() {
-		setPreferredSize(new Dimension(ApplicationData.frameWidth, ApplicationData.frameHeight));
-		ApplicationData.track = random.nextInt(ApplicationData.numOfTracks);
-		ApplicationData.soundtrack.playTrack(ApplicationData.track);
-		setBackground(Color.WHITE);
-		setLayout(new MigLayout("", "[grow]", "[grow]"));
+		super();
 		try {
-			titleImage = ImageIO.read(getClass().getResourceAsStream("/assets/title.png"))
-					.getScaledInstance(ApplicationData.frameWidth / 2, -1, Image.SCALE_SMOOTH);
+			
 			bgImage = ImageIO.read(getClass().getResourceAsStream("/backgrounds/titleBg.png"));
 			settingsImage = ImageIO.read(getClass().getResourceAsStream("/assets/settings.png")).getScaledInstance(settingSize, -1, Image.SCALE_SMOOTH);;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		setImage(bgImage);
+		setPreferredSize(ApplicationData.frameDimensions);
+		setBackground(Color.WHITE);
+		setLayout(new MigLayout("", "[grow]", "[grow]"));
+		
 		addKeyListener(new KeyAdapter() {
 			 @Override
 			    public void keyPressed(KeyEvent e) {
 			        char c = e.getKeyChar();
 			        if (c == KeyEvent.VK_ENTER) {
+			        	ApplicationData.sfx.playFile(1);
 			        	ApplicationData.switchPanel(ApplicationData.titlePanel, ApplicationData.charSelect);	
 			        } else if (c == KeyEvent.VK_ESCAPE) {
+			        	ApplicationData.sfx.playFile(1);
 			        	ApplicationData.switchPanel(ApplicationData.titlePanel, ApplicationData.settings);
 			        	
 			        }
@@ -74,6 +75,7 @@ public class TitlePanel extends JPanel {
 				int xPos = e.getX();
 				int yPos = e.getY();
 				if (xPos >= settingX && yPos >= settingY && xPos <= (settingX + settingSize) && yPos <= (settingY + settingSize)) {
+					ApplicationData.sfx.playFile(1);
 					ApplicationData.switchPanel(ApplicationData.titlePanel, ApplicationData.settings);
 		        	
 				}
@@ -86,9 +88,8 @@ public class TitlePanel extends JPanel {
 	public void paintComponent(Graphics g) {
 
 		Graphics2D g2 = (Graphics2D) g;
-
-		g2.drawImage(bgImage, 0, 0, this.getWidth(), this.getHeight(), null);
-		g2.drawImage(titleImage, (this.getWidth() - titleImage.getWidth(null)) / 2 ,this.getHeight() / 4 - titleImage.getHeight(null) / 2, null);
+		super.paintComponent(g);
+		g2.drawImage(ApplicationData.logo, (this.getWidth() - ApplicationData.logo.getWidth(null)) / 2 ,this.getHeight() / 4 - ApplicationData.logo.getHeight(null) / 2, null);
 		g2.setColor(Color.BLACK);
 		g2.setFont(ApplicationData.font.deriveFont(Font.BOLD, 50));
 		
@@ -98,7 +99,7 @@ public class TitlePanel extends JPanel {
 		Graphics2D tempG2 = (Graphics2D) g2.create();
 		AffineTransform transform = tempG2.getTransform();
 		int x = (this.getWidth() - textWidth) / 2 + 25;
-		int y = this.getHeight() / 4 + titleImage.getHeight(null) - textHeight - 15;
+		int y = this.getHeight() / 4 + ApplicationData.logo.getHeight(null) - textHeight - 15;
 		transform.translate(x, y);
 		tempG2.transform(transform);
 		tempG2.setColor(Color.black);
@@ -127,7 +128,7 @@ public class TitlePanel extends JPanel {
 		
 		g2.drawImage(settingsImage, settingX, settingY,null);
 		//g2.drawLine(this.getWidth()/2, 0, this.getWidth()/2, this.getHeight());
-		g2.dispose();
+
 	}
 
 }

@@ -256,26 +256,30 @@ public class Pokemon{
 	public void setAtkStage(int atkStage) {
 
 		if (atkStage <= 6 && atkStage >= -6) {
-			int change = this.atkStage - atkStage;
+			int change = atkStage - this.atkStage;
+			
 			if (this.atkStage < atkStage) {
+				
 				ApplicationData.eventQueue.add(()->ApplicationData.sfx.playSFX(8));
 				if (change > 1) {
-					
 					ApplicationData.animate.addTextAnimation(this.getName() + "'s attack sharply rose!");
 
 				} else {
 					ApplicationData.animate.addTextAnimation(this.getName() + "'s attack rose!");
 
 				}
+				setAtk(baseAtk + (baseAtk * atkStage / 2));
 			} else {
 				ApplicationData.eventQueue.add(()->ApplicationData.sfx.playSFX(3));
-				if (change > 1) {
+				if (change < -1) {
 					ApplicationData.animate.addTextAnimation(this.getName() + "'s attack sharply fell!");
 				} else {
 					ApplicationData.animate.addTextAnimation(this.getName() + "'s attack fell!");
 				}
 				
+				setAtk( baseAtk  *  2 / (2 - atkStage));
 			}
+			
 			this.atkStage = atkStage;
 		} else if (atkStage > 6) {
 			ApplicationData.animate.addTextAnimation(this.getName() + "'s attack wont go any higher!");
@@ -284,7 +288,10 @@ public class Pokemon{
 			ApplicationData.animate.addTextAnimation(this.getName() + "'s attack wont go any lower!");
 			this.atkStage = -6;
 		}
-		setAtk(baseAtk + (baseAtk * atkStage / 2));
+		
+		System.out.println("atk stage: " + this.atkStage);
+		System.out.println("atk : " + getAtk());
+
 
 	}
 
@@ -294,7 +301,8 @@ public class Pokemon{
 
 	public void setDefStage(int defStage) {
 		if (defStage <= 6 && defStage >= -6) {
-			int change = this.defStage - defStage;
+			int change = defStage - this.defStage;
+			
 			System.out.println(this.defStage + " - " + defStage + " = " + change);
 			if (this.defStage < defStage) {
 				ApplicationData.eventQueue.add(()->ApplicationData.sfx.playSFX(8));
@@ -305,17 +313,18 @@ public class Pokemon{
 					ApplicationData.animate.addTextAnimation(this.getName() + "'s defense rose!");
 
 				}
+				setDef(baseDef + (baseDef * defStage / 2));
 			} else {
 				ApplicationData.eventQueue.add(()->ApplicationData.sfx.playSFX(3));
-				if (change > 1) {
+				if (change < -1) {
 					ApplicationData.animate.addTextAnimation(this.getName() + "'s defense sharply fell!");
 				} else {
 					ApplicationData.animate.addTextAnimation(this.getName() + "'s defense fell!");
 				}
-				
+				setAtk(baseDef  * 2 / (2 - defStage) );
 			}
-
 			this.defStage = defStage;
+			
 		} else if (defStage > 6) {
 			ApplicationData.animate.addTextAnimation(this.getName() + "'s defense wont go any higher!");
 			this.defStage = 6;
@@ -323,7 +332,7 @@ public class Pokemon{
 			ApplicationData.animate.addTextAnimation(this.getName() + "'s defense wont go any lower!");
 			this.defStage = -6;
 		}
-		setDef(baseDef + (baseDef * defStage / 2));
+		
 	}
 
 	public int getAtk() {
@@ -351,6 +360,9 @@ public class Pokemon{
 			break;
 		case 3:
 			p = new Gengar();
+			break;
+		case 4:
+			p = new Tommy();
 			break;
 		default:
 

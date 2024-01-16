@@ -1,14 +1,14 @@
 package pokemon;
 
-import moves.LeechSeed;
-import moves.Lick;
+import moves.BulletSeed;
+import moves.GigaDrain;
 import moves.PizzaToss;
 import moves.Tackle;
 
 public class Brian extends Pokemon {
 
 	public Brian() {
-		super("Brian", PokemonTypes.GRASS, 100, 301, 259, 236);
+		super("Brian", PokemonTypes.GRASS, 100, 364, 328, 379);
 	}
 
 	@Override
@@ -16,8 +16,8 @@ public class Brian extends Pokemon {
 		super.initForBattle();
 		setMove1(new Tackle());
 		setMove2(new PizzaToss());
-		setMove3(new Lick());
-		setMove4(new LeechSeed());
+		setMove3(new BulletSeed());
+		setMove4(new GigaDrain());
 	}
 
 }

@@ -42,7 +42,6 @@ public class BattlePanel extends JPanel {
 	public JLabel allyPoke, enemyPoke, movePP, moveType;
 	public JPanel movePanel, textPanel, actionPanel, textAreaPanel;
 	public ImagePanel bottomPanel, topPanel;
-	public boolean gameOver = false;
 	public Pokemon enemyPokemon, playerPokemon;
 	public int fadeSat = 0;
 	public MoveInfoPanel moveInfo;
@@ -252,7 +251,7 @@ public class BattlePanel extends JPanel {
 
 		move.useMove(playerPokemon, enemyPokemon);
 		if (enemyPokemon.getCurrentHp() <= 0) {
-			gameOver = true;
+			ApplicationData.gameOver = true;
 			
 		}
 		bottomPanel.removeAll();
@@ -281,16 +280,19 @@ public class BattlePanel extends JPanel {
 			topPanel.remove(playerPokemon.getStatusPanel());
 			topPanel.remove(playerPokemon.getSpritePanel());
 			ApplicationData.sfx.playFile(5);
+			ApplicationData.soundtrack.playFile(9);
 			ApplicationData.animate.textAnimation("Your " + playerPokemon.getName() + " has fainted!");
 			ApplicationData.animate.addFadeAnimation();
 			
 		} else if (enemyPokemon.getCurrentHp() <= 0) {
 			topPanel.remove(enemyPokemon.getStatusPanel());
 			topPanel.remove(enemyPokemon.getSpritePanel());
+			
 			ApplicationData.animate.textAnimation("The enemy " + enemyPokemon.getName() + " has fainted!");
 			
 			ApplicationData.soundtrack.playFile(4);
 		}
+		ApplicationData.soundtrack.loop();
 		System.out.println("Game Over");
 		
 		topPanel.repaint();

@@ -12,7 +12,8 @@ import moves.SwordsDance;
 public class Gengar extends Pokemon{
 
 	public Gengar() {
-		super("Gengar", PokemonTypes.GHOST,  100, 261, 325, 156);
+		super("Gengar", PokemonTypes.GHOST,  100, 324, 394, 273);
+		
 	}
 
 	

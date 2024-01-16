@@ -1,17 +1,18 @@
 package main;
 
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import pokemon.Brian;
 import pokemon.Ethan;
-import pokemon.Gengar;
-import pokemon.Imogen;
 import pokemon.Pokemon;
 
 public class ApplicationData {
@@ -23,7 +24,7 @@ public class ApplicationData {
 	static SettingsPanel settings;
 	static PokemonSelectPanel charSelect;
 	static EndPanel endPanel;
-	
+
 	//event queue for animations
 	public static LinkedList<Runnable> eventQueue = new LinkedList<Runnable>();
 	
@@ -36,7 +37,7 @@ public class ApplicationData {
 	static float soundtrackVolume = -10f;
 	
 	
-	
+		
 	//game helper objects
 	public static AnimationHandler animate;
 	public static boolean gameOver;
@@ -44,20 +45,20 @@ public class ApplicationData {
 	//global constants
 	final static int frameWidth = 1336;
 	final static int frameHeight = 768;
+	final static Dimension frameDimensions = new Dimension (frameWidth,frameHeight);
 	static Font font;
 	public final static Random random = new Random();
-	
-	
+	public static Image logo;
 	static {
 		try {
 			InputStream inputStream = ApplicationData.class.getResourceAsStream("/font/PokemonFont.ttf");
-			if (inputStream != null) {
-				font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-				inputStream.close(); // Close the stream after use
-			} else {
-				System.err.println("Font file not found!");
-			}
+			font = Font.createFont(Font.TRUETYPE_FONT, inputStream);		
+			inputStream = ApplicationData.class.getResourceAsStream("/assets/title.png");
+			
+			logo = ImageIO.read(inputStream).getScaledInstance(ApplicationData.frameWidth / 2, -1, Image.SCALE_SMOOTH);
+			inputStream.close(); // Close the stream after use
 		} catch (Exception e) {
+			System.err.println("file not found!");
 			e.printStackTrace(); // Handle this exception appropriately for your application
 		}
 	}
@@ -72,7 +73,7 @@ public class ApplicationData {
 	
 	
 	public static void switchPanel(JPanel start, JPanel end) {
-		sfx.playFile(1);
+		
     	start.setVisible(false);
        	window.add(end);
        	end.setVisible(true);
@@ -81,12 +82,19 @@ public class ApplicationData {
 	}
 	
 	public static void resetGame() {
-		enemyPokemon = Pokemon.createPokemon(ApplicationData.random.nextInt(ApplicationData.numOfPokemon));
-		enemyPokemon.initForBattle();
-		enemyPokemon.setAllied(false);
+		soundtrack.stop();
+		initGame();
 		charSelect.resetPanel();
 		gameOver = false;
 	}
-    // Type effectiveness values: 0.5 = not very effective, 1 = normal effectiveness, 2 = super effective
+	
+	public static void initGame() {
+		enemyPokemon = Pokemon.createPokemon(ApplicationData.random.nextInt(ApplicationData.numOfPokemon));
+		enemyPokemon.initForBattle();
+		enemyPokemon.setAllied(false);
+		track = random.nextInt(numOfTracks);
+		soundtrack.playTrack(track);
+
+	}
 
 }

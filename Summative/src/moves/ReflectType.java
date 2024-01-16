@@ -19,10 +19,12 @@ public class ReflectType extends PokemonMove{
 	@Override
 	public void useMove(Pokemon attacker, Pokemon target) {
 		super.useMove(attacker, target);
+		ApplicationData.eventQueue.add(() -> playSFX());
 		if (charges < 0) {
 			setCharges(0);
 			return;
 		}
+		
 		attacker.setType(target.getType());
 		ApplicationData.animate.addTextAnimation(getAllied(attacker) + attacker.getName() + "'s type changed!");
 		System.out.println(attacker.getTypeName());

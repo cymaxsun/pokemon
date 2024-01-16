@@ -27,6 +27,7 @@ public class SwordsDance extends PokemonMove{
 			setCharges(0);
 			return;
 		}
+		ApplicationData.eventQueue.add(() -> playSFX());
 		attacker.setAtkStage(attacker.getAtkStage()+2);
 		
 

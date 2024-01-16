@@ -1,5 +1,6 @@
 package moves;
 
+import main.ApplicationData;
 import pokemon.Pokemon;
 import pokemon.PokemonTypes;
 
@@ -21,6 +22,7 @@ public class BulkUp extends PokemonMove {
 			setCharges(0);
 			return;
 		}
+		ApplicationData.eventQueue.add(() -> playSFX());
 		attacker.setAtkStage(attacker.getAtkStage()+1);
 		attacker.setDefStage(attacker.getDefStage()+1);
 		

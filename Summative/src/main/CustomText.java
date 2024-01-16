@@ -17,7 +17,7 @@ public class CustomText extends JComponent {
 		super();
 		setOpaque(false);
 		this.text = text;
-
+		setAlignmentX(LEFT_ALIGNMENT);
 		setFont(ApplicationData.font.deriveFont(20));
 		setForeground(new Color(88, 88, 80));
 		setBackground(new Color(168, 184, 184));
@@ -28,7 +28,7 @@ public class CustomText extends JComponent {
 	public void setFont(Font font) {
 		super.setFont(font);
 		metrics = getFontMetrics(font);
-
+		
 		setPreferredSize(new Dimension(metrics.stringWidth(text) + 5, metrics.getHeight()));
 		setSize(getPreferredSize());
 	}
@@ -48,7 +48,7 @@ public class CustomText extends JComponent {
 				float newSize = getFont().getSize2D()-5f;
 				super.setFont(getFont().deriveFont(newSize));
 				metrics = getFontMetrics(getFont());
-				setPreferredSize(new Dimension(metrics.stringWidth(text) + 5, this.getHeight()));
+				setPreferredSize(new Dimension(metrics.stringWidth(text) + (getFont().getSize()/10), this.getHeight()));
 				//System.out.println("set font to size : " + getFont().getSize());
 				//System.out.println("new size; " + metrics.stringWidth(text));
 			}
@@ -60,24 +60,26 @@ public class CustomText extends JComponent {
 		
 		//super.setFont(ogFont);
 	}
+	
 
 	@Override
 	public void paintComponent(Graphics g) {
-		//System.out.println(this.text);
-		//System.out.println("strring width: " + metrics.stringWidth(text) + "> container width: " + this.getWidth());
-		//System.out.println("font size: " + getFont().getSize());
-		//resize(g);
-		// System.out.println(metrics.stringWidth(text) + ">" + this.getWidth());
-		// g.setColor(Color.BLACK);
-		// g.fillRect(0, 0, this.getWidth(), this.getHeight());
-		int centerY = (this.getHeight() + metrics.getAscent() - metrics.getDescent()) / 2 - 3;
-
+		int centerY = (this.getHeight() + metrics.getAscent() - metrics.getDescent()) / 2 - (getFont().getSize()/16);
+		int centerX;
+		if (this.getAlignmentX() == 0.5f) {
+			centerX = (this.getWidth()-metrics.stringWidth(text))/2;
+		} else {
+			centerX = 0;
+		}
+		
+		
+		
 		g.setFont(getFont());
 		g.setColor(getBackground());
-		g.drawString(text, 3, centerY + 3);
+		g.drawString(text, centerX + (getFont().getSize()/16), centerY + (getFont().getSize()/16));
 
 		g.setColor(getForeground());
-		g.drawString(text, 0, centerY);
+		g.drawString(text, centerX+ 0, centerY);
 
 		
 		
