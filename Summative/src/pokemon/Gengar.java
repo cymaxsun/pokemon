@@ -1,12 +1,12 @@
 package pokemon;
 
-import moves.Attack;
+import moves.Flail;
 import moves.Harden;
 import moves.Lick;
 import moves.Recover;
 import moves.ReflectType;
 import moves.ShadowBall;
-import moves.SuckerPunch;
+import moves.DarkPulse;
 import moves.SwordsDance;
 
 public class Gengar extends Pokemon{
@@ -22,7 +22,7 @@ public class Gengar extends Pokemon{
 	public void initForBattle() {
 		super.initForBattle();
 		setMove1(new Lick());
-		setMove2(new SuckerPunch());
+		setMove2(new DarkPulse());
 		setMove3(new ReflectType());
 		setMove4(new ShadowBall());
 	}

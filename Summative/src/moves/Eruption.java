@@ -10,9 +10,9 @@ public class Eruption extends PokemonMove {
 		// TODO Auto-generated constructor stub
 		setName("Eruption");
 		setType(PokemonTypes.FIRE);
-		setPower(150);
-		setMaxCharges(5);
-		setAcc(100);
+		setPower(200);
+		setMaxCharges(10);
+		setAcc(90);
 		setSFX(getClass().getResource("/sound/Eruption.wav"));
 	}
 
@@ -33,8 +33,7 @@ public class Eruption extends PokemonMove {
 
 	@Override
 	public int dmgCalc(Pokemon attacker, Pokemon target) {
-		power = 150	* attacker.getCurrentHp()/attacker.getMaxHp();
-		System.out.println(power);
+		power = 200	* attacker.getCurrentHp()/attacker.getMaxHp();
 		super.dmgCalc(attacker, target);	
 		return dmg;
 		

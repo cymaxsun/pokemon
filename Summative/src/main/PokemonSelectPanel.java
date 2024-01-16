@@ -63,9 +63,6 @@ public class PokemonSelectPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public PokemonSelectPanel() {
-		for (int i = 0; i < ApplicationData.numOfPokemon; i++) {
-			pokemonList[i] = i;
-		}
 		setBackground(backgroundColor);
 		setBorder(new MatteBorder(0, 7, 7, 7, Color.gray));
 		setLayout(new MigLayout("insets 100 100 50 100", "[50%,grow]100[30%,grow]", "[grow]"));
@@ -81,7 +78,7 @@ public class PokemonSelectPanel extends JPanel {
 			for (int col = 0; col < 3; col++) {
 				pokemon[row][col] = new PokemonPreviewPanel(this);
 
-				pokemon[row][col].setPokemon(Pokemon.createPokemon(pokemonList[(row * 3 + col)]));
+				pokemon[row][col].setPokemon(Pokemon.createPokemon((row * 3 + col)));
 				pokemonListDisplay.add(pokemon[row][col], "cell " + col + " " + row + " , grow");
 			}
 
@@ -298,7 +295,7 @@ public class PokemonSelectPanel extends JPanel {
 		}
 		for (int row = 0; row < 3; row++) {
 			for (int col = 0; col < 3; col++) {
-				pokemon[row][col].setPokemon(Pokemon.createPokemon(pokemonList[(row * 3 + col)]));
+				pokemon[row][col].setPokemon(Pokemon.createPokemon((row * 3 + col)));
 			}
 
 		}

@@ -3,15 +3,15 @@ package moves;
 import pokemon.Pokemon;
 import pokemon.PokemonTypes;
 
-public class SuckerPunch extends PokemonMove {
-	public SuckerPunch() {
+public class DarkPulse extends PokemonMove {
+	public DarkPulse() {
 		super();
-		setName("Sucker Punch");
+		setName("Dark Pulse");
 		setType(PokemonTypes.DARK);
-		setPower(70);
+		setPower(100);
 		setMaxCharges(30);
 		setAcc(100);
-		setSFX(getClass().getResource("/sound/Sucker Punch.wav"));
+		setSFX(getClass().getResource("/sound/Dark Pulse.wav"));
 	}
 	
 	
@@ -28,3 +28,4 @@ public class SuckerPunch extends PokemonMove {
 		}
 	}
 }
+	

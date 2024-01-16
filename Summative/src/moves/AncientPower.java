@@ -1,6 +1,5 @@
 package moves;
 
-import main.ApplicationData;
 import pokemon.Pokemon;
 import pokemon.PokemonTypes;
 
@@ -24,7 +23,7 @@ public class AncientPower extends PokemonMove{
 			return;
 		}
 		attack(attacker, target);
-		if (roll(15)) {
+		if (roll(25)) {
 			attacker.setAtkStage(attacker.getAtkStage()+2);
 			attacker.setDefStage(attacker.getDefStage()+2);
 			

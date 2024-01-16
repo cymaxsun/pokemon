@@ -159,7 +159,7 @@ public class PokemonMove {
 			System.out.println(attacker.getName() + " Attack: " + attacker.getAtk());
 			System.out.println("Move Power: " + this.getPower());
 			System.out.println(target.getName() + " Defense: " + target.getDef());
-			System.out.println("Dmg: " + dmgCalc(attacker, target));
+			
 			ApplicationData.animate.addTextAnimation(getAllied(attacker) + attacker.getName() + " used " + name + "!");
 
 		}
@@ -177,7 +177,7 @@ public class PokemonMove {
 	}
 
 	public int dmgCalc(Pokemon attacker, Pokemon target) {
-		dmg = (int) ((( (2*attacker.getLvl()/5.0)+2)*power*attacker.getAtk()/target.getDef())/50+2);
+		dmg = (int) ((( (2*attacker.getLvl()/5.0)+2)*power*attacker.getAtk()/target.getDef())/50+2)*3/2;
 		if (dmg <= 0) {
 			dmg = 1;
 		}
@@ -209,6 +209,7 @@ public class PokemonMove {
 			ApplicationData.eventQueue.add(() -> ApplicationData.sfx.playSFX(2));
 			float effectiveness;
 			dmgCalc(attacker, target);
+			System.out.println("Dmg: " + dmg);
 			if (ignoreEffectiveness == false) {
 				effectiveness = PokemonTypes.typeChart[getType()][target.getType()];
 				this.dmg = (int) (dmg * effectiveness);

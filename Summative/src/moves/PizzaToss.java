@@ -7,10 +7,10 @@ public class PizzaToss extends PokemonMove{
 	public PizzaToss() {
 		super();
 		setName("Pizza Toss");
-		setType(PokemonTypes.GRASS);
-		setPower(70);
+		setType(PokemonTypes.POISON);
+		setPower(200);
 		setMaxCharges(10);
-		setAcc(100);
+		setAcc(60);
 		setSFX(getClass().getResource("/sound/Pizza Toss.wav"));
 	}
 

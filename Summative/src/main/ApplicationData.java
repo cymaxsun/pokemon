@@ -39,7 +39,7 @@ public class ApplicationData {
 		
 	//game helper objects
 	public static AnimationHandler animate;
-	public static boolean gameOver;
+	public static boolean gameOver = false;
 	
 	//global constants
 	final static int frameWidth = 1336;
