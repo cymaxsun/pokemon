@@ -89,7 +89,6 @@ public class ApplicationData {
 	
 	public static void initGame() {
 		enemyPokemon = Pokemon.createPokemon(ApplicationData.random.nextInt(ApplicationData.numOfPokemon));
-		enemyPokemon = new Brian();
 		enemyPokemon.initForBattle();
 		enemyPokemon.setAllied(false);
 		track = random.nextInt(numOfTracks);
