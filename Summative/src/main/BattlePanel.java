@@ -289,7 +289,7 @@ public class BattlePanel extends JPanel {
 			topPanel.remove(enemyPokemon.getSpritePanel());
 			
 			ApplicationData.animate.textAnimation("The enemy " + enemyPokemon.getName() + " has fainted!");
-			
+			ApplicationData.soundtrack.clip.setLoopPoints(133589, -1);
 			ApplicationData.soundtrack.playFile(4);
 		}
 		ApplicationData.soundtrack.loop();
