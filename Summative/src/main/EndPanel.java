@@ -38,6 +38,7 @@ public class EndPanel extends ImagePanel {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
+				ApplicationData.sfx.playFile(1);
 				ApplicationData.resetGame();
 				ApplicationData.switchPanel(ApplicationData.endPanel, ApplicationData.titlePanel);
 
@@ -53,6 +54,7 @@ public class EndPanel extends ImagePanel {
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
+				ApplicationData.sfx.playFile(1);
 				ApplicationData.window.dispatchEvent(new WindowEvent(ApplicationData.window, WindowEvent.WINDOW_CLOSING));
 				
 			}
