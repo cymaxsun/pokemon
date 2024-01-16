@@ -271,8 +271,8 @@ public class PokemonMove {
 
 	public void getButtonImages(int type) {
 
-		setButton(new ImageIcon(getClass().getResource("/buttons/" + PokemonTypes.getTypeName(type) + ".png")).getImage());
-		setButtonPressed(new ImageIcon(getClass().getResource("/buttons/" + PokemonTypes.getTypeName(type) + "Pressed.png")).getImage());
+		setButton(new ImageIcon(getClass().getResource("/buttons/" + PokemonTypes.getTypeName(type).toLowerCase() + ".png")).getImage());
+		setButtonPressed(new ImageIcon(getClass().getResource("/buttons/" + PokemonTypes.getTypeName(type).toLowerCase() + "Pressed.png")).getImage());
 
 	}
 
