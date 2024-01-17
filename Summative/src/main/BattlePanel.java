@@ -46,6 +46,7 @@ public class BattlePanel extends JPanel {
 	public int fadeSat = 0;
 	public MoveInfoPanel moveInfo;
 	public int turnNumber = 0;
+	public boolean moveHit;
 
 
 	// GAME STATE
@@ -217,26 +218,33 @@ public class BattlePanel extends JPanel {
 	}
 		
 	private void enemyMove() {
-		Random random = new Random();
-		int randomMove = random.nextInt(4);
 
+		int randomMove = ApplicationData.random.nextInt(4);
+		PokemonMove move;
+		
 		switch (randomMove) {
 		case 0:
 			enemyPokemon.getMove1().useMove(enemyPokemon, playerPokemon);
+			move = enemyPokemon.getMove1();
 			break;
 		case 1:
 			enemyPokemon.getMove2().useMove(enemyPokemon, playerPokemon);
+			move = enemyPokemon.getMove2();
 			break;
 		case 2:
 			enemyPokemon.getMove3().useMove(enemyPokemon, playerPokemon);
+			move = enemyPokemon.getMove3();
 			break;
 		case 3:
 			enemyPokemon.getMove4().useMove(enemyPokemon, playerPokemon);
+			move = enemyPokemon.getMove4();
 			break;
 		default:
+			move = null;
 			break;
 		}
-		if (isGameOver()) {
+	
+		if (move.dmgCalc(enemyPokemon, playerPokemon) >= playerPokemon.getCurrentHp() && move.moveHit) {
 			ApplicationData.eventQueue.add(() -> gameOver());
 		} else {
 			ApplicationData.eventQueue.add(() -> actionSelection());
@@ -248,12 +256,9 @@ public class BattlePanel extends JPanel {
 
 	private void playerMove(PokemonMove move) {
 		ApplicationData.animate.stopAnimation();
-
+		moveHit = false;
 		move.useMove(playerPokemon, enemyPokemon);
-		if (enemyPokemon.getCurrentHp() <= 0) {
-			ApplicationData.gameOver = true;
-			
-		}
+
 		bottomPanel.removeAll();
 		bottomPanel.setLayout(new MigLayout("", "[100%,grow]", "[100%,grow]"));
 		textPanel.remove(moveInfo);
@@ -261,17 +266,18 @@ public class BattlePanel extends JPanel {
 		bottomPanel.add(textPanel, "grow");
 		repaint();
 		revalidate();
-
-		if (isGameOver()) {
+		System.out.println("total dmg: "+ move.dmgCalc(playerPokemon, enemyPokemon));
+		if (move.dmgCalc(playerPokemon, enemyPokemon) >= enemyPokemon.getCurrentHp() && move.moveHit) {
 			ApplicationData.eventQueue.add(() -> gameOver());
 		} else {
+			System.out.println(enemyPokemon.getCurrentHp());
 			ApplicationData.eventQueue.add(() -> enemyMove());
 		}
 		ApplicationData.eventQueue.pop().run();
 	}
 
-	public boolean isGameOver() {
-		return (playerPokemon.getCurrentHp() <= 0 || enemyPokemon.getCurrentHp() <= 0);
+	public static void isGameOver() {
+		ApplicationData.gameOver = (ApplicationData.playerPokemon.getCurrentHp() <= 0 || ApplicationData.enemyPokemon.getCurrentHp() <= 0);
 	}
 
 	private void gameOver() {
@@ -282,7 +288,7 @@ public class BattlePanel extends JPanel {
 			ApplicationData.sfx.playFile(5);
 			ApplicationData.soundtrack.playFile(9);
 			ApplicationData.animate.textAnimation("Your " + playerPokemon.getName() + " has fainted!");
-			ApplicationData.animate.addFadeAnimation();
+			
 			
 		} else if (enemyPokemon.getCurrentHp() <= 0) {
 			topPanel.remove(enemyPokemon.getStatusPanel());
@@ -292,6 +298,7 @@ public class BattlePanel extends JPanel {
 			ApplicationData.soundtrack.clip.setLoopPoints(133589, -1);
 			ApplicationData.soundtrack.playFile(4);
 		}
+		ApplicationData.animate.addFadeAnimation();
 		ApplicationData.soundtrack.loop();
 		System.out.println("Game Over");
 		

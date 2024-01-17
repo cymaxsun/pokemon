@@ -17,15 +17,12 @@ public class Harden extends PokemonMove{
 		setSFX(getClass().getResource("/sound/Harden.wav"));
 	}
 	
+
 	
-	public void useMove(Pokemon attacker, Pokemon target) {
-		super.useMove(attacker, target);
-		if (charges < 0) {
-			setCharges(0);
-			return;
-		}
-		ApplicationData.eventQueue.add(() -> playSFX());
+	
+	@Override
+	public void moveHit(Pokemon attacker, Pokemon target) {
+		super.moveHit(attacker, target);
 		attacker.setDefStage(attacker.getDefStage()+1);
 	}
-	
 }

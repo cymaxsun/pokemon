@@ -20,13 +20,13 @@ public class EerieImpulse extends PokemonMove {
 	
 	public void useMove(Pokemon attacker, Pokemon target) {
 		super.useMove(attacker, target);
-		if (charges < 0) {
-			setCharges(0);
-			return;
-		}
 
-		ApplicationData.eventQueue.add(() -> playSFX());
-		target.setAtkStage(target.getAtkStage()-2);
 	}
 	
+	
+	@Override
+	public void moveHit(Pokemon attacker, Pokemon target) {
+		super.moveHit(attacker, target);
+		target.setAtkStage(target.getAtkStage()-2);
+	}
 }

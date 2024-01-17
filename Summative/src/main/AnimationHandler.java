@@ -63,6 +63,7 @@ public class AnimationHandler {
 					if (pokemon.getSpritePanel().damageTaken != null) {
 						pokemon.getSpritePanel().damageTaken.stop();
 						pokemon.getSpritePanel().tick = 0;
+						pokemon.getSpritePanel().repaint();
 					}
 					
 					if (ApplicationData.eventQueue.peek() != null) {
@@ -95,7 +96,7 @@ public class AnimationHandler {
 
 	
 	public void fadeToBlack() {
-		fadeToBlack = new Timer(10, new ActionListener() {
+		fadeToBlack = new Timer(20, new ActionListener() {
 			int sat = 0;
 			public void actionPerformed(ActionEvent e) {
 				if (sat <= 250) {

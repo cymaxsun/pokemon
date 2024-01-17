@@ -11,13 +11,12 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import pokemon.Brian;
 import pokemon.Pokemon;
 
 public class ApplicationData {
 	
 	//frame + panels
-	static BattlePanel battlePanel;
+	public static BattlePanel battlePanel;
 	static JFrame window;
 	static TitlePanel titlePanel;
 	static SettingsPanel settings;
@@ -94,6 +93,17 @@ public class ApplicationData {
 		track = random.nextInt(numOfTracks);
 		soundtrack.playTrack(track);
 
+	}
+	
+	public static void addToQueue(Runnable action) {
+		Runnable method = new Runnable() {
+			@Override
+			public void run(){
+				action.run();
+				ApplicationData.eventQueue.pop().run();
+			}
+		};
+		ApplicationData.eventQueue.add(method);
 	}
 
 }

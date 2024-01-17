@@ -18,10 +18,13 @@ public class AncientPower extends PokemonMove{
 	public void useMove(Pokemon attacker, Pokemon target) {
 		// TODO Auto-generated method stub\	
 		super.useMove(attacker, target);
-		if (charges < 0) {
-			setCharges(0);
-			return;
-		}
+
+			
+
+	}
+	@Override
+	public void moveHit(Pokemon attacker, Pokemon target) {
+		super.moveHit(attacker, target);
 		attack(attacker, target);
 		if (roll(25)) {
 			attacker.setAtkStage(attacker.getAtkStage()+2);
@@ -29,8 +32,5 @@ public class AncientPower extends PokemonMove{
 			
 		}
 		
-			
-
 	}
-	
 }

@@ -17,15 +17,14 @@ public class DarkPulse extends PokemonMove {
 	
 	public void useMove(Pokemon attacker, Pokemon target) {
 		super.useMove(attacker, target);
-		if (charges < 0) {
-			setCharges(0);
-			return;
-		}
-		attack(attacker, target);
+
+	}
+	
+	@Override
+	public void moveHit(Pokemon attacker, Pokemon target) {
+		super.moveHit(attacker, target);
 		
-		if (target.getCurrentHp() <= 0) {
-			return;
-		}
+		attack(attacker, target);
 	}
 }
 	

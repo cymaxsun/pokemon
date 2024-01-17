@@ -17,17 +17,10 @@ public class Recover extends PokemonMove{
 		setSFX(getClass().getResource("/sound/Recover.wav"));
 	}
 
-	public void useMove(Pokemon attacker, Pokemon target) {
-		// TODO Auto-generated method stub
-
-		super.useMove(attacker, target);
-		if (charges < 0) {
-			setCharges(0);
-			return;
-		}
-		ApplicationData.eventQueue.add(() -> playSFX());
+	@Override
+	public void moveHit(Pokemon attacker, Pokemon target) {
+		super.moveHit(attacker, target);
 		heal(attacker, attacker.getMaxHp()/2);
 	}
-	
 
 }

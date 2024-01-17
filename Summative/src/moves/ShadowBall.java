@@ -14,13 +14,10 @@ public class ShadowBall extends PokemonMove{
 		setSFX(getClass().getResource("/sound/Shadow Ball.wav"));
 	}
 	
-	
-	public void useMove(Pokemon attacker, Pokemon target) {
-		super.useMove(attacker, target);
-		if (charges < 0) {
-			setCharges(0);
-			return;
-		}
+
+	@Override
+	public void moveHit(Pokemon attacker, Pokemon target) {
+		super.moveHit(attacker, target);
 		attack(attacker,target);
 		if (target.getCurrentHp() <= 0) {
 			return;
@@ -29,7 +26,6 @@ public class ShadowBall extends PokemonMove{
 			target.setDefStage(target.getDefStage()-1);
 			
 		}
-		
 	}
 	
 }

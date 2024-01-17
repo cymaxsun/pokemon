@@ -16,18 +16,11 @@ public class ReflectType extends PokemonMove{
 		setSFX(getClass().getResource("/sound/Reflect Type.wav"));
 	}
 	
+
 	@Override
-	public void useMove(Pokemon attacker, Pokemon target) {
-		super.useMove(attacker, target);
-		ApplicationData.eventQueue.add(() -> playSFX());
-		if (charges < 0) {
-			setCharges(0);
-			return;
-		}
-		
+	public void moveHit(Pokemon attacker, Pokemon target) {
+		super.moveHit(attacker, target);
 		attacker.setType(target.getType());
 		ApplicationData.animate.addTextAnimation(getAllied(attacker) + attacker.getName() + "'s type changed!");
-		System.out.println(attacker.getTypeName());
 	}
-	
 }
