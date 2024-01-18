@@ -153,8 +153,23 @@ public class PokemonMove {
 			acc = 100;
 			power = 50;
 			sfx = null;
-			attack(attacker, target);
-			attack(target, attacker, attacker.getMaxHp() / 4);
+			ApplicationData.eventQueue.add(() -> ApplicationData.sfx.playSFX(2));	
+			dmgCalc(attacker, target);
+			System.out.println("Dmg: " + dmg);
+			dmgTaken(target, dmg);
+			
+			if (target.getCurrentHp() <= dmg) {
+				ApplicationData.gameOver = true;
+				return;
+			}
+			ApplicationData.eventQueue.add(() -> ApplicationData.sfx.playSFX(2));	
+			System.out.println("Dmg: " + attacker.getMaxHp()/4);
+			dmgTaken(attacker, attacker.getMaxHp()/4);
+			
+
+			if (attacker.getMaxHp()/4>=attacker.getCurrentHp()) {
+				ApplicationData.gameOver = true;
+			}
 			return;
 		} else {
 			if (ignoreEffectiveness == false) {
@@ -237,7 +252,7 @@ public class PokemonMove {
 			dmgTaken(target, dmg);
 			
 			moveHitText(attacker);
-			if (target.getCurrentHp() <= 0) {
+			if (target.getCurrentHp() <= dmg) {
 				return;
 			}
 

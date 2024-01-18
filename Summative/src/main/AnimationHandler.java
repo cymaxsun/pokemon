@@ -113,6 +113,24 @@ public class AnimationHandler {
 		fadeToBlack.start();
 	}
 	
+	public void fadeFromBlack() {
+		fadeToBlack = new Timer(20, new ActionListener() {
+			int sat = 255;
+			public void actionPerformed(ActionEvent e) {
+				if (sat >= 5) {
+					sat -=5;
+				} else {
+					((Timer) e.getSource()).stop();
+					ApplicationData.eventQueue.pop().run();
+				}
+				bf.fadeSat = sat;
+				bf.repaint();
+
+			}
+		});
+		fadeToBlack.start();
+	}
+	
 	public void stopAnimation() {
 		if (textAnimation != null) {
 			textAnimation.stop();

@@ -14,11 +14,7 @@ public class DarkPulse extends PokemonMove {
 		setSFX(getClass().getResource("/sound/Dark Pulse.wav"));
 	}
 	
-	
-	public void useMove(Pokemon attacker, Pokemon target) {
-		super.useMove(attacker, target);
 
-	}
 	
 	@Override
 	public void moveHit(Pokemon attacker, Pokemon target) {

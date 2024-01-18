@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import pokemon.Ethan;
 import pokemon.Pokemon;
 
 public class ApplicationData {
@@ -88,6 +89,7 @@ public class ApplicationData {
 	
 	public static void initGame() {
 		enemyPokemon = Pokemon.createPokemon(ApplicationData.random.nextInt(ApplicationData.numOfPokemon));
+		
 		enemyPokemon.initForBattle();
 		enemyPokemon.setAllied(false);
 		track = random.nextInt(numOfTracks);

@@ -370,8 +370,10 @@ public class Pokemon{
 		case 4:
 			p = new Tommy();
 			break;
+		case 5: 
+			p = new Shivam();
+			break;
 		default:
-
 			p = createPokemon(ApplicationData.random.nextInt(ApplicationData.numOfPokemon));
 			break;	
 		}

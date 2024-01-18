@@ -15,13 +15,7 @@ public class AncientPower extends PokemonMove{
 		setSFX(getClass().getResource("/sound/Ancient Power.wav"));
 	}
 	
-	public void useMove(Pokemon attacker, Pokemon target) {
-		// TODO Auto-generated method stub\	
-		super.useMove(attacker, target);
 
-			
-
-	}
 	@Override
 	public void moveHit(Pokemon attacker, Pokemon target) {
 		super.moveHit(attacker, target);

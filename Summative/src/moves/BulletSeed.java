@@ -53,13 +53,14 @@ public class BulletSeed extends PokemonMove {
 			ApplicationData.eventQueue.add(() -> ApplicationData.sfx.playSFX(2));
 			dmgTaken(target, super.dmgCalc(attacker, target));
 			totalDmg += dmg;
+			System.out.println("Dmg: " + this.dmg);
 			if (totalDmg >= target.getCurrentHp()) {
 				ApplicationData.gameOver = true;
-				hits = i;
+				System.out.println("total dmg to kill: "+totalDmg);
+				hits = i+1;
 				moveHitText(attacker);
 				return;
 			}
-			System.out.println("Dmg: " + this.dmg);
 			power += 25;
 		}
 		moveHitText(attacker);

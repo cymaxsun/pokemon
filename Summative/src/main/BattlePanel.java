@@ -244,7 +244,7 @@ public class BattlePanel extends JPanel {
 			break;
 		}
 	
-		if (move.dmgCalc(enemyPokemon, playerPokemon) >= playerPokemon.getCurrentHp() && move.moveHit) {
+		if (ApplicationData.gameOver || (move.dmgCalc(enemyPokemon, playerPokemon) >= playerPokemon.getCurrentHp() && move.moveHit)) {
 			ApplicationData.eventQueue.add(() -> gameOver());
 		} else {
 			ApplicationData.eventQueue.add(() -> actionSelection());
@@ -267,10 +267,9 @@ public class BattlePanel extends JPanel {
 		repaint();
 		revalidate();
 		System.out.println("total dmg: "+ move.dmgCalc(playerPokemon, enemyPokemon));
-		if (move.dmgCalc(playerPokemon, enemyPokemon) >= enemyPokemon.getCurrentHp() && move.moveHit) {
+		if (ApplicationData.gameOver || (move.dmgCalc(playerPokemon, enemyPokemon) >= enemyPokemon.getCurrentHp() && move.moveHit)) {
 			ApplicationData.eventQueue.add(() -> gameOver());
 		} else {
-			System.out.println(enemyPokemon.getCurrentHp());
 			ApplicationData.eventQueue.add(() -> enemyMove());
 		}
 		ApplicationData.eventQueue.pop().run();
