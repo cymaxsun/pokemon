@@ -1,6 +1,5 @@
 package moves;
 
-import main.ApplicationData;
 import pokemon.Pokemon;
 import pokemon.PokemonTypes;
 
@@ -29,4 +28,5 @@ public class EerieImpulse extends PokemonMove {
 		super.moveHit(attacker, target);
 		target.setAtkStage(target.getAtkStage()-2);
 	}
+
 }

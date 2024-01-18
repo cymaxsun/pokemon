@@ -97,8 +97,8 @@ public interface PokemonTypes {
 	}
 
 	static final float[][] typeChart = {
-	        //              Normal   Fire   Water  Electric Grass Ice   Fighting  Poison  Ground  Flying  Psychic Bug  Rock Ghost  Dragon Dark  Steel  Fairy
-	        /* Normal */    { 1.0f,   1.0f,   1.0f,   1.0f,     1.0f,  1.0f,  2.0f,      1.0f,    1.0f,    1.0f,    1.0f,    1.0f, 0.5f, 0.0f,   1.0f,   1.0f,  0.5f,   1.0f },
+	        //              Normal    Fire    Water   Electric  Grass  Ice    Fighting   Poison   Ground   Flying   Psychic  Bug   Rock  Ghost   Dragon  Dark   Steel   Fairy
+	        /* Normal */    { 1.0f,   1.0f,   1.0f,   1.0f,     1.0f,  1.0f,  1.0f,      1.0f,    1.0f,    1.0f,    1.0f,    1.0f, 0.5f, 0.0f,   1.0f,   1.0f,  0.5f,   1.0f },
 	        /* Fire */      { 1.0f,   0.5f,   0.5f,   1.0f,     2.0f,  2.0f,  1.0f,      1.0f,    1.0f,    1.0f,    1.0f,    2.0f, 0.5f, 1.0f,   0.5f,   1.0f,  2.0f,   1.0f },
 	        /* Water */     { 1.0f,   2.0f,   0.5f,   1.0f,     0.5f,  1.0f,  1.0f,      1.0f,    2.0f,    1.0f,    1.0f,    1.0f, 2.0f, 1.0f,   0.5f,   1.0f,  1.0f,   1.0f },
 	        /* Electric */  { 1.0f,   1.0f,   2.0f,   0.5f,     0.5f,  1.0f,  1.0f,      1.0f,    0.0f,    2.0f,    1.0f,    1.0f, 1.0f, 1.0f,   0.5f,   1.0f,  1.0f,   1.0f },
@@ -111,10 +111,10 @@ public interface PokemonTypes {
 	        /* Psychic */   { 1.0f,   1.0f,   1.0f,   1.0f,     1.0f,  1.0f,  2.0f,      2.0f,    1.0f,    1.0f,    0.5f,    1.0f, 1.0f, 1.0f,   1.0f,   0.0f,  0.5f,   1.0f },
 	        /* Bug */       { 1.0f,   0.5f,   1.0f,   1.0f,     2.0f,  1.0f,  0.5f,      0.5f,    1.0f,    0.5f,    2.0f,    1.0f, 1.0f, 0.5f,   1.0f,   2.0f,  0.5f,   0.5f },
 	        /* Rock */      { 1.0f,   2.0f,   1.0f,   1.0f,     1.0f,  2.0f,  0.5f,      1.0f,    0.5f,    2.0f,    1.0f,    2.0f, 1.0f, 1.0f,   1.0f,   1.0f,  0.5f,   1.0f },
-	        /* Ghost */     { 0.0f,   1.0f,   1.0f,   1.0f,     1.0f,  1.0f,  0.0f,      1.0f,    1.0f,    1.0f,    2.0f,    1.0f, 1.0f, 2.0f,   1.0f,   0.5f,  1.0f,   1.0f },
+	        /* Ghost */     { 0.0f,   1.0f,   1.0f,   1.0f,     1.0f,  1.0f,  1.0f,      1.0f,    1.0f,    1.0f,    2.0f,    1.0f, 1.0f, 2.0f,   1.0f,   0.5f,  1.0f,   1.0f },
 	        /* Dragon */    { 1.0f,   1.0f,   1.0f,   1.0f,     1.0f,  1.0f,  1.0f,      1.0f,    1.0f,    1.0f,    1.0f,    1.0f, 1.0f, 1.0f,   2.0f,   1.0f,  0.5f,   0.0f },
 	        /* Dark */      { 1.0f,   1.0f,   1.0f,   1.0f,     1.0f,  1.0f,  0.5f,      1.0f,    1.0f,    1.0f,    2.0f,    1.0f, 1.0f, 2.0f,   1.0f,   0.5f,  1.0f,   0.5f },
-	        /* Steel */     { 1.0f,   0.5f,   0.5f,   0.5f,     1.0f,  2.0f,  0.0f,      0.0f,    2.0f,    1.0f,    1.0f,    0.5f, 2.0f, 1.0f,   1.0f,   1.0f,  0.5f,   2.0f },
+	        /* Steel */     { 1.0f,   0.5f,   0.5f,   0.5f,     1.0f,  2.0f,  0.0f,      1.0f,    1.0f,    1.0f,    1.0f,    1.0f, 2.0f, 1.0f,   1.0f,   1.0f,  0.5f,   2.0f },
 	        /* Fairy */     { 1.0f,   0.5f,   1.0f,   1.0f,     1.0f,  1.0f,  2.0f,      0.5f,    1.0f,    1.0f,    1.0f,    1.0f, 1.0f, 1.0f,   2.0f,   2.0f,  0.5f,   1.0f },
 	    };
 }

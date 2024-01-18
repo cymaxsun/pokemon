@@ -8,7 +8,7 @@ import moves.Tackle;
 public class Brian extends Pokemon {
 
 	public Brian() {
-		super("Brian", PokemonTypes.GRASS, 100, 364, 328, 379);
+		super("Brian", PokemonTypes.GRASS, PokemonTypes.POISON, 100, 364, 328, 379);
 	}
 
 	@Override

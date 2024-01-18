@@ -8,7 +8,7 @@ import moves.Recover;
 public class Imogen extends Pokemon {
 
 	public Imogen() {
-		super("Imogen", PokemonTypes.FIRE, 100, 404, 504, 460);
+		super("Imogen", PokemonTypes.FIRE, PokemonTypes.GROUND, 100, 404, 438, 416);
 	}
 	
 	@Override

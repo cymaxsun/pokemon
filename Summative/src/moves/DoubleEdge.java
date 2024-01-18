@@ -12,7 +12,7 @@ public class DoubleEdge extends PokemonMove{
 		setName("Double Edge");
 		setType(PokemonTypes.NORMAL);
 		setPower(120);
-		setMaxCharges(1);
+		setMaxCharges(10);
 		setAcc(100);
 		setSFX(getClass().getResource("/sound/Double Edge.wav"));
 	}
@@ -34,7 +34,7 @@ public class DoubleEdge extends PokemonMove{
 		ApplicationData.eventQueue.add(() -> ApplicationData.sfx.playSFX(2));	
 		ignoreEffectiveness = true;
 		dmgTaken(attacker,dmg/3);
-		moveHitText(attacker);
+		dmgApplied(attacker);
 		if (target.getCurrentHp() <= dmg || attacker.getCurrentHp() <= dmg/3) {
 			ApplicationData.gameOver = true;
 			return;
@@ -42,8 +42,8 @@ public class DoubleEdge extends PokemonMove{
 	}
 	
 	@Override
-	public void moveHitText(Pokemon attacker) {
-		super.moveHitText(attacker);
+	public void dmgApplied(Pokemon attacker) {
+		super.dmgApplied(attacker);
 		ApplicationData.animate.addTextAnimation(getAllied(attacker) + attacker.getName() + " is damaged by recoil!");
 	}
 }

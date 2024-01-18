@@ -10,7 +10,7 @@ public class ZapCannon extends PokemonMove{
 		setName("Zap Cannon");
 		setType(PokemonTypes.ELECTRIC);
 		setPower(200);
-		setMaxCharges(1);
+		setMaxCharges(10);
 		setAcc(60);
 		setSFX(getClass().getResource("/sound/Zap Cannon.wav"));
 	}
@@ -19,7 +19,6 @@ public class ZapCannon extends PokemonMove{
 	@Override
 	public void moveHit(Pokemon attacker, Pokemon target) {
 		super.moveHit(attacker, target);
-		System.out.println("move hit");
 		attack(attacker, target);
 	}
 }

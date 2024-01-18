@@ -23,13 +23,20 @@ public class GigaDrain extends PokemonMove{
 	}
 	
 	@Override
-	public void moveHitText(Pokemon attacker) {
-		super.moveHitText(attacker);
-		heal(attacker, dmg/2);
+	public void dmgApplied(Pokemon attacker) {
+		super.dmgApplied(attacker);
+		
 	}
 	@Override
 	public void moveHit(Pokemon attacker, Pokemon target) {
 		super.moveHit(attacker, target);
 		attack(attacker, target);
+		if (target.getCurrentHp() <= dmg) {
+			heal(attacker, target.getCurrentHp()/2);
+		} else {
+			heal(attacker, dmg/2);
+		}
+		
+		
 	}
 }

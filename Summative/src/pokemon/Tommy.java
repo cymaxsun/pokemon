@@ -9,7 +9,7 @@ public class Tommy extends Pokemon{
 
 	
 	public Tommy() {
-		super("Tommy", PokemonTypes.ELECTRIC, 100, 384, 306, 295);
+		super("Tommy", PokemonTypes.ELECTRIC, PokemonTypes.FLYING, 100, 384, 306, 295);
 	}
 	
 	@Override

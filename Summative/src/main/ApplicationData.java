@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import pokemon.Ethan;
+import pokemon.Brian;
 import pokemon.Pokemon;
 
 public class ApplicationData {
@@ -65,8 +65,7 @@ public class ApplicationData {
 	//pokemon
 	static Pokemon playerPokemon;
 	static Pokemon enemyPokemon;
-	public final static int numOfPokemon = 9;
-	static int[] pokemonList = new int[numOfPokemon];
+	public final static int numOfPokemon = 6;
 
 	
 	
@@ -88,8 +87,7 @@ public class ApplicationData {
 	}
 	
 	public static void initGame() {
-		enemyPokemon = Pokemon.createPokemon(ApplicationData.random.nextInt(ApplicationData.numOfPokemon));
-		
+		enemyPokemon = Pokemon.createPokemon(random.nextInt(numOfPokemon));
 		enemyPokemon.initForBattle();
 		enemyPokemon.setAllied(false);
 		track = random.nextInt(numOfTracks);

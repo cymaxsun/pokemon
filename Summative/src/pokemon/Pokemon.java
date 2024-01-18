@@ -1,14 +1,8 @@
 package pokemon;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -20,8 +14,9 @@ import moves.PokemonMove;
 public class Pokemon{
 
 	private String name;
-	private int type;
-	private String typeName;
+	private int type1;
+	private int type2;
+	private ArrayList<String> typeNames = new ArrayList<String>();
 	private PokemonMove move1;
 	private PokemonMove move2;
 	private PokemonMove move3;
@@ -40,8 +35,9 @@ public class Pokemon{
 	private StatusPanel statusPanel;
 	private SpritePanel spritePanel;
 	public Image image;
+	
 
-	public Pokemon(String name, int type, int lvl, int maxHp, int baseAtk, int baseDef, PokemonMove move1,
+	public Pokemon(String name, int type1, int type2, int lvl, int maxHp, int baseAtk, int baseDef, PokemonMove move1,
 			PokemonMove move2, PokemonMove move3, PokemonMove move4) {
 		this.name = name;
 		this.lvl = lvl;
@@ -51,8 +47,9 @@ public class Pokemon{
 		this.currentAtk = baseAtk;
 		this.baseDef = baseDef;
 		this.currentDef = baseDef;
-		this.type = type;
-		this.typeName = PokemonTypes.getTypeName(type);
+		this.type1 = type1;
+		this.typeNames.add(PokemonTypes.getTypeName(type1));
+		this.typeNames.add(PokemonTypes.getTypeName(type2));
 		this.move1 = move1;
 		this.move2 = move2;
 		this.move3 = move3;
@@ -78,7 +75,7 @@ public class Pokemon{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Pokemon(String name, int type, int lvl, int maxHp, int baseAtk, int baseDef) {
+	public Pokemon(String name, int type1, int lvl, int maxHp, int baseAtk, int baseDef) {
 		this.name = name;
 		this.lvl = lvl;
 		this.maxHp = maxHp;
@@ -87,8 +84,33 @@ public class Pokemon{
 		this.currentAtk = baseAtk;
 		this.baseDef = baseDef;
 		this.currentDef = baseDef;
-		this.type = type;
-		this.typeName = PokemonTypes.getTypeName(type);
+		setType1(type1);
+		this.setAllied(true);
+		
+		
+		lowHP = false;
+		atkStage = 0;
+		defStage = 0;
+		try {
+			image = ImageIO.read(getClass().getResourceAsStream("/pokemon/" + getName().toLowerCase() + ".png"));
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public Pokemon(String name, int type1, int type2, int lvl, int maxHp, int baseAtk, int baseDef) {
+		this.name = name;
+		this.lvl = lvl;
+		this.maxHp = maxHp;
+		this.currentHp = maxHp;
+		this.baseAtk = baseAtk;
+		this.currentAtk = baseAtk;
+		this.baseDef = baseDef;
+		this.currentDef = baseDef;
+		setType1(type1);
+		setType2(type2);
 		this.setAllied(true);
 		
 		
@@ -112,15 +134,24 @@ public class Pokemon{
 		this.name = name;
 	}
 
-	public int getType() {
-		return type;
+	public int getType1() {
+		return type1;
 	}
 
-	public void setType(int type) {
-		this.type = type;
-		this.typeName = PokemonTypes.getTypeName(type);
+	public void setType1(int type1) {
+		this.type1 = type1;
+		this.typeNames.add( PokemonTypes.getTypeName(type1));
 	}
 
+	public int getType2() {
+		return type2;
+	}
+
+	public void setType2(int type2) {
+		this.type2 = type2;
+		this.typeNames.add(PokemonTypes.getTypeName(type2));
+	}
+	
 	public PokemonMove getMove1() {
 		return move1;
 	}
@@ -233,7 +264,14 @@ public class Pokemon{
 	
 
 	public String getTypeName() {
-		return typeName;
+		String s;
+		if (typeNames.size() == 2) {
+			s = typeNames.get(0) + ", " + typeNames.get(1);
+		} else {
+			s = typeNames.get(0);
+		}
+		
+		return s;
 	}
 
 	public void setLowHP(boolean lowHP) {

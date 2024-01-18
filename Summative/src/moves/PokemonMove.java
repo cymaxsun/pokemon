@@ -146,6 +146,16 @@ public class PokemonMove {
 
 	public void useMove(Pokemon attacker, Pokemon target) {
 		moveHit = false;
+		System.out.println("\nMove: " + this.name);
+		System.out.println("Attacker: " + attacker.getName());
+		System.out.println("Target: " + target.getName());
+		System.out.println("\n\nBEFORE\n\n");
+
+		System.out.println(attacker.getName() + " Attack: " + attacker.getAtk());
+		System.out.println(attacker.getName() + " Defense: " + attacker.getDef());
+
+		System.out.println(target.getName() + " Attack: " + target.getAtk());
+		System.out.println(target.getName() + " Defense: " + target.getDef());
 		if (charges <= 0) {
 			ApplicationData.animate.addTextAnimation(attacker.getName() + " can't use " + this.getName() + ".");
 			ApplicationData.animate.addTextAnimation(attacker.getName() + " used Struggle!");
@@ -153,46 +163,37 @@ public class PokemonMove {
 			acc = 100;
 			power = 50;
 			sfx = null;
-			ApplicationData.eventQueue.add(() -> ApplicationData.sfx.playSFX(2));	
+			ApplicationData.eventQueue.add(() -> ApplicationData.sfx.playSFX(2));
 			dmgCalc(attacker, target);
 			System.out.println("Dmg: " + dmg);
 			dmgTaken(target, dmg);
-			
+
 			if (target.getCurrentHp() <= dmg) {
 				ApplicationData.gameOver = true;
 				return;
 			}
-			ApplicationData.eventQueue.add(() -> ApplicationData.sfx.playSFX(2));	
-			System.out.println("Dmg: " + attacker.getMaxHp()/4);
-			dmgTaken(attacker, attacker.getMaxHp()/4);
-			
+			ApplicationData.eventQueue.add(() -> ApplicationData.sfx.playSFX(2));
+			System.out.println("Dmg: " + attacker.getMaxHp() / 4);
+			dmgTaken(attacker, attacker.getMaxHp() / 4);
 
-			if (attacker.getMaxHp()/4>=attacker.getCurrentHp()) {
+			if (attacker.getMaxHp() / 4 >= attacker.getCurrentHp()) {
 				ApplicationData.gameOver = true;
 			}
 			return;
 		} else {
 			if (ignoreEffectiveness == false) {
-				effectiveness = PokemonTypes.typeChart[getType()][target.getType()];
-				System.out.println(effectiveness);
+				effectiveness = (PokemonTypes.typeChart[getType()][target.getType1()]) * (PokemonTypes.typeChart[getType()][target.getType2()]);
 			} else {
 				effectiveness = 1;
 
 			}
-			
-			if (attacker.getType() == getType()) {
+
+			if (attacker.getType1() == getType() || attacker.getType2() == getType()) {
 				STAB = 1.5f;
 			} else {
 				STAB = 1;
 			}
-			
-			System.out.println("\nMove: " + this.name);
-			System.out.println("Attacker: " + attacker.getName());
-			System.out.println("Target: " + target.getName());
-			System.out.println(attacker.getName() + " Attack: " + attacker.getAtk());
-			System.out.println("Move Power: " + this.getPower());
-			System.out.println(target.getName() + " Defense: " + target.getDef());
-			
+
 			ApplicationData.animate.addTextAnimation(getAllied(attacker) + attacker.getName() + " used " + name + "!");
 			if (roll(acc)) {
 				moveHit = true;
@@ -204,6 +205,16 @@ public class PokemonMove {
 				moveMissed(attacker);
 			}
 		}
+		System.out.println("\n\nAFTER\n\n");
+
+		System.out.println(attacker.getName() + " Attack: " + attacker.getAtk());
+		System.out.println(attacker.getName() + " Defense: " + attacker.getDef());
+		System.out.println("Move Power: " + this.getPower());
+		
+		System.out.println(target.getName() + " Attack: " + target.getAtk());
+		System.out.println(target.getName() + " Defense: " + target.getDef());
+		System.out.println("move effectivness: " + effectiveness);
+		System.out.println("STAB bonus: " + STAB);
 		this.charges -= 1;
 	}
 
@@ -218,8 +229,9 @@ public class PokemonMove {
 	}
 
 	public int dmgCalc(Pokemon attacker, Pokemon target) {
-		
-		dmg = (int) (((( (2*attacker.getLvl()/5.0)+2)*power*attacker.getAtk()/target.getDef())/50+2)*STAB*effectiveness);
+
+		dmg = (int) (((((2 * attacker.getLvl() / 5.0) + 2) * power * attacker.getAtk() / target.getDef()) / 50 + 2)
+				* STAB * effectiveness);
 		if (dmg <= 0 && effectiveness != 0) {
 			dmg = 1;
 		}
@@ -246,15 +258,15 @@ public class PokemonMove {
 	}
 
 	public void attack(Pokemon attacker, Pokemon target) {
-			ApplicationData.eventQueue.add(() -> ApplicationData.sfx.playSFX(2));	
-			dmgCalc(attacker, target);
-			System.out.println("Dmg: " + dmg);
-			dmgTaken(target, dmg);
-			
-			moveHitText(attacker);
-			if (target.getCurrentHp() <= dmg) {
-				return;
-			}
+		ApplicationData.eventQueue.add(() -> ApplicationData.sfx.playSFX(2));
+		dmgCalc(attacker, target);
+		System.out.println("Dmg: " + dmg);
+		dmgTaken(target, dmg);
+
+		dmgApplied(attacker);
+		if (target.getCurrentHp() <= dmg) {
+			return;
+		}
 
 	}
 
@@ -262,10 +274,9 @@ public class PokemonMove {
 		if (roll(acc)) {
 			ApplicationData.eventQueue.add(() -> playSFX());
 			ApplicationData.eventQueue.add(() -> ApplicationData.sfx.playSFX(2));
-			dmgTaken(target,dmg);
-			moveHitText(attacker);
+			dmgTaken(target, dmg);
+			dmgApplied(attacker);
 
-			
 		} else {
 			moveMissed(attacker);
 		}
@@ -287,8 +298,12 @@ public class PokemonMove {
 
 	public void getButtonImages(int type) {
 
-		setButton(new ImageIcon(getClass().getResource("/buttons/" + PokemonTypes.getTypeName(type).toLowerCase() + ".png")).getImage());
-		setButtonPressed(new ImageIcon(getClass().getResource("/buttons/" + PokemonTypes.getTypeName(type).toLowerCase() + "Pressed.png")).getImage());
+		setButton(new ImageIcon(
+				getClass().getResource("/buttons/" + PokemonTypes.getTypeName(type).toLowerCase() + ".png"))
+				.getImage());
+		setButtonPressed(new ImageIcon(
+				getClass().getResource("/buttons/" + PokemonTypes.getTypeName(type).toLowerCase() + "Pressed.png"))
+				.getImage());
 
 	}
 
@@ -297,12 +312,12 @@ public class PokemonMove {
 		return (x < acc);
 	}
 
-	public void moveHitText(Pokemon attacker) {
+	public void dmgApplied(Pokemon attacker) {
 		if (effectiveness == 0) {
 			ApplicationData.animate.addTextAnimation("The move had no effect!");
-		} else if (effectiveness == 0.5f) {
+		} else if (effectiveness <= 0.5f) {
 			ApplicationData.animate.addTextAnimation("It was not very effective...");
-		} else if (effectiveness == 2) {
+		} else if (effectiveness >= 2) {
 			ApplicationData.animate.addTextAnimation("It was super effective!");
 		}
 	}
@@ -310,15 +325,15 @@ public class PokemonMove {
 	public void moveMissed(Pokemon attacker) {
 		ApplicationData.animate.addTextAnimation(getAllied(attacker) + attacker.getName() + "'s attack missed!");
 	}
-	
+
 	public void dmgTaken(Pokemon target, int dmg) {
 		ApplicationData.addToQueue(() -> target.setCurrentHp(target.getCurrentHp() - dmg));
 		ApplicationData.eventQueue.add(() -> target.getSpritePanel().damageTaken());
 		ApplicationData.animate.addHpAnimation(target);
 	}
-	
+
 	public void moveHit(Pokemon attacker, Pokemon target) {
-		
+
 		ApplicationData.eventQueue.add(() -> playSFX());
 	}
 }
