@@ -8,7 +8,7 @@ public class AncientPower extends PokemonMove{
 	public AncientPower() {
 		super();
 		setName("Ancient Power");
-		setType(PokemonTypes.WATER);
+		setType(PokemonTypes.ROCK);
 		setPower(60);
 		setMaxCharges(5);
 		setAcc(100);

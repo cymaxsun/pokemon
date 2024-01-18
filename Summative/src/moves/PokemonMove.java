@@ -181,8 +181,15 @@ public class PokemonMove {
 			}
 			return;
 		} else {
-			if (ignoreEffectiveness == false) {
-				effectiveness = (PokemonTypes.typeChart[getType()][target.getType1()]) * (PokemonTypes.typeChart[getType()][target.getType2()]);
+			if (ignoreEffectiveness == false && target.getType2() != -1) {
+				
+				if (target.getType2() != -1) {
+					effectiveness = (PokemonTypes.typeChart[getType()][target.getType1()]) * (PokemonTypes.typeChart[getType()][target.getType2()]);
+				} else {
+					effectiveness = (PokemonTypes.typeChart[getType()][target.getType1()]);
+				}
+				
+			
 			} else {
 				effectiveness = 1;
 
@@ -258,7 +265,7 @@ public class PokemonMove {
 	}
 
 	public void attack(Pokemon attacker, Pokemon target) {
-		ApplicationData.eventQueue.add(() -> ApplicationData.sfx.playSFX(2));
+		
 		dmgCalc(attacker, target);
 		System.out.println("Dmg: " + dmg);
 		dmgTaken(target, dmg);
@@ -273,7 +280,6 @@ public class PokemonMove {
 	public void attack(Pokemon attacker, Pokemon target, int dmg) {
 		if (roll(acc)) {
 			ApplicationData.eventQueue.add(() -> playSFX());
-			ApplicationData.eventQueue.add(() -> ApplicationData.sfx.playSFX(2));
 			dmgTaken(target, dmg);
 			dmgApplied(attacker);
 
@@ -327,6 +333,10 @@ public class PokemonMove {
 	}
 
 	public void dmgTaken(Pokemon target, int dmg) {
+		if (dmg != 0) {
+			ApplicationData.eventQueue.add(() -> ApplicationData.sfx.playSFX(2));
+		}
+	
 		ApplicationData.addToQueue(() -> target.setCurrentHp(target.getCurrentHp() - dmg));
 		ApplicationData.eventQueue.add(() -> target.getSpritePanel().damageTaken());
 		ApplicationData.animate.addHpAnimation(target);

@@ -16,7 +16,6 @@ public class Pokemon{
 	private String name;
 	private int type1;
 	private int type2;
-	private ArrayList<String> typeNames = new ArrayList<String>();
 	private PokemonMove move1;
 	private PokemonMove move2;
 	private PokemonMove move3;
@@ -48,8 +47,6 @@ public class Pokemon{
 		this.baseDef = baseDef;
 		this.currentDef = baseDef;
 		this.type1 = type1;
-		this.typeNames.add(PokemonTypes.getTypeName(type1));
-		this.typeNames.add(PokemonTypes.getTypeName(type2));
 		this.move1 = move1;
 		this.move2 = move2;
 		this.move3 = move3;
@@ -85,6 +82,7 @@ public class Pokemon{
 		this.baseDef = baseDef;
 		this.currentDef = baseDef;
 		setType1(type1);
+		this.type2 = -1;
 		this.setAllied(true);
 		
 		
@@ -140,7 +138,7 @@ public class Pokemon{
 
 	public void setType1(int type1) {
 		this.type1 = type1;
-		this.typeNames.add( PokemonTypes.getTypeName(type1));
+		
 	}
 
 	public int getType2() {
@@ -149,7 +147,6 @@ public class Pokemon{
 
 	public void setType2(int type2) {
 		this.type2 = type2;
-		this.typeNames.add(PokemonTypes.getTypeName(type2));
 	}
 	
 	public PokemonMove getMove1() {
@@ -265,10 +262,10 @@ public class Pokemon{
 
 	public String getTypeName() {
 		String s;
-		if (typeNames.size() == 2) {
-			s = typeNames.get(0) + ", " + typeNames.get(1);
+		if (type2 != -1) {
+			s = PokemonTypes.getTypeName(type1) + ", " + PokemonTypes.getTypeName(type2);
 		} else {
-			s = typeNames.get(0);
+			s = PokemonTypes.getTypeName(type1);
 		}
 		
 		return s;

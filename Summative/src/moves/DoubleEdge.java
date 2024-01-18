@@ -26,14 +26,12 @@ public class DoubleEdge extends PokemonMove{
 	
 	@Override
 	public void attack(Pokemon attacker, Pokemon target) {
-		ignoreEffectiveness = false;
-		ApplicationData.eventQueue.add(() -> ApplicationData.sfx.playSFX(2));	
 		dmgCalc(attacker, target);
-		System.out.println("Dmg: " + dmg);
 		dmgTaken(target, dmg);
-		ApplicationData.eventQueue.add(() -> ApplicationData.sfx.playSFX(2));	
-		ignoreEffectiveness = true;
+		effectiveness = 1;
+		dmgCalc(attacker,target);
 		dmgTaken(attacker,dmg/3);
+		System.out.println(effectiveness);
 		dmgApplied(attacker);
 		if (target.getCurrentHp() <= dmg || attacker.getCurrentHp() <= dmg/3) {
 			ApplicationData.gameOver = true;

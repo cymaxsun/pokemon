@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import pokemon.Brian;
+import pokemon.Gengar;
 import pokemon.Pokemon;
 
 public class ApplicationData {
@@ -88,6 +88,7 @@ public class ApplicationData {
 	
 	public static void initGame() {
 		enemyPokemon = Pokemon.createPokemon(random.nextInt(numOfPokemon));
+		//enemyPokemon = new Gengar();
 		enemyPokemon.initForBattle();
 		enemyPokemon.setAllied(false);
 		track = random.nextInt(numOfTracks);
