@@ -45,8 +45,8 @@ public class CrossChop extends PokemonMove {
 	}
 	
 	@Override
-	public void dmgApplied(Pokemon attacker) {
-		super.dmgApplied(attacker);
+	public void dmgApplied(Pokemon attacker,Pokemon target) {
+		super.dmgApplied(attacker, target);
 		if (crit == 2 && effectiveness != 0) {
 			ApplicationData.animate.addTextAnimation("It was a critical hit!");
 		}

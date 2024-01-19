@@ -225,7 +225,7 @@ public class PokemonMove {
 		this.charges -= 1;
 	}
 
-	public String getAllied(Pokemon attacker) {
+	public static String getAllied(Pokemon attacker) {
 		String prefix;
 		if (!attacker.isAllied()) {
 			prefix = "The enemy ";
@@ -270,7 +270,7 @@ public class PokemonMove {
 		System.out.println("Dmg: " + dmg);
 		dmgTaken(target, dmg);
 
-		dmgApplied(attacker);
+		dmgApplied(attacker, target);
 		if (target.getCurrentHp() <= dmg) {
 			return;
 		}
@@ -281,7 +281,7 @@ public class PokemonMove {
 		if (roll(acc)) {
 			ApplicationData.eventQueue.add(() -> playSFX());
 			dmgTaken(target, dmg);
-			dmgApplied(attacker);
+			dmgApplied(attacker, target);
 
 		} else {
 			moveMissed(attacker);
@@ -318,7 +318,7 @@ public class PokemonMove {
 		return (x < acc);
 	}
 
-	public void dmgApplied(Pokemon attacker) {
+	public void dmgApplied(Pokemon attacker, Pokemon target) {
 		if (effectiveness == 0) {
 			ApplicationData.animate.addTextAnimation("The move had no effect!");
 		} else if (effectiveness <= 0.5f) {

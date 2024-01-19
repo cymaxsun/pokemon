@@ -72,12 +72,12 @@ public class PokemonSelectPanel extends JPanel {
 				new LineBorder(new Color(25, 206, 115), 2, true)));
 		pokemonListDisplay.setBackground(new Color(255, 255, 255, 75));
 		pokemonListDisplay.setLayout(new MigLayout("insets 25, gap 25", "[33.3%,grow][33.3%,grow][33.3%,grow]",
-				"[grow][grow]"));
-		pokemon = new PokemonPreviewPanel[2][3];
+				"[grow][grow][grow]"));
+		pokemon = new PokemonPreviewPanel[(int) Math.ceil(ApplicationData.numOfPokemon/3.0)][3];
 		for (int row = 0; row < pokemon.length; row++) {
 			for (int col = 0; col < pokemon[0].length; col++) {
 				pokemon[row][col] = new PokemonPreviewPanel(this);
-
+				
 				pokemon[row][col].setPokemon(Pokemon.createPokemon((row * 3 + col)));
 				pokemonListDisplay.add(pokemon[row][col], "cell " + col + " " + row + " , grow");
 			}
@@ -200,7 +200,7 @@ public class PokemonSelectPanel extends JPanel {
 						ApplicationData.soundtrack.clip.setLoopPoints(133589, -1);
 						ApplicationData.soundtrack.loop();
 					} catch(Exception exception){
-						JOptionPane.showMessageDialog(ApplicationData.window, "No Pokemon selected", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(ApplicationData.window, "No Pokémon selected", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 					
 					

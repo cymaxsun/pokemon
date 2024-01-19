@@ -40,8 +40,8 @@ public class BulletSeed extends PokemonMove {
 	}
 
 	@Override
-	public void dmgApplied(Pokemon attacker) {
-		super.dmgApplied(attacker);
+	public void dmgApplied(Pokemon attacker, Pokemon target) {
+		super.dmgApplied(attacker, target);
 		if (hits == 1) {
 			ApplicationData.animate.addTextAnimation("Hit " + hits + " time!");
 		} else {
@@ -62,12 +62,12 @@ public class BulletSeed extends PokemonMove {
 				ApplicationData.gameOver = true;
 				System.out.println("total dmg to kill: "+totalDmg);
 				hits = i+1;
-				dmgApplied(attacker);
+				dmgApplied(attacker, target);
 				return;
 			}
 			power += 25;
 		}
-		dmgApplied(attacker);
+		dmgApplied(attacker,target);
 
 	}
 

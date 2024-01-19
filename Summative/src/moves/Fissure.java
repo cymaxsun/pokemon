@@ -24,8 +24,8 @@ public class Fissure extends PokemonMove {
 		
 	}
 	@Override
-	public void dmgApplied(Pokemon attacker) {
-		super.dmgApplied(attacker);
+	public void dmgApplied(Pokemon attacker, Pokemon target) {
+		super.dmgApplied(attacker, target);
 		ApplicationData.animate.addTextAnimation("It's a one-hit KO!");
 	}
 	

@@ -68,7 +68,7 @@ public interface PokemonTypes {
 			color = new Color(128, 0, 128); // Dark Purple
 			break;
 		case DRAGON:
-			color = new Color(255, 20, 147); // Another shade of Pink
+			color = new Color(125, 109, 239); // Another shade of Pink
 			break;
 		case DARK:
 			color = Color.DARK_GRAY;

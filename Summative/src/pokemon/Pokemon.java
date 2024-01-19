@@ -297,19 +297,19 @@ public class Pokemon{
 				
 				ApplicationData.eventQueue.add(()->ApplicationData.sfx.playSFX(8));
 				if (change > 1) {
-					ApplicationData.animate.addTextAnimation(this.getName() + "'s attack sharply rose!");
+					ApplicationData.animate.addTextAnimation(PokemonMove.getAllied(this) + this.getName() + "'s attack sharply rose!");
 
 				} else {
-					ApplicationData.animate.addTextAnimation(this.getName() + "'s attack rose!");
+					ApplicationData.animate.addTextAnimation(PokemonMove.getAllied(this) + this.getName() + "'s attack rose!");
 
 				}
 				
 			} else {
 				ApplicationData.eventQueue.add(()->ApplicationData.sfx.playSFX(3));
 				if (change < -1) {
-					ApplicationData.animate.addTextAnimation(this.getName() + "'s attack sharply fell!");
+					ApplicationData.animate.addTextAnimation(PokemonMove.getAllied(this) + this.getName() + "'s attack sharply fell!");
 				} else {
-					ApplicationData.animate.addTextAnimation(this.getName() + "'s attack fell!");
+					ApplicationData.animate.addTextAnimation(PokemonMove.getAllied(this) + this.getName() + "'s attack fell!");
 				}
 				
 				
@@ -317,10 +317,10 @@ public class Pokemon{
 			
 			this.atkStage = atkStage;
 		} else if (atkStage > 6) {
-			ApplicationData.animate.addTextAnimation(this.getName() + "'s attack wont go any higher!");
+			ApplicationData.animate.addTextAnimation(PokemonMove.getAllied(this) + this.getName() + "'s attack wont go any higher!");
 			this.atkStage = 6;
 		} else {
-			ApplicationData.animate.addTextAnimation(this.getName() + "'s attack wont go any lower!");
+			ApplicationData.animate.addTextAnimation(PokemonMove.getAllied(this) + this.getName() + "'s attack wont go any lower!");
 			this.atkStage = -6;
 		}
 		
@@ -407,6 +407,9 @@ public class Pokemon{
 			break;
 		case 5: 
 			p = new Shivam();
+			break;
+		case 6: 
+			p = new Imposter();
 			break;
 		default:
 			p = createPokemon(ApplicationData.random.nextInt(ApplicationData.numOfPokemon));

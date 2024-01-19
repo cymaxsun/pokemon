@@ -31,8 +31,7 @@ public class DoubleEdge extends PokemonMove{
 		effectiveness = 1;
 		dmgCalc(attacker,target);
 		dmgTaken(attacker,dmg/3);
-		System.out.println(effectiveness);
-		dmgApplied(attacker);
+		dmgApplied(attacker, target);
 		if (target.getCurrentHp() <= dmg || attacker.getCurrentHp() <= dmg/3) {
 			ApplicationData.gameOver = true;
 			return;
@@ -40,8 +39,8 @@ public class DoubleEdge extends PokemonMove{
 	}
 	
 	@Override
-	public void dmgApplied(Pokemon attacker) {
-		super.dmgApplied(attacker);
+	public void dmgApplied(Pokemon attacker, Pokemon target) {
+		super.dmgApplied(attacker, target);
 		ApplicationData.animate.addTextAnimation(getAllied(attacker) + attacker.getName() + " is damaged by recoil!");
 	}
 }

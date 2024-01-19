@@ -19,9 +19,6 @@ public class ShadowBall extends PokemonMove{
 	public void moveHit(Pokemon attacker, Pokemon target) {
 		super.moveHit(attacker, target);
 		attack(attacker,target);
-		if (target.getCurrentHp() <= 0) {
-			return;
-		}
 		if (roll(30)) {
 			target.setDefStage(target.getDefStage()-1);
 			
