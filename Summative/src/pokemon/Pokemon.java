@@ -343,29 +343,29 @@ public class Pokemon{
 			if (this.defStage < defStage) {
 				ApplicationData.eventQueue.add(()->ApplicationData.sfx.playSFX(8));
 				if (change > 1) {
-					ApplicationData.animate.addTextAnimation(this.getName() + "'s defense sharply rose!");
+					ApplicationData.animate.addTextAnimation(PokemonMove.getAllied(this) + this.getName() + "'s defense sharply rose!");
 
 				} else {
-					ApplicationData.animate.addTextAnimation(this.getName() + "'s defense rose!");
+					ApplicationData.animate.addTextAnimation(PokemonMove.getAllied(this) + this.getName() + "'s defense rose!");
 
 				}
 			
 			} else {
 				ApplicationData.eventQueue.add(()->ApplicationData.sfx.playSFX(3));
 				if (change < -1) {
-					ApplicationData.animate.addTextAnimation(this.getName() + "'s defense sharply fell!");
+					ApplicationData.animate.addTextAnimation(PokemonMove.getAllied(this)+ this.getName() + "'s defense sharply fell!");
 				} else {
-					ApplicationData.animate.addTextAnimation(this.getName() + "'s defense fell!");
+					ApplicationData.animate.addTextAnimation(PokemonMove.getAllied(this)+ this.getName() + "'s defense fell!");
 				}
 				
 			}
 			this.defStage = defStage;
 			
 		} else if (defStage > 6) {
-			ApplicationData.animate.addTextAnimation(this.getName() + "'s defense wont go any higher!");
+			ApplicationData.animate.addTextAnimation(PokemonMove.getAllied(this) + this.getName() + "'s defense wont go any higher!");
 			this.defStage = 6;
 		} else {
-			ApplicationData.animate.addTextAnimation(this.getName() + "'s defense wont go any lower!");
+			ApplicationData.animate.addTextAnimation(PokemonMove.getAllied(this)+ this.getName() + "'s defense wont go any lower!");
 			this.defStage = -6;
 		}
 		if (defStage < 0) {
