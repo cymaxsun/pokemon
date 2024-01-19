@@ -2,11 +2,6 @@ package main;
 
 import javax.swing.JFrame;
 
-import pokemon.Brian;
-import pokemon.Ethan;
-import pokemon.Gengar;
-import pokemon.Imogen;
-
 public class Main {
 
 	public static void main(String[] args) {

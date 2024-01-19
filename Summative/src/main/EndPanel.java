@@ -11,7 +11,6 @@ import java.awt.event.WindowEvent;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 
 public class EndPanel extends ImagePanel {
 

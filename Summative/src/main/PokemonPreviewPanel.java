@@ -111,6 +111,8 @@ public class PokemonPreviewPanel extends JPanel{
 		this.p = p;
 		if (p != null) {
 			image = p.image;
+		} else {
+			enabled = false;
 		}
 		
 	}

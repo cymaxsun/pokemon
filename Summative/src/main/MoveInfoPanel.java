@@ -1,19 +1,16 @@
 package main;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Font;
+import java.awt.GridLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.MatteBorder;
 
 import moves.PokemonMove;
 import net.miginfocom.swing.MigLayout;
 import pokemon.Pokemon;
-import pokemon.PokemonTypes;
-import java.awt.GridLayout;
 
 public class MoveInfoPanel extends JPanel {
 

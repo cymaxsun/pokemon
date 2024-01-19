@@ -1,13 +1,9 @@
 package pokemon;
 
-import moves.Flail;
-import moves.Harden;
+import moves.DarkPulse;
 import moves.Lick;
-import moves.Recover;
 import moves.ReflectType;
 import moves.ShadowBall;
-import moves.DarkPulse;
-import moves.SwordsDance;
 
 public class Gengar extends Pokemon{
 

@@ -2,7 +2,6 @@ package pokemon;
 
 import java.awt.Image;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -412,7 +411,7 @@ public class Pokemon{
 			p = new Imposter();
 			break;
 		default:
-			p = createPokemon(ApplicationData.random.nextInt(ApplicationData.numOfPokemon));
+			p = null;
 			break;	
 		}
 		return p;

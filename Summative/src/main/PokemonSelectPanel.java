@@ -19,7 +19,6 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -29,12 +28,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
 import net.miginfocom.swing.MigLayout;
-import pokemon.Brian;
-import pokemon.Ethan;
-import pokemon.Gengar;
-import pokemon.Imogen;
 import pokemon.Pokemon;
-import pokemon.PokemonTypes;
 
 public class PokemonSelectPanel extends JPanel {
 
@@ -45,7 +39,6 @@ public class PokemonSelectPanel extends JPanel {
 	private boolean transitionComplete = false;
 	JPanel viewport;
 	public PokemonPreviewPanel[][] pokemon;
-	private int[] pokemonList = new int[ApplicationData.numOfPokemon];
 	private JPanel previewInfoPanel;
 	PokemonPreviewPanel selectedPokemon;
 	private JPanel pokemonStats;

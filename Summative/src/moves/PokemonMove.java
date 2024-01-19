@@ -3,7 +3,6 @@ package moves;
 import java.awt.Color;
 import java.awt.Image;
 import java.net.URL;
-import java.util.Random;
 
 import javax.swing.ImageIcon;
 
@@ -149,13 +148,6 @@ public class PokemonMove {
 		System.out.println("\nMove: " + this.name);
 		System.out.println("Attacker: " + attacker.getName());
 		System.out.println("Target: " + target.getName());
-		System.out.println("\n\nBEFORE\n\n");
-
-		System.out.println(attacker.getName() + " Attack: " + attacker.getAtk());
-		System.out.println(attacker.getName() + " Defense: " + attacker.getDef());
-
-		System.out.println(target.getName() + " Attack: " + target.getAtk());
-		System.out.println(target.getName() + " Defense: " + target.getDef());
 		if (charges <= 0) {
 			ApplicationData.animate.addTextAnimation(attacker.getName() + " can't use " + this.getName() + ".");
 			ApplicationData.animate.addTextAnimation(attacker.getName() + " used Struggle!");
@@ -212,8 +204,6 @@ public class PokemonMove {
 				moveMissed(attacker);
 			}
 		}
-		System.out.println("\n\nAFTER\n\n");
-
 		System.out.println(attacker.getName() + " Attack: " + attacker.getAtk());
 		System.out.println(attacker.getName() + " Defense: " + attacker.getDef());
 		System.out.println("Move Power: " + this.getPower());
