@@ -12,7 +12,7 @@ public class Psyshock extends PokemonMove {
 		setPower(65);
 		setMaxCharges(10);
 		setAcc(100);
-		setSFX(getClass().getResource("/sound/PsySchock.wav"));
+		setSFX(getClass().getResource("/sound/Psyshock.wav"));
 	}
 	
 	
