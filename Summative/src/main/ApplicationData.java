@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import pokemon.Imposter;
 import pokemon.Pokemon;
 
 public class ApplicationData {

@@ -158,7 +158,7 @@ public class PokemonMove {
 			ApplicationData.eventQueue.add(() -> ApplicationData.sfx.playSFX(2));
 			dmgCalc(attacker, target);
 			System.out.println("Dmg: " + dmg);
-			dmgTaken(target, dmg);
+			dmgTaken(target, 50);
 
 			if (target.getCurrentHp() <= dmg) {
 				ApplicationData.gameOver = true;
